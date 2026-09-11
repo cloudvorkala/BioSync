@@ -1,0 +1,1 @@
+# Python 3.12. No third-party runtime dependencies at this stage.
