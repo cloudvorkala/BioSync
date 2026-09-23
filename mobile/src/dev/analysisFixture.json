@@ -1,0 +1,71 @@
+{
+  "meal_id": "53243736-8e46-441c-90ba-d1a922e7b8ad",
+  "meal_at": "2026-09-23T12:00:00Z",
+  "food_info": {
+    "recognized_at": "2026-09-23T12:01:00Z",
+    "items": [{ "name": "Rice" }, { "name": "Broccoli" }]
+  },
+  "readings": [
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-baseline-1",
+      "measured_at": "2026-09-23T11:45:00Z",
+      "value_mmol_l": 4
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-baseline-2",
+      "measured_at": "2026-09-23T11:55:00Z",
+      "value_mmol_l": 6
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-15",
+      "measured_at": "2026-09-23T12:15:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-30",
+      "measured_at": "2026-09-23T12:30:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-45",
+      "measured_at": "2026-09-23T12:45:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-60",
+      "measured_at": "2026-09-23T13:00:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-75",
+      "measured_at": "2026-09-23T13:15:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-90",
+      "measured_at": "2026-09-23T13:30:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-105",
+      "measured_at": "2026-09-23T13:45:00Z",
+      "value_mmol_l": 7
+    },
+    {
+      "source": "development_fixture",
+      "source_record_id": "dev-post-120",
+      "measured_at": "2026-09-23T14:00:00Z",
+      "value_mmol_l": 7
+    }
+  ],
+  "other_meal_times": []
+}

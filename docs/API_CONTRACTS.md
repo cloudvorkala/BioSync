@@ -1,6 +1,9 @@
 # BioSync API Contracts
 
-Status: Draft. Transport contracts are proposed; the scientific iAUC calculation policy remains unconfirmed.
+Status: BioSync v1 transport contract.
+
+The scientific iAUC calculation policy is defined separately in
+[IAUC_POLICY.md](IAUC_POLICY.md).
 
 Source: [PROJECT_SPEC.md](PROJECT_SPEC.md).
 
@@ -56,7 +59,7 @@ Shared transport and integration errors:
 | `502` | `UPSTREAM_FAILURE` | An external service failed or returned a response the backend could not normalize. |
 | `504` | `UPSTREAM_TIMEOUT` | An external service did not respond within the backend's request timeout. |
 
-Scientific data eligibility and calculation-specific rejection rules are deferred under `TBD – iAUC calculation policy`.
+Scientific data eligibility and calculation-specific rejection rules are defined in [IAUC_POLICY.md](IAUC_POLICY.md).
 
 ## 1. MealRecord
 
@@ -91,7 +94,7 @@ pending_recognition → waiting_glucose → pending_analysis → completed
 
 A transient failure preserves the current stage and cached data. The app records the error and can retry that stage. App restart must recover the stored stage.
 
-Any monitoring deadline, reading-selection rule, or scientific condition for advancing to `pending_analysis` is `TBD – iAUC calculation policy`.
+Monitoring deadlines, reading-selection rules, and scientific conditions for advancing to `pending_analysis` are defined in [IAUC_POLICY.md](IAUC_POLICY.md).
 
 This document does not prescribe a SQLite table layout. Nested objects may be persisted separately as long as their associations are preserved.
 
@@ -114,7 +117,7 @@ The mobile app associates cached readings with the relevant meal locally. The an
 
 Source identifiers do not introduce backend device or user resources.
 
-Required temporal coverage, duplicate-measurement handling, and scientific validity rules are `TBD – iAUC calculation policy`.
+Required temporal coverage, duplicate-measurement handling, and scientific validity rules are defined in [IAUC_POLICY.md](IAUC_POLICY.md).
 
 ## 3. FoodInfo
 
@@ -161,9 +164,10 @@ Feedback must not contain medical diagnoses, medication recommendations, or insu
 
 The iAUC field defines a storage and transport unit only. Using minutes as the time unit does not define the monitoring duration.
 
-No non-negative constraint is imposed on iAUC in this draft. Below-baseline treatment remains `TBD – iAUC calculation policy`.
+BioSync v1 uses positive-only incremental area as defined in [IAUC_POLICY.md](IAUC_POLICY.md). Therefore, a valid BioSync v1 iAUC result is non-negative.
 
-Window, baseline, and other policy-dependent calculation metadata are not fixed by this draft.
+
+Window, baseline, interpolation, data-quality, and other calculation-policy rules are defined in `IAUC_POLICY.md`.
 
 ## 5. POST /v1/food-recognition
 
@@ -219,6 +223,7 @@ Content type: `application/json`.
 | `meal_at` | UTC ISO 8601 string | Yes | Recorded meal timestamp. |
 | `food_info` | `FoodInfo` | Yes | The normalized food information previously stored by the mobile app. |
 | `readings` | array of `GlucoseReading` | Yes | All readings required for this request under the confirmed calculation policy. |
+| `other_meal_times` | array of UTC ISO 8601 strings | No | Timestamps of other logged meals, used only for policy-layer overlap detection. Defaults to an empty array. No backend meal storage is implied. |
 
 The mobile app persists retrieved readings before submission.
 
@@ -238,7 +243,7 @@ The mobile app associates the response through `meal_id`, persists it, advances 
 
 The common errors apply.
 
-Whether supplied readings are sufficient for calculation, and the corresponding calculation-specific error conditions, are `TBD – iAUC calculation policy`.
+The supplied readings must satisfy the scientific and data-quality requirements defined in [IAUC_POLICY.md](IAUC_POLICY.md). Calculation-policy failures are returned using the corresponding stable error codes.
 
 Missing or unusable data must not be represented as a successful result with an invented zero iAUC.
 
@@ -257,21 +262,26 @@ The backend does not wait through the monitoring period inside this request.
 
 The specification requires calculation for up to 500 readings to complete within 500 ms, excluding network/API latency. This is a performance requirement, not a request-size limit defined by this document.
 
-## Deferred scientific decisions
 
-The trapezoidal rule is required by `PROJECT_SPEC.md`. The following decisions remain open and must be confirmed separately before calculation or monitoring behavior is implemented.
 
-| Decision | Status |
-|---|---|
-| Relationship between image capture time, `meal_at`, and the calculation interval | TBD – iAUC calculation policy |
-| Monitoring duration and calculation window boundaries | TBD – iAUC calculation policy |
-| Baseline definition and selection | TBD – iAUC calculation policy |
-| Treatment of area below baseline | TBD – iAUC calculation policy |
-| Interpolation, extrapolation, and boundary handling | TBD – iAUC calculation policy |
-| Missing-data thresholds, acceptable gaps, and minimum sufficient coverage | TBD – iAUC calculation policy |
-| Duplicate or conflicting measurement handling | TBD – iAUC calculation policy |
-| Policy-dependent result metadata and calculation-specific rejection conditions | TBD – iAUC calculation policy |
-
-This draft establishes no default window duration, baseline rule, below-baseline convention, interpolation method, or missing-data threshold.
 
 No additional endpoints or features beyond the project specification are introduced.
+
+## iAUC Calculation Policy
+
+Meal-specific scientific and data-quality rules are defined in
+[IAUC_POLICY.md](IAUC_POLICY.md).
+
+BioSync v1 currently uses:
+
+- a 15-minute pre-meal baseline window;
+- arithmetic mean baseline with at least two readings;
+- a 120-minute postprandial window;
+- positive-only incremental area;
+- trapezoidal integration using actual timestamps;
+- linear interpolation at the 120-minute boundary when required;
+- no extrapolation;
+- a maximum 15-minute adjacent data gap;
+- explicit handling of duplicate/conflicting readings and overlapping meals.
+
+These rules belong to the policy layer rather than the transport contract.
