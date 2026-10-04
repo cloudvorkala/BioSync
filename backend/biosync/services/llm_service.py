@@ -7,10 +7,13 @@ from . import openai_provider
 from .llm_types import AnalysisContext, LLMServiceError
 
 
+# Fixed interpretation context for this prototype, not a client/profile setting.
+PROTOTYPE_GOAL = "weight loss"
 INTERPRETATION_LIMITATIONS = [
     "One meal does not establish a diagnosis or prove food causation.",
     "Glucose response is individual and context-dependent; activity, sleep, stress and previous meals may contribute.",
     "Any supplied food weights are approximate user inputs; food descriptions and weights do not establish calories or nutrient quantities.",
+    "BioSync does not estimate calories or complete nutrition; iAUC alone does not determine meal health or quality or predict weight loss.",
     "BioSync v1 uses project-specific analysis rules, not universal clinical thresholds; no CGM lag correction is applied.",
 ]
 
@@ -22,6 +25,7 @@ def generate_feedback(
     if mode == "openai":
         # Explicit whitelist: never serialize AnalysisRequest or glucose records.
         context = {
+            "goal": PROTOTYPE_GOAL,
             "food_items": [
                 {"name": item.name, **({"weight_g": item.weight_g} if item.weight_g is not None else {})}
                 for item in food_info.items
@@ -54,5 +58,6 @@ def _mock_feedback(food_info: FoodInfo, iauc_mmol_l_min: float):
         "limitations": [
             "Deterministic development mock; no external LLM was called.",
             "This feedback is non-diagnostic and does not establish food causation.",
+            f"Prototype interpretation goal: {PROTOTYPE_GOAL}; iAUC alone does not determine meal quality.",
         ],
     }

@@ -128,7 +128,8 @@ def test_real_sdk_structured_response_and_minimal_input(client, payload, provide
     assert request["text"]["format"]["strict"] is True
     assert request["input"][0] == {"role": "system", "content": openai_provider.SYSTEM_PROMPT}
     context = json.loads(request["input"][1]["content"])
-    assert set(context) == {"food_items", "iauc_mmol_l_min", "iauc_unit", "analysis_context", "limitations"}
+    assert set(context) == {"goal", "food_items", "iauc_mmol_l_min", "iauc_unit", "analysis_context", "limitations"}
+    assert context["goal"] == "weight loss"
     assert context["food_items"] == [{"name": "Rice"}, {"name": "Broccoli"}]
     assert context["iauc_mmol_l_min"] == 225
     assert context["iauc_unit"] == "(mmol/L)·min"
@@ -275,6 +276,81 @@ def test_provider_receives_only_supplied_weight_and_unchanged_iauc(client, paylo
     assert unweighted_context["food_items"] == [{"name": "Rice"}, {"name": "Broccoli"}]
     assert context["food_items"] == [{"name": "Rice", "weight_g": weight}, {"name": "Broccoli"}]
     assert context["iauc_mmol_l_min"] == unweighted_context["iauc_mmol_l_min"] == 225
+    assert context["goal"] == unweighted_context["goal"] == "weight loss"
     encoded = json.dumps(context)
     assert "confidence" not in encoded
     assert "source_record_id" not in encoded
+
+
+@pytest.mark.parametrize("source", ["health_connect", "samsung_health"])
+def test_weight_loss_context_excludes_source_identity_and_unnecessary_times(client, payload, provider, source):
+    for reading in payload["readings"]:
+        reading["source"] = source
+        reading["source_record_id"] = f"private-{source}-{reading['measured_at']}"
+    result = client.post("/v1/analyses", json=payload)
+    assert result.status_code == 200
+    assert result.json["iauc_mmol_l_min"] == 225
+    request, = provider["requests"]
+    context = json.loads(request["input"][1]["content"])
+    assert context["goal"] == "weight loss"
+    assert set(context["analysis_context"]) == {
+        "policy_version", "postprandial_duration_minutes", "baseline_duration_minutes", "interpretation",
+    }
+    assert any("iAUC alone does not determine meal health or quality" in text for text in context["limitations"])
+    # Inspect user data, not the system instruction "infer missing glucose readings".
+    encoded = json.dumps(context)
+    for forbidden in (source, "source_record_id", "sourcePackage", "deviceId", "readings",
+                      "value_mmol_l", "measured_at", "meal_id", payload["meal_id"],
+                      payload["meal_at"], payload["food_info"]["recognized_at"]):
+        assert forbidden not in encoded
+
+
+@pytest.mark.parametrize("field,value", [
+    ("sourcePackage", "private.importer.package"),
+    ("device_metadata", {"id": "private-device"}),
+])
+def test_source_metadata_is_rejected_at_transport_boundary(client, payload, provider, field, value):
+    payload["readings"][0][field] = value
+    assert client.post("/v1/analyses", json=payload).status_code == 400
+    assert provider["requests"] == []
+
+
+@pytest.mark.parametrize("required_instruction", [
+    "The fixed prototype user goal is weight loss.",
+    "Do not estimate or invent calories/kcal, macronutrients, nutrient quantities, protein grams, carbohydrate grams, fat grams, fibre grams, micronutrients, total energy content or energy expenditure",
+    "Food descriptions and weight_g are not verified nutrition data",
+    "iAUC alone does not determine meal health or quality",
+    "high iAUC does not mean an unhealthy meal, and low iAUC does not mean a healthy meal",
+    "It is not a diagnostic or medical device.",
+    "Do not diagnose diabetes or any other disease.",
+    "Do not recommend medication or insulin changes, or provide insulin dosing.",
+    "never calculate, recalculate or replace iAUC, infer missing glucose readings, or override that policy",
+    "When absent, never invent or estimate a weight or imply portion size is known.",
+    "Describe a supplied weight as approximate",
+    "comparing repeated meals under similar conditions and changing one major component at a time",
+])
+def test_interpretation_prompt_retains_required_boundaries(required_instruction):
+    assert required_instruction in openai_provider.SYSTEM_PROMPT
+
+
+def test_weight_loss_mock_is_explicit_and_deterministic(client, payload):
+    payload["food_info"]["items"][0]["weight_g"] = 350
+    first = client.post("/v1/analyses", json=payload)
+    second = client.post("/v1/analyses", json=payload)
+    assert first.status_code == second.status_code == 200
+    assert first.json["iauc_mmol_l_min"] == second.json["iauc_mmol_l_min"] == 225
+    assert first.json["feedback"] == second.json["feedback"]
+    assert "weight loss" in " ".join(first.json["feedback"]["limitations"])
+    assert "no external LLM was called" in " ".join(first.json["feedback"]["limitations"])
+
+
+def test_documented_prompt_and_provider_context_match_runtime(client, payload, provider):
+    """Keep the exact published prompt/data disclosure from drifting."""
+    from pathlib import Path
+
+    documentation = (Path(__file__).resolve().parents[2] / "docs/LLM_INTEGRATION.md").read_text(encoding="utf-8")
+    documented_prompt = documentation.split("## Exact system prompt", 1)[1].split("```text\n", 1)[1].split("\n```", 1)[0]
+    assert documented_prompt == openai_provider.SYSTEM_PROMPT
+    documented_context = json.loads(documentation.split("## Exact provider input", 1)[1].split("```json\n", 1)[1].split("\n```", 1)[0])
+    assert client.post("/v1/analyses", json=payload).status_code == 200
+    assert json.loads(provider["requests"][0]["input"][1]["content"]) == documented_context

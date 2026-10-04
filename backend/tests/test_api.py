@@ -100,6 +100,7 @@ def test_valid_request_returns_complete_contract_and_deterministic_mock(client, 
         "limitations": [
             "Deterministic development mock; no external LLM was called.",
             "This feedback is non-diagnostic and does not establish food causation.",
+            "Prototype interpretation goal: weight loss; iAUC alone does not determine meal quality.",
         ],
     }
     assert client.post(ENDPOINT, json=payload).get_json() == body
