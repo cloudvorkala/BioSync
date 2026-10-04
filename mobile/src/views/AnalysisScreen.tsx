@@ -11,6 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAnalysisViewModel } from '../viewmodels/useAnalysisViewModel';
 import { HealthConnectPanel } from './HealthConnectPanel';
 import { HealthMealPanel } from './HealthMealPanel';
+import { SamsungHealthPanel } from './SamsungHealthPanel';
 
 export function AnalysisScreen() {
   const { state, runTestAnalysis } = useAnalysisViewModel();
@@ -72,6 +73,7 @@ export function AnalysisScreen() {
         )}
         <HealthMealPanel />
         <HealthConnectPanel />
+        <SamsungHealthPanel />
       </ScrollView>
     </SafeAreaView>
   );

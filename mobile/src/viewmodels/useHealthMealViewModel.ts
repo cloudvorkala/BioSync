@@ -8,17 +8,19 @@ import {
   normalizeMealTime,
 } from '../models/manualMeal';
 import { analyzeMeal, BackendClientError } from '../services/backendClient';
-import {
-  getBloodGlucoseReadings,
-  getHealthConnectAccess,
-  HealthConnectServiceError,
-  type HealthAccess,
-} from '../services/healthConnectService';
+import { HealthConnectServiceError } from '../services/healthConnectService';
+import { glucoseProviders } from '../services/glucoseProviders';
+import type {
+  GlucoseAccess,
+  GlucoseSource,
+} from '../services/glucoseProviderTypes';
+import { SamsungHealthServiceError } from '../services/samsungHealthService';
 
 type MealError = {
   kind:
     | 'input'
     | 'health_connect'
+    | 'samsung_health'
     | 'waiting'
     | 'policy'
     | 'network'
@@ -52,7 +54,7 @@ type State = {
     | 'success'
     | 'waiting'
     | 'error';
-  access: HealthAccess;
+  access: GlucoseAccess;
   readingCount: number | null;
   query: { start: string; end: string } | null;
   result: AnalysisResult | null;
@@ -68,6 +70,14 @@ const initialState: State = {
 };
 
 function describeError(error: unknown): MealError {
+  if (error instanceof SamsungHealthServiceError) {
+    return {
+      kind: 'samsung_health',
+      code: error.code,
+      message: error.message,
+      retryable: false,
+    };
+  }
   if (error instanceof BackendClientError) {
     const { code, message, retryable } = error.apiError;
     const kind =
@@ -97,6 +107,8 @@ function describeError(error: unknown): MealError {
 }
 
 export function useHealthMealViewModel() {
+  const [source, setSource] = useState<GlucoseSource>('health_connect');
+  const provider = glucoseProviders[source];
   const [description, setDescription] = useState('');
   const [weight, setWeight] = useState('');
   const [mealTime, setMealTime] = useState(() => new Date().toISOString());
@@ -121,6 +133,13 @@ export function useHealthMealViewModel() {
     setDescription(value);
     setState(s => ({ ...initialState, access: s.access }));
   }
+  function updateSource(value: GlucoseSource) {
+    if (inFlight.current || value === source) {
+      return;
+    }
+    setSource(value);
+    setState(initialState);
+  }
   function updateMealTime(value: string) {
     if (inFlight.current) {
       return;
@@ -144,7 +163,7 @@ export function useHealthMealViewModel() {
     inFlight.current = true;
     setState(s => ({ ...s, phase: 'requesting_permission', error: null }));
     try {
-      const access = await getHealthConnectAccess(true);
+      const access = await provider.getAccess(true);
       if (mounted.current) {
         setState({ ...initialState, access });
       }
@@ -161,7 +180,7 @@ export function useHealthMealViewModel() {
     }
   }
 
-  async function analyseHealthConnectMeal() {
+  async function analyseMeal() {
     if (inFlight.current || !mounted.current) {
       return;
     }
@@ -198,12 +217,13 @@ export function useHealthMealViewModel() {
         mealAt,
         food.items[0].name,
         food.items[0].weight_g,
+        source,
       ]);
       if (draft.current?.key !== key) {
         draft.current = { key, id: uuid.v4(), food };
       }
       const current = draft.current;
-      const readings = await getBloodGlucoseReadings(query.start, query.end);
+      const readings = await provider.getReadings(query.start, query.end);
       if (!mounted.current) {
         return;
       }
@@ -228,7 +248,8 @@ export function useHealthMealViewModel() {
           phase: problem.kind === 'waiting' ? 'waiting' : 'error',
           error: problem,
           access:
-            error instanceof HealthConnectServiceError
+            error instanceof HealthConnectServiceError ||
+            error instanceof SamsungHealthServiceError
               ? error.access ?? {
                   availability: 'unknown',
                   permission: 'unknown',
@@ -242,6 +263,9 @@ export function useHealthMealViewModel() {
   }
 
   return {
+    source,
+    sourceLabel: provider.label,
+    updateSource,
     description,
     weight,
     mealTime,
@@ -253,6 +277,6 @@ export function useHealthMealViewModel() {
     updateWeight,
     updateMealTime,
     requestHealthPermission,
-    analyseHealthConnectMeal,
+    analyseMeal,
   };
 }

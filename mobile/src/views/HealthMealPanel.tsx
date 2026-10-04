@@ -7,12 +7,23 @@ export function HealthMealPanel() {
   const { state, busy } = vm;
   return (
     <View style={styles.panel}>
-      <Text style={styles.text}>Manual meal + Health Connect analysis</Text>
+      <Text style={styles.text}>Manual meal + {vm.sourceLabel} analysis</Text>
+      <Text style={styles.text}>Glucose source: {vm.sourceLabel}</Text>
+      <Button
+        title="Health Connect"
+        disabled={busy}
+        onPress={() => vm.updateSource('health_connect')}
+      />
+      <Button
+        title="Samsung Health"
+        disabled={busy}
+        onPress={() => vm.updateSource('samsung_health')}
+      />
       <Text style={styles.text}>
         This action sends the entered meal and selected blood glucose records to
         the configured BioSync backend for iAUC and dietary feedback. In real AI
         mode, the backend sends food descriptions, any entered weight and
-        derived analysis to OpenAI, without glucose records or Health Connect
+        derived analysis to OpenAI, without glucose records or source record
         IDs.
       </Text>
       <Text style={styles.text}>Meal description (manual input)</Text>
@@ -51,7 +62,7 @@ export function HealthMealPanel() {
         other meals.
       </Text>
       <Text style={styles.text}>
-        Health Connect: {state.access.availability}; permission:{' '}
+        {vm.sourceLabel}: {state.access.availability}; permission:{' '}
         {state.access.permission} (checked on each action)
       </Text>
       <Button
@@ -60,9 +71,9 @@ export function HealthMealPanel() {
         onPress={vm.requestHealthPermission}
       />
       <Button
-        title="Analyse Health Connect Meal"
+        title={`Analyse ${vm.sourceLabel} Meal`}
         disabled={busy}
-        onPress={vm.analyseHealthConnectMeal}
+        onPress={vm.analyseMeal}
       />
       <View accessibilityLiveRegion="polite">
         <Text style={styles.text}>Meal analysis state: {state.phase}</Text>
@@ -76,8 +87,7 @@ export function HealthMealPanel() {
         </Text>
         {state.readingCount === 0 && (
           <Text style={styles.text}>
-            Health Connect returned no records in this range. The backend
-            determines whether analysis is possible.
+            {`${vm.sourceLabel} returned no records in this range. The backend determines whether analysis is possible.`}
           </Text>
         )}
         {state.error && (

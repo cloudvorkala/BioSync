@@ -7,6 +7,11 @@ Health Connect read-only blood glucose diagnostics are now available below the
 existing analysis screen. See [HEALTH_CONNECT.md](HEALTH_CONNECT.md) for the exact
 native API, mapping, permission configuration and physical-device test procedure.
 
+Samsung Health Data SDK **1.1.0** is available as a second, selectable glucose
+provider. See [SAMSUNG_HEALTH.md](SAMSUNG_HEALTH.md) for the required local AAR,
+Android 10+ minimum, diagnostic controls and physical-phone acceptance steps.
+Samsung native reads and 爱看健康 import visibility are **device verification pending**.
+
 The **Analyse Health Connect Meal** form now combines manually entered food and
 meal time with Health Connect readings, then calls the existing analysis API.
 See [MEAL_ANALYSIS.md](MEAL_ANALYSIS.md) for its exact query/request, error states
@@ -83,7 +88,7 @@ Use Node compatible with `package.json` (tested: 22.14.0), npm, JDK 17,
 Android Studio, and an Android SDK. Set `JAVA_HOME` to your JDK 17 directory.
 The generated native project declares:
 
-- compile SDK 37, target SDK 36, minimum SDK 26 (Health Connect);
+- compile SDK 37, target SDK 36, minimum SDK 29 (Samsung Health Data SDK requirement);
 - Android SDK Build-Tools 37.0.0;
 - NDK (Side by side) 27.1.12297006;
 - Gradle 9.4.1 via the checked-in wrapper.

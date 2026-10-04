@@ -1,6 +1,6 @@
 import React from 'react';
 import { act, create, type ReactTestRenderer } from 'react-test-renderer';
-import { Button, TextInput } from 'react-native';
+import { Button, TextInput, NativeModules, Platform } from 'react-native';
 import * as native from 'react-native-health-connect';
 import { HealthMealPanel } from '../src/views/HealthMealPanel';
 import fixture from '../src/dev/analysisFixture.json';
@@ -21,6 +21,7 @@ jest.mock('react-native-health-connect', () => ({
   },
 }));
 const bridge = jest.mocked(native);
+const samsungNative = { getAccess: jest.fn(), readBloodGlucose: jest.fn() };
 const originalFetch = globalThis.fetch;
 const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>();
 let renderer: ReactTestRenderer;
@@ -66,6 +67,20 @@ function fail(code: string, retryable = false, status = 422) {
 }
 
 beforeEach(async () => {
+  Platform.OS = 'android';
+  NativeModules.SamsungHealth = samsungNative;
+  samsungNative.getAccess.mockResolvedValue({
+    availability: 'available',
+    permission: 'granted',
+  });
+  samsungNative.readBloodGlucose.mockResolvedValue(
+    fixture.readings.map(r => ({
+      uid: r.source_record_id,
+      startTime: r.measured_at,
+      glucoseMmolL: r.value_mmol_l,
+      sourcePackage: 'private.importer.package',
+    })),
+  );
   jest.clearAllMocks();
   fetchMock.mockReset();
   globalThis.fetch = fetchMock;
@@ -94,6 +109,83 @@ beforeEach(async () => {
   });
   await enter('Meal description', '  Chicken rice with broccoli  ');
   await enter('Meal time UTC', fixture.meal_at);
+});
+
+test('selected Samsung provider uses the same request path with no metadata or mobile iAUC', async () => {
+  await press('Samsung Health');
+  await press('Analyse Samsung Health Meal');
+  expect(bridge.readRecords).not.toHaveBeenCalled();
+  expect(samsungNative.readBloodGlucose).toHaveBeenCalledWith(
+    '2026-09-23T11:45:00.000Z',
+    '2026-09-23T14:15:00.000Z',
+  );
+  expect(body()).toEqual({
+    meal_id: expect.any(String),
+    meal_at: '2026-09-23T12:00:00.000Z',
+    food_info: {
+      recognized_at: expect.stringMatching(/Z$/),
+      items: [{ name: 'Chicken rice with broccoli' }],
+    },
+    readings: fixture.readings.map(r => ({
+      ...r,
+      source: 'samsung_health',
+      measured_at: new Date(r.measured_at).toISOString(),
+    })),
+    other_meal_times: [],
+  });
+  expect(JSON.stringify(body())).not.toContain('private.importer');
+  expect(screen()).toContain('42.75'); // Arbitrary server result, not fixture's 225.
+  expect(screen()).toContain(response.feedback.summary);
+});
+
+test('switching source resets prior results and Health Connect still operates', async () => {
+  await press('Samsung Health');
+  await press('Analyse Samsung Health Meal');
+  expect(screen()).toContain('42.75');
+  await press('Health Connect');
+  expect(screen()).not.toContain('42.75');
+  await press();
+  expect(bridge.readRecords).toHaveBeenCalled();
+  expect(body(1).readings[0].source).toBe('health_connect');
+  expect(body(0).meal_id).not.toBe(body(1).meal_id);
+});
+
+test('Samsung permission request is explicitly routed to the selected provider', async () => {
+  await press('Samsung Health');
+  await press('Request Meal Health Permission');
+  expect(samsungNative.getAccess).toHaveBeenCalledWith(true);
+  expect(bridge.requestPermission).not.toHaveBeenCalled();
+});
+
+test('Samsung read denial prevents API submission', async () => {
+  samsungNative.getAccess.mockResolvedValue({
+    availability: 'available',
+    permission: 'denied',
+  });
+  await press('Samsung Health');
+  await press('Analyse Samsung Health Meal');
+  expect(screen()).toContain('SAMSUNG_PERMISSION_DENIED');
+  expect(fetchMock).not.toHaveBeenCalled();
+});
+
+test('Samsung zero records go to backend policy without inventing data', async () => {
+  samsungNative.readBloodGlucose.mockResolvedValue([]);
+  fail('INSUFFICIENT_BASELINE_DATA');
+  await press('Samsung Health');
+  await press('Analyse Samsung Health Meal');
+  expect(body().readings).toEqual([]);
+  expect(screen()).toContain('Not enough pre-meal baseline readings');
+});
+
+test('Samsung conflict is surfaced without sending overwritten data', async () => {
+  samsungNative.readBloodGlucose.mockResolvedValue([
+    { uid: 'a', startTime: fixture.meal_at, glucoseMmolL: 5 },
+    { uid: 'b', startTime: fixture.meal_at, glucoseMmolL: 7 },
+  ]);
+  await press('Samsung Health');
+  await press('Analyse Samsung Health Meal');
+  expect(screen()).toContain('CONFLICTING_GLUCOSE_READINGS');
+  expect(fetchMock).not.toHaveBeenCalled();
 });
 afterEach(async () => {
   await act(async () => {
