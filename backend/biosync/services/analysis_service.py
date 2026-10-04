@@ -1,9 +1,10 @@
-"""Stateless orchestration: validated input -> meal policy -> mock feedback."""
+"""Stateless orchestration: validated input -> meal policy -> feedback."""
 
 from datetime import UTC, datetime
 
 from ..schemas import AnalysisRequest, AnalysisResult
 from . import llm_service, meal_analysis
+from .llm_types import AnalysisContext
 
 
 def create_analysis(data: AnalysisRequest) -> AnalysisResult:
@@ -21,7 +22,12 @@ def create_analysis(data: AnalysisRequest) -> AnalysisResult:
         readings, data.meal_at, other_meal_times=data.other_meal_times
     )
     feedback = llm_service.generate_feedback(
-        data.food_info, calculation.iauc_mmol_l_min
+        data.food_info, calculation.iauc_mmol_l_min,
+        analysis_context=AnalysisContext(
+            policy_version=calculation.policy_version,
+            analysis_duration_minutes=(calculation.analysis_window_end - calculation.analysis_window_start).total_seconds() / 60,
+            baseline_duration_minutes=(calculation.baseline_window_end - calculation.baseline_window_start).total_seconds() / 60,
+        ),
     )
     # Validate the outgoing result, including the provider-neutral feedback.
     # Do not add internal policy metadata to the public response contract.

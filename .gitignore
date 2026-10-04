@@ -1,0 +1,4 @@
+# Backend credentials must never enter version control (including mobile/).
+.env
+.env.*
+!.env.example

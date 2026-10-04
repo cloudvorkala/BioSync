@@ -3,10 +3,59 @@
 Minimal React Native CLI 0.87.1 / React 19.2.3 / TypeScript application.
 Android only; no Expo. Scaffold generated with Community CLI 20.2.0.
 
+Health Connect read-only blood glucose diagnostics are now available below the
+existing analysis screen. See [HEALTH_CONNECT.md](HEALTH_CONNECT.md) for the exact
+native API, mapping, permission configuration and physical-device test procedure.
+
+The **Analyse Health Connect Meal** form now combines manually entered food and
+meal time with Health Connect readings, then calls the existing analysis API.
+See [MEAL_ANALYSIS.md](MEAL_ANALYSIS.md) for its exact query/request, error states
+and end-to-end physical-device checks. **Run Test Analysis** remains separate.
+
+The backend now supports explicit OpenAI mode as well as the default offline
+mock. See [LLM_INTEGRATION.md](../docs/LLM_INTEGRATION.md) for environment setup,
+provider data disclosure, errors and real-provider/device verification. Both
+buttons use whichever mode the backend selects; API keys never belong here.
+
 ## Scope and architecture
 
+### Local Windows white-screen recovery (2026-10-04)
+
+On this development machine, Windows reserved TCP range `8037–8136`, which
+includes Metro's default `8081` (`listen EACCES`). Port `9000` also conflicted
+with an unrelated Jupyter kernel bound to `127.0.0.1:9000`: Metro listening on
+`0.0.0.0:9000` did not make emulator connections reach the correct service.
+The app could not load JavaScript and showed a white screen.
+
+The running emulator has been configured to use `localhost:18081`, with ADB
+reverse to Metro on the host. To restore this setup after restarting:
+
+```powershell
+# Terminal 1, from mobile/: keep Metro running.
+npm.cmd start -- --host 127.0.0.1 --port 18081 --max-workers 2
+```
+
+```powershell
+# Terminal 2: emulator must already be running.
+$biosyncAdb = Join-Path $env:LOCALAPPDATA 'Android/Sdk/platform-tools/adb.exe'
+& $biosyncAdb -s emulator-5554 reverse tcp:18081 tcp:18081
+curl.exe --noproxy '*' http://127.0.0.1:18081/status
+# Expected: packager-status:running
+& $biosyncAdb -s emulator-5554 shell am force-stop com.biosync
+& $biosyncAdb -s emulator-5554 shell am start -n com.biosync/.MainActivity
+```
+
+For a fresh installation, set the React Native development server host/port in
+the app's Dev Settings to `localhost:18081`; the current emulator already has
+this saved. Replace `emulator-5554` if `adb devices` reports a different serial.
+ADB reverse must be restored after device/emulator reconnection. Port `18081`
+is for Metro only; the Flask API remains `http://10.0.2.2:5000` in the emulator.
+Do not stop unrelated Jupyter processes or remove Windows port exclusions.
+
+### Application structure
+
 `AnalysisScreen` → `useAnalysisViewModel` → `backendClient.analyzeMeal`
-→ Flask `POST /v1/analyses` → meal policy → numerical iAUC → mock LLM
+→ Flask `POST /v1/analyses` → meal policy → numerical iAUC → mock or OpenAI feedback
 → `AnalysisResult` → ViewModel → screen.
 
 - Transport types follow [API_CONTRACTS.md](../docs/API_CONTRACTS.md).
@@ -16,7 +65,9 @@ Android only; no Expo. Scaffold generated with Community CLI 20.2.0.
 - Request states (`idle`, `loading`, `success`, `error`) are transient screen
   states, not the persistent `MealRecord.status` workflow.
 - There is no client iAUC calculation, precomputed result, storage, camera,
-  Health Connect, CV, real LLM, authentication, or deployment in this slice.
+  CV, direct LLM API call, authentication, or deployment in the mobile app. The separate Health
+  Connect diagnostic reads locally. The manual meal form separately reads and
+  submits the meal's glucose data only when its Analyse button is pressed.
 - `backendClient` validates HTTP status and response shape, preserves documented
   API error codes/messages/retryability, and aborts requests after 15 seconds.
   `NETWORK_ERROR`, `REQUEST_TIMEOUT`, `INVALID_RESPONSE`, and `CLIENT_ERROR` are
@@ -32,7 +83,7 @@ Use Node compatible with `package.json` (tested: 22.14.0), npm, JDK 17,
 Android Studio, and an Android SDK. Set `JAVA_HOME` to your JDK 17 directory.
 The generated native project declares:
 
-- compile SDK 37, target SDK 36, minimum SDK 24;
+- compile SDK 37, target SDK 36, minimum SDK 26 (Health Connect);
 - Android SDK Build-Tools 37.0.0;
 - NDK (Side by side) 27.1.12297006;
 - Gradle 9.4.1 via the checked-in wrapper.
@@ -152,7 +203,7 @@ From `backend/`:
 .\.venv\Scripts\python.exe -B -m pytest -p no:cacheprovider -q -s
 ```
 
-Implementation verification on this machine:
+Original mobile-slice verification (before Health Connect integration):
 
 - Python: **237 passed, 0 failed**; existing backend code/tests unchanged.
 - Jest: **27 passed, 0 failed** (client parsing/errors and ViewModel transitions).
@@ -168,11 +219,11 @@ Implementation verification on this machine:
   has SDK/Build-Tools 35 only and no NDK; install the above native prerequisites
   before building. An APK and on-device UI have **not** been verified here.
 
-No authoritative documents or backend files were changed. Full SQLite caching,
-Health Connect and meal logging remain deferred as requested, rather than being
-replaced with new production behavior.
+No authoritative documents or backend files were changed. Full SQLite caching
+and persistent meal logging remain deferred as requested. The manual meal form
+keeps only an in-memory draft for the current app session.
 
-## Files added in this task
+## Files added in the original mobile-slice task
 
 All repository changes for this task are under `mobile/`. The following inventory
 includes the CLI-generated Android scaffolding and application/test files.

@@ -193,6 +193,30 @@ def test_confidence_must_be_numeric_in_range_when_supplied(client, payload, valu
     assert_error(client.post(ENDPOINT, json=payload), 400, "INVALID_REQUEST")
 
 
+@pytest.mark.parametrize("weight", [0.1, 350, 350.5, 1000000])
+def test_optional_weight_is_accepted_and_never_changes_iauc(client, payload, weight):
+    without_weight = client.post(ENDPOINT, json=payload)
+    payload["food_info"]["items"][0]["weight_g"] = weight
+    with_weight = client.post(ENDPOINT, json=payload)
+    assert without_weight.status_code == with_weight.status_code == 200
+    assert without_weight.json["iauc_mmol_l_min"] == with_weight.json["iauc_mmol_l_min"] == 225
+    # Mock output and the public result contract remain backward compatible.
+    assert with_weight.json == without_weight.json
+
+
+@pytest.mark.parametrize("weight", [
+    0, -0.0, -1, float("nan"), float("inf"), -float("inf"),
+    "350", "", True, False, None, [], {}, 10**400,
+])
+def test_invalid_weight_is_rejected_before_analysis(client, payload, monkeypatch, weight):
+    def forbidden(*args, **kwargs):
+        pytest.fail("Invalid weight reached the analysis service")
+
+    monkeypatch.setattr(analysis_service, "create_analysis", forbidden)
+    payload["food_info"]["items"][0]["weight_g"] = weight
+    assert_error(client.post(ENDPOINT, json=payload), 400, "INVALID_REQUEST")
+
+
 @pytest.mark.parametrize("items", [[], [{"name": ""}], [{"name": 7}], "Rice"])
 def test_food_info_requires_nonempty_food_labels(client, payload, items):
     payload["food_info"]["items"] = items
@@ -305,12 +329,12 @@ def test_policy_runs_before_feedback_with_converted_inputs(client, payload, monk
         events.append(("policy", result.baseline_mmol_l, result.policy_version))
         return result
 
-    def feedback(food_info, iauc):
+    def feedback(food_info, iauc, **kwargs):
         assert isinstance(food_info, FoodInfo)
         assert [item.name for item in food_info.items] == ["Rice", "Broccoli"]
         assert events == [("policy", 5, "biosync-iauc-v1")]
         events.append(("mock", iauc))
-        return original_feedback(food_info, iauc)
+        return original_feedback(food_info, iauc, **kwargs)
 
     monkeypatch.setattr(meal_analysis, "analyze_meal", policy)
     monkeypatch.setattr(llm_service, "generate_feedback", feedback)
@@ -322,7 +346,7 @@ def test_policy_runs_before_feedback_with_converted_inputs(client, payload, monk
 @pytest.mark.parametrize("failure", ["schema", "policy"])
 def test_feedback_is_not_called_for_invalid_requests(client, payload, monkeypatch, failure):
     calls = []
-    monkeypatch.setattr(llm_service, "generate_feedback", lambda *args: calls.append(args))
+    monkeypatch.setattr(llm_service, "generate_feedback", lambda *args, **kwargs: calls.append(args))
     if failure == "schema":
         del payload["meal_id"]
         status, code = 400, "INVALID_REQUEST"
@@ -339,7 +363,7 @@ def test_feedback_is_not_called_for_invalid_requests(client, payload, monkeypatc
     {"summary": "text", "suggestions": [], "limitations": [], "raw_provider": "private"},
 ])
 def test_invalid_mock_response_is_internal_error_not_bad_client_request(client, payload, monkeypatch, feedback):
-    monkeypatch.setattr(llm_service, "generate_feedback", lambda *args: feedback)
+    monkeypatch.setattr(llm_service, "generate_feedback", lambda *args, **kwargs: feedback)
     response = client.post(ENDPOINT, json=payload)
     body = assert_error(response, 500, "INTERNAL_ERROR")
     assert body["error"]["message"] == "The analysis could not be completed."
@@ -347,7 +371,7 @@ def test_invalid_mock_response_is_internal_error_not_bad_client_request(client, 
 
 
 def test_unexpected_error_is_sanitized(client, payload, monkeypatch):
-    def fail(*args):
+    def fail(*args, **kwargs):
         raise RuntimeError("private-internal-details")
 
     monkeypatch.setattr(llm_service, "generate_feedback", fail)

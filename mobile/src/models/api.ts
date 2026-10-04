@@ -8,7 +8,7 @@ export interface GlucoseReading {
 
 export interface FoodInfo {
   recognized_at: string;
-  items: { name: string; confidence?: number }[];
+  items: { name: string; weight_g?: number; confidence?: number }[];
 }
 
 export interface Feedback {

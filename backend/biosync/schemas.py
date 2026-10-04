@@ -63,11 +63,12 @@ class ContractModel(BaseModel):
 
 class FoodItem(ContractModel):
     name: Annotated[str, Field(min_length=1)]
+    weight_g: Annotated[FiniteNumber, Field(gt=0)] | None = None
     confidence: Annotated[FiniteNumber, Field(ge=0, le=1)] | None = None
 
-    @field_validator("confidence", mode="before")
+    @field_validator("confidence", "weight_g", mode="before")
     @classmethod
-    def confidence_if_present(cls, value: object) -> int | float:
+    def number_if_present(cls, value: object) -> int | float:
         # Omission is allowed; an explicitly supplied null is not a number.
         return _finite_number(value)
 

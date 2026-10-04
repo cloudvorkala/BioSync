@@ -7,7 +7,8 @@ The scientific iAUC calculation policy is defined separately in
 
 Source: [PROJECT_SPEC.md](PROJECT_SPEC.md).
 
-This document defines only the four data models and two endpoints needed for the BioSync vertical slice.
+This document defines the four data models and two vertical-slice endpoints,
+plus a minimal deployment liveness endpoint.
 
 ## Common conventions
 
@@ -58,6 +59,17 @@ Shared transport and integration errors:
 | `415` | `UNSUPPORTED_MEDIA_TYPE` | Unsupported request or image media type. |
 | `502` | `UPSTREAM_FAILURE` | An external service failed or returned a response the backend could not normalize. |
 | `504` | `UPSTREAM_TIMEOUT` | An external service did not respond within the backend's request timeout. |
+| `500` | `LLM_CONFIGURATION_ERROR` | Backend feedback mode, key, model/access configuration or provider quota requires operator action. Not retryable without a configuration/account change. |
+| `502` | `LLM_AUTHENTICATION_ERROR` | Feedback provider rejected backend credentials or access. Not retryable. |
+| `502` | `LLM_NETWORK_ERROR` | Backend could not connect to the feedback provider. Retryable. |
+| `503` | `LLM_RATE_LIMITED` | Transient feedback-provider rate limit. Retryable later. |
+| `502` | `LLM_INVALID_RESPONSE` | Feedback response was malformed, refused, incomplete or failed output validation. Not automatically retryable. |
+
+For dietary feedback, `UPSTREAM_TIMEOUT` and transient `UPSTREAM_FAILURE` are
+retryable. These integration errors are separate from glucose-policy errors.
+Real-provider mode never silently falls back to mock feedback. The request and
+`AnalysisResult` structures remain unchanged. See [LLM_INTEGRATION.md](LLM_INTEGRATION.md)
+for backend-only configuration and the provider data boundary.
 
 Scientific data eligibility and calculation-specific rejection rules are defined in [IAUC_POLICY.md](IAUC_POLICY.md).
 
@@ -133,9 +145,20 @@ Each item contains:
 | Field | Type | Meaning |
 |---|---|---|
 | `name` | string | Non-empty food label. |
+| `weight_g` | number, optional | Approximate manually entered food weight in grams; must be finite and strictly greater than zero when supplied. |
 | `confidence` | number, optional | Confidence between 0 and 1, only when the provider supplies a value that can be represented meaningfully in this form. |
 
 Do not invent confidence values when unavailable.
+
+Omit `weight_g` when unknown or left blank; do not send `null`. Numeric strings,
+booleans, zero, negative values, NaN and Infinity are invalid. No application
+upper bound is imposed. Weight is optional dietary context for the LLM and
+must not change the deterministic iAUC calculation. It does not imply nutrient
+quantities, calories, serving units, volume, density or food database IDs.
+
+Manual input uses one item, for example `{"name": "Chicken rice", "weight_g": 350}`,
+or `{"name": "Chicken rice"}` when weight is unknown. In the manual flow,
+`recognized_at` records the user's confirmation time; it does not claim CV recognition.
 
 Provider label IDs, raw responses, bounding boxes, estimated nutrients, and provider-specific metadata are not part of this contract.
 
@@ -265,7 +288,14 @@ The specification requires calculation for up to 500 readings to complete within
 
 
 
-No additional endpoints or features beyond the project specification are introduced.
+## 7. GET /health
+
+Deployment liveness check, shared by local Flask and the Lambda adapter.
+Returns HTTP `200` with `{"status": "ok"}`. It does not call OpenAI, calculate
+iAUC, require an API key, or check provider readiness. No request body is required.
+
+For API Gateway routing, packaging and manual deployment commands, see
+[backend/deploy/README.md](../backend/deploy/README.md).
 
 ## iAUC Calculation Policy
 

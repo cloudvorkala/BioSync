@@ -1,3 +1,5 @@
 # Python 3.12
 Flask>=3.1,<4
 pydantic>=2.10,<3
+openai==3.24.0
+serverless-wsgi==3.1.0

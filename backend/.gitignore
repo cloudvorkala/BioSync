@@ -16,3 +16,6 @@ Thumbs.db
 .env
 .env.*
 !.env.example
+
+# Lambda build artifacts and temporary deployment configuration
+dist/

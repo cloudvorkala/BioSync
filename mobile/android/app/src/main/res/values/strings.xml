@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BioSync</string>
+    <string name="health_connect_rationale">BioSync blood glucose access\n\nBioSync requests read-only access to blood glucose. The diagnostic panel displays records locally. Choosing Analyse Health Connect Meal sends the selected blood glucose records, meal time, manually entered food description and any entered weight to the configured BioSync backend to calculate iAUC and return dietary feedback. In real AI mode, the backend sends food descriptions, any entered weight and derived analysis to OpenAI, without glucose records or Health Connect IDs. Run Test Analysis uses separate invented fixture data.\n\nThis development app does not save records to a database. You can deny or revoke access in Health Connect settings. No other health permissions or background access are requested.</string>
 </resources>

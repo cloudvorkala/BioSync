@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAnalysisViewModel } from '../viewmodels/useAnalysisViewModel';
+import { HealthConnectPanel } from './HealthConnectPanel';
+import { HealthMealPanel } from './HealthMealPanel';
 
 export function AnalysisScreen() {
   const { state, runTestAnalysis } = useAnalysisViewModel();
@@ -17,10 +19,10 @@ export function AnalysisScreen() {
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>BioSync</Text>
         <Text style={styles.text}>
-          Development test data · mock dietary feedback
+          Development test data · backend dietary feedback
         </Text>
         <Text style={styles.text}>
-          This screen uses a fixed fixture, not Health Connect data.
+          This analysis request uses a fixed fixture, not Health Connect data.
         </Text>
         <Text style={styles.heading} accessibilityLiveRegion="polite">
           Request state: {state.status}
@@ -68,6 +70,8 @@ export function AnalysisScreen() {
             ))}
           </View>
         )}
+        <HealthMealPanel />
+        <HealthConnectPanel />
       </ScrollView>
     </SafeAreaView>
   );

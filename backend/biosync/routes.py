@@ -7,6 +7,7 @@ from werkzeug.exceptions import BadRequest
 from .schemas import AnalysisRequest
 from .services import analysis_service
 from .services.meal_analysis import MealAnalysisPolicyError
+from .services.llm_types import LLMServiceError
 
 
 analyses = Blueprint("analyses", __name__)
@@ -50,8 +51,11 @@ def post_analysis():
             _POLICY_MESSAGES[exc.code],
             retryable=exc.code == "WAITING_FOR_GLUCOSE_DATA",
         )
-    except Exception:
+    except LLMServiceError as exc:
+        return _error(exc.status, exc.code, str(exc), retryable=exc.retryable)
+    except Exception as exc:
         # Validation of server-produced feedback/results also belongs here,
         # not in the 400 request-validation branch. Never return exception text.
-        current_app.logger.exception("Analysis processing failed")
+        # Exception messages/tracebacks can contain request or provider data.
+        current_app.logger.error("analysis_internal_failure type=%s", type(exc).__name__)
         return _internal_error()
