@@ -296,7 +296,9 @@ def test_weight_loss_context_excludes_source_identity_and_unnecessary_times(clie
     assert set(context["analysis_context"]) == {
         "policy_version", "postprandial_duration_minutes", "baseline_duration_minutes", "interpretation",
     }
-    assert any("iAUC alone does not determine meal health or quality" in text for text in context["limitations"])
+    assert context["limitations"] == [
+        "This assessment focuses on the post-meal glucose response rather than every aspect of nutrition.",
+    ]
     # Inspect user data, not the system instruction "infer missing glucose readings".
     encoded = json.dumps(context)
     for forbidden in (source, "source_record_id", "sourcePackage", "deviceId", "readings",
@@ -317,20 +319,35 @@ def test_source_metadata_is_rejected_at_transport_boundary(client, payload, prov
 
 @pytest.mark.parametrize("required_instruction", [
     "The fixed prototype user goal is weight loss.",
-    "Do not estimate or invent calories/kcal, macronutrients, nutrient quantities, protein grams, carbohydrate grams, fat grams, fibre grams, micronutrients, total energy content or energy expenditure",
-    "Food descriptions and weight_g are not verified nutrition data",
-    "iAUC alone does not determine meal health or quality",
-    "high iAUC does not mean an unhealthy meal, and low iAUC does not mean a healthy meal",
-    "It is not a diagnostic or medical device.",
-    "Do not diagnose diabetes or any other disease.",
-    "Do not recommend medication or insulin changes, or provide insulin dosing.",
+    "Give a direct glycaemic assessment.",
+    "mild, moderate, substantial, relatively favourable, less favourable or strong postprandial response",
+    "clearly referring to the glucose dimension",
+    "Use ordinary dietary knowledge",
+    "Keep advice non-diagnostic.",
+    "Do not diagnose disease, recommend medication or insulin changes, or provide insulin dosing.",
     "never calculate, recalculate or replace iAUC, infer missing glucose readings, or override that policy",
-    "When absent, never invent or estimate a weight or imply portion size is known.",
-    "Describe a supplied weight as approximate",
-    "comparing repeated meals under similar conditions and changing one major component at a time",
+    "Optional weight_g is approximate user-entered weight in grams.",
+    "When absent, work with the available information without inventing a weight.",
+    "changing one major component of a repeated meal under similar conditions",
+    "summary that directly states the postprandial glucose assessment",
+    "Give 2–3 concrete dietary suggestions.",
+    "Keep limitations to one short sentence",
+    "Avoid repetitive defensive language and long disclaimers.",
 ])
 def test_interpretation_prompt_retains_required_boundaries(required_instruction):
     assert required_instruction in openai_provider.SYSTEM_PROMPT
+
+
+def test_provider_instructions_remove_nutrition_prohibitions_and_defensive_boilerplate(client, payload, provider):
+    assert client.post("/v1/analyses", json=payload).status_code == 200
+    request, = provider["requests"]
+    # Check both instruction and contextual messages so old caveats cannot leak back in.
+    text = " ".join(message["content"] for message in request["input"]).lower()
+    for removed in ("calorie", "kcal", "macronutrient", "nutrient quantities",
+                    "energy content", "energy expenditure", "cannot determine",
+                    "does not prove", "does not show", "one meal cannot", "not proof",
+                    "do not label the response"):
+        assert removed not in text
 
 
 def test_weight_loss_mock_is_explicit_and_deterministic(client, payload):
@@ -340,7 +357,11 @@ def test_weight_loss_mock_is_explicit_and_deterministic(client, payload):
     assert first.status_code == second.status_code == 200
     assert first.json["iauc_mmol_l_min"] == second.json["iauc_mmol_l_min"] == 225
     assert first.json["feedback"] == second.json["feedback"]
-    assert "weight loss" in " ".join(first.json["feedback"]["limitations"])
+    assert "postprandial glucose" in first.json["feedback"]["summary"]
+    assert "225.00 (mmol/L)·min" in first.json["feedback"]["summary"]
+    assert "weight loss" in " ".join(first.json["feedback"]["suggestions"])
+    assert 2 <= len(first.json["feedback"]["suggestions"]) <= 3
+    assert len(first.json["feedback"]["limitations"]) == 1
     assert "no external LLM was called" in " ".join(first.json["feedback"]["limitations"])
 
 
