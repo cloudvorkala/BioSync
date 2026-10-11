@@ -5,7 +5,7 @@ reads of manually entered Health Connect glucose. They also reported that 爱看
 records visible in Samsung Health were not forwarded into Health Connect. Visibility
 in Samsung Health alone is therefore not evidence of Health Connect availability.
 The separate [Samsung provider](SAMSUNG_HEALTH.md) addresses that integration path;
-its imported-record acceptance remains pending. This documentation update did
+its imported-record acceptance has been verified on a physical device. This documentation update did
 not repeat a physical-device test.
 
 The diagnostic panel described here reads blood glucose locally and does not

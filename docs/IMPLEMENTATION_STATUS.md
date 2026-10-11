@@ -32,7 +32,7 @@ environment/model, installed APK or currently running Metro process.
 | Manual food | One trimmed description, optional finite positive grams. No invented confidence or weight. |
 | Meal time | Date state, native date/time picker 9.2.1, local display and Use current time; UTC serialization uses `toISOString()`. No manual offsets. |
 | Health Connect | 4.1.3; read-only BloodGlucose, all pages, explicit mmol/L accessor. User reported successful reads of manually entered records. |
-| Samsung Health | Data SDK 1.1.0, local AAR/Kotlin bridge, read-only BloodGlucose, series flattening/stable IDs. Imported 爱看健康 access still lacks recorded physical-device acceptance. |
+| Samsung Health | Data SDK 1.1.0, local AAR/Kotlin bridge, read-only BloodGlucose, series flattening/stable IDs. Physically verified: imported 爱看健康 (`com.sino.care`) readings are read on a Galaxy Z Flip7. |
 | Provider selection | One shared meal workflow; Health Connect default, Samsung selectable. No automatic merging of stores. |
 | Diagnostic panels | Local display only; Samsung UTC start/end text inputs unchanged. |
 | Query | `[meal_at − 15 min, meal_at + 135 min)`; exact backend analysis window remains 0–120 min. |
@@ -69,7 +69,7 @@ matter; no claim that all application data stays on-device is made.
 | Android build / Metro bundle | Not rerun; no native or application changes |
 | Lambda package build/validation | Not rerun; no backend code or packaging changes |
 | Live HTTP / OpenAI / AWS | Not called |
-| Physical-device acceptance | Not repeated; Samsung imported-record case remains pending |
+| Physical-device acceptance | Samsung imported-record case verified on a Galaxy Z Flip7 (480 `com.sino.care` records in 24 h; end-to-end analysis with the release APK) |
 
 Backend tests block external network calls and exercise SDK parsing with mocked
 HTTP transport. Mobile tests mock native/HTTP boundaries; they do not establish
@@ -89,5 +89,5 @@ requires rebuilding the ZIP and updating Lambda; editing docs does not release i
 - [mobile/README.md](../mobile/README.md): prerequisites, current URL, local alternative, build/run.
 - [mobile/MEAL_ANALYSIS.md](../mobile/MEAL_ANALYSIS.md): time input, query, errors and manual workflow.
 - [mobile/HEALTH_CONNECT.md](../mobile/HEALTH_CONNECT.md): existing provider setup and limitations.
-- [mobile/SAMSUNG_HEALTH.md](../mobile/SAMSUNG_HEALTH.md): AAR/bridge, series mapping and pending acceptance.
+- [mobile/SAMSUNG_HEALTH.md](../mobile/SAMSUNG_HEALTH.md): AAR/bridge, series mapping and device acceptance.
 - [backend/deploy/README.md](../backend/deploy/README.md): packaging, operator-run release/update/rollback.

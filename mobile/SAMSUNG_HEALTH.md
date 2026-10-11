@@ -1,10 +1,10 @@
 # Samsung Health blood glucose provider
 
-Status: implemented and locally built against **Samsung Health Data SDK 1.1.0**.
-Code/documentation review: **2026-10-11**; no new device test in this review.
-**Device verification pending.** Neither SDK reads nor access to records imported
-from **爱看健康** have been verified on a physical phone in this implementation task.
-Passing Jest/build checks does not establish that Samsung exposes those records.
+Status: implemented against **Samsung Health Data SDK 1.1.0** and **verified on a physical device**.
+Device acceptance (October 2026): on a Samsung Galaxy Z Flip7 with Samsung Health developer
+mode enabled, the diagnostic panel read 480 blood-glucose records for a 24-hour window from
+source package `com.sino.care` (**爱看健康** / Sinocare CGM, 3-minute interval), and historical
+meals were analysed end-to-end through the signed release APK and the AWS deployment.
 
 ## Why a second provider
 
@@ -268,8 +268,8 @@ npm.cmd run lint
 npm.cmd exec -- react-native bundle --platform android --dev true --entry-file index.js --bundle-output build/index.android.bundle --assets-dest build/assets --max-workers 2
 ```
 
-Device acceptance remains **pending**, especially third-party imported CGM
-visibility and session-boundary selection. No backend contracts or scientific
+Device acceptance is complete for third-party imported CGM visibility
+(`com.sino.care` records read on a Galaxy Z Flip7) and for end-to-end meal analysis. No backend contracts or scientific
 rules were changed. This second supported source is an explicit scope extension
 now reflected in the current project specification. See
 [IMPLEMENTATION_STATUS.md](../docs/IMPLEMENTATION_STATUS.md) for the latest suite

@@ -17,8 +17,8 @@ Manual description + optional weight + local meal date/time
 ```
 
 Health Connect is the default source. Samsung Health Data SDK **1.1.0** is a
-second provider; native access and imported 爱看健康 visibility remain **device
-verification pending** in the repository. See [SAMSUNG_HEALTH.md](SAMSUNG_HEALTH.md).
+second provider; native access and imported 爱看健康 visibility have been **verified on a
+physical device** (Galaxy Z Flip7). See [SAMSUNG_HEALTH.md](SAMSUNG_HEALTH.md).
 Health Connect setup/mapping is in [HEALTH_CONNECT.md](HEALTH_CONNECT.md).
 
 The manual form supports one description, optional approximate grams, separate

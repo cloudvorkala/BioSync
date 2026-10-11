@@ -36,7 +36,7 @@ supplied internally to the LLM rather than through a user profile.
 | Deployment | Same Flask factory runs locally or through a WSGI adapter on Lambda/API Gateway. Mobile currently selects the AWS HTTPS demo endpoint. |
 
 Samsung SDK code/build support does not prove access to imported records.
-Physical Samsung/爱看健康 acceptance remains unconfirmed in the repository;
+Physical Samsung/爱看健康 acceptance has been completed on a Galaxy Z Flip7;
 see [SAMSUNG_HEALTH.md](../mobile/SAMSUNG_HEALTH.md). The user has reported successful
 Health Connect reads and the Samsung-to-Health Connect forwarding limitation.
 

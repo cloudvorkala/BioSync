@@ -13,7 +13,7 @@ The current backend URL selects AWS HTTPS. Local Flask is an explicit alternativ
 configured in `src/config/development.ts`; it uses the same API and calculations.
 
 Health Connect remains the default. The source buttons also select Samsung Health
-without duplicating the request/analysis flow. Its setup, mapping and pending
+without duplicating the request/analysis flow. Its setup, mapping and completed
 physical-device verification are documented in [SAMSUNG_HEALTH.md](SAMSUNG_HEALTH.md).
 The Health Connect procedure below remains applicable when that source is selected.
 

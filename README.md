@@ -7,10 +7,23 @@ BioSync is an Android prototype developed for COMP826 Mobile Systems Development
 - Select Health Connect or Samsung Health as the glucose source.
 - Check platform availability and request blood-glucose read permission.
 - Inspect timestamp-bounded glucose records through diagnostic panels.
-- Enter a meal description, optional approximate weight in grams, and a UTC meal time.
+- Enter a meal description, an optional approximate weight in grams, and the meal time with native local date and time pickers (or **Use current time**). The app sends the time as UTC using `Date.toISOString()`, so the device applies historical daylight-saving rules.
 - Analyse historical meals using the selected provider's glucose readings.
 - Display backend-calculated iAUC, feedback, and distinct input, permission, data-coverage, network, and provider errors.
 - Run a labelled synthetic example with a known iAUC of **225 (mmol/L)·min**.
+
+## Live demo deployment
+
+| Item | Value |
+| --- | --- |
+| API base URL | `https://iax8d3mquk.execute-api.ap-southeast-2.amazonaws.com/demo` (API Gateway REST API, stage `demo`) |
+| Endpoints | `GET /health`, `POST /v1/analyses` |
+| Backend runtime | AWS Lambda `biosync-backend`: Python 3.12, x86_64, 512 MB, 28 s timeout, region `ap-southeast-2` |
+| Feedback model | OpenAI Responses API with `BIOSYNC_LLM_MODE=openai` and `BIOSYNC_LLM_MODEL=gpt-6-luna` |
+| Verified device | Samsung Galaxy Z Flip7 running the signed standalone release APK (no Metro, USB or laptop) |
+| Verified data path | Sinocare CGM → Sinocare app (`com.sino.care`) → Samsung Health → Samsung Health Data SDK 1.1.0 → BioSync → AWS → OpenAI |
+
+The demo endpoint exists for assessment and may be disabled after the course. Each `POST /v1/analyses` call in OpenAI mode is a billed model request.
 
 ## Architecture
 
@@ -134,7 +147,7 @@ Output: `mobile/android/app/build/outputs/apk/debug/app-debug.apk`. The debug ap
 1. Ensure the source application has synchronized glucose records to the selected health platform. Permission alone does not create records, and data visible in Samsung Health may not also be available in Health Connect.
 2. Select the glucose provider in BioSync and grant blood-glucose **read** permission.
 3. Check a known historical interval in the corresponding diagnostic panel.
-4. Enter a meal description, optional weight such as `350`, and a UTC meal time such as `2026-10-04T00:00:00.000Z`. Weight fields accept numbers, not text such as `350g`.
+4. Enter a meal description and an optional weight such as `350`, then pick the local meal date and time. Weight fields accept numbers, not text such as `350g`.
 5. Use a completed historical meal with sufficient pre-meal and post-meal coverage, then press Analyse.
 
 The app retrieves **[meal time − 15 minutes, meal time + 135 minutes)**. The backend calculates positive incremental area over **120 minutes**, using the mean of at least two pre-meal readings as the baseline. The additional retrieval time supports endpoint interpolation; it does not extend the integration window. Gaps and missing coverage produce policy errors. The complete rules are in [IAUC_POLICY.md](docs/IAUC_POLICY.md).
@@ -144,6 +157,8 @@ Real data will usually return a value different from 225. That expected value be
 ### Samsung developer testing
 
 For a development test device, complete Samsung Health setup and follow [Samsung's developer-mode instructions](https://developer.samsung.com/health/data/guide/developer-mode.html): open **Settings → About Samsung Health**, tap the version area quickly at least ten times, open **Developer Mode (Samsung Health Data SDK)**, and enable **Developer Mode for Data Read**. Then request read permission inside BioSync. Write access is not needed.
+
+This path has been verified on a Samsung Galaxy Z Flip7: the Samsung diagnostic panel read 480 Sinocare readings (`com.sino.care`, 3-minute interval) for a 24-hour window, and historical meals were analysed end-to-end through the release APK and the AWS deployment.
 
 This is a developer testing procedure. Public distribution requires Samsung's app registration/partnership process for the package, signing certificate, and data scope. See [SAMSUNG_HEALTH.md](mobile/SAMSUNG_HEALTH.md) for setup, record mapping, and device acceptance checks, and [HEALTH_CONNECT.md](mobile/HEALTH_CONNECT.md) for the other provider.
 
@@ -155,7 +170,7 @@ Set environment variables in the **backend process** or Lambda environment:
 | --- | --- |
 | `BIOSYNC_LLM_MODE` | `mock` by default; set `openai` to enable live feedback |
 | `OPENAI_API_KEY` | Required only for `openai` mode |
-| `BIOSYNC_LLM_MODEL` | Optional model override; the source fallback is `gpt-4.1-mini` |
+| `BIOSYNC_LLM_MODEL` | Optional model override; the source fallback is `gpt-4.1-mini`. The demo Lambda sets `gpt-6-luna`. |
 
 For local OpenAI mode, stop the existing Flask process and run from `backend/`:
 
@@ -193,6 +208,8 @@ npm.cmd run test:backend
 
 This checks the actual TypeScript client against Flask using synthetic inputs. Backend pytest tests block external network calls, and mobile unit tests mock native/network boundaries. Neither suite establishes physical CGM access or live-model output quality; record those checks separately using the device procedures.
 
+Recorded results for the submitted version (11 October 2026): backend **340 passed**; mobile **159 Jest tests passed** in 9 suites; TypeScript and ESLint clean.
+
 To check the API directly, open another PowerShell terminal at the repository root:
 
 ```powershell
@@ -201,7 +218,19 @@ $biosyncBody = Get-Content mobile/src/dev/analysisFixture.json -Raw
 Invoke-RestMethod -Method Post -Uri http://127.0.0.1:5000/v1/analyses -ContentType 'application/json' -Body $biosyncBody
 ```
 
-`GET /health` returns `{"status":"ok"}` and checks liveness only. `POST /v1/analyses` calculates the supplied meal response; the checked-in fixture returns iAUC **225**. In mock mode, feedback is labelled development mock and suggestions are currently empty. See [API_CONTRACTS.md](docs/API_CONTRACTS.md) for complete schemas and error codes.
+`GET /health` returns `{"status":"ok"}` and checks liveness only. `POST /v1/analyses` calculates the supplied meal response; the checked-in fixture returns iAUC **225**. In mock mode, feedback is labelled as a development mock and its suggestions are fixed illustrative text. See [API_CONTRACTS.md](docs/API_CONTRACTS.md) for complete schemas and error codes.
+
+## Evaluation artefacts
+
+Scripts and raw results from the Milestone 2 evaluation:
+
+| File | Purpose |
+| --- | --- |
+| [`backend/benchmarks/benchmark_analysis.py`](backend/benchmarks/benchmark_analysis.py) | iAUC correctness against an independent trapezoidal implementation (fixture + 300 random curves) and timing of the meal-analysis policy for 50–5000 readings. Run from `backend/` with `python benchmarks/benchmark_analysis.py`. |
+| [`docs/evaluation/measure_api_latency.ps1`](docs/evaluation/measure_api_latency.ps1) | Repeated `GET /health` and `POST /v1/analyses` calls against a deployed endpoint plus a burst of 10 concurrent analyses; writes a CSV and prints median, p95, max and the concurrency result. |
+| [`docs/evaluation/cloudwatch_lambda_stats.ps1`](docs/evaluation/cloudwatch_lambda_stats.ps1) | Lambda duration, cold starts and peak memory from CloudWatch Logs Insights (AWS CLI). |
+| [`docs/evaluation/measure_frames.ps1`](docs/evaluation/measure_frames.ps1) | ADB frame statistics, frozen frames, ANR check and memory for the installed release APK. |
+| [`docs/evaluation/README.md`](docs/evaluation/README.md) | Measurement plan, ADB and CloudWatch commands, and recorded results. |
 
 ## Build an independent release APK
 

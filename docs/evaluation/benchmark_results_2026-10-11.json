@@ -1,0 +1,52 @@
+{
+  "environment": {
+    "python": "3.13.16",
+    "platform": "Linux-6.18.44-fc-v114-x86_64-with-glibc2.39",
+    "processor": "x86_64"
+  },
+  "correctness": {
+    "fixture_backend": 225.0,
+    "fixture_hand_calculation": 225.0,
+    "random_curves": 300,
+    "max_relative_error_pct": 3.98612618423641e-13
+  },
+  "analyze_meal": [
+    {
+      "readings": 50,
+      "runs": 150,
+      "median_ms": 0.20387799997934053,
+      "mean_ms": 0.20162277999740277,
+      "sd_ms": 0.04913992174783796,
+      "p95_ms": 0.2745279998634942,
+      "max_ms": 0.46922399997129105
+    },
+    {
+      "readings": 150,
+      "runs": 150,
+      "median_ms": 0.3858535000063057,
+      "mean_ms": 0.40469193999494263,
+      "sd_ms": 0.07520043103371958,
+      "p95_ms": 0.5513680000603927,
+      "max_ms": 1.0320399999272922
+    },
+    {
+      "readings": 500,
+      "runs": 150,
+      "median_ms": 1.2322584999537867,
+      "mean_ms": 1.3845980799806057,
+      "sd_ms": 0.3128741040298651,
+      "p95_ms": 1.9661059998270503,
+      "max_ms": 2.347875999930693
+    },
+    {
+      "readings": 5000,
+      "runs": 150,
+      "median_ms": 12.88240400003815,
+      "mean_ms": 13.386628699992494,
+      "sd_ms": 1.4107311988896074,
+      "p95_ms": 17.228626999894914,
+      "max_ms": 20.2683719999186
+    }
+  ],
+  "flask_mock_request": "skipped: openai not installed"
+}
