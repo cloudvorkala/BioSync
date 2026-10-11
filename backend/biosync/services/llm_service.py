@@ -10,11 +10,7 @@ from .llm_types import AnalysisContext, LLMServiceError
 # Fixed interpretation context for this prototype, not a client/profile setting.
 PROTOTYPE_GOAL = "weight loss"
 INTERPRETATION_LIMITATIONS = [
-    "One meal does not establish a diagnosis or prove food causation.",
-    "Glucose response is individual and context-dependent; activity, sleep, stress and previous meals may contribute.",
-    "Any supplied food weights are approximate user inputs; food descriptions and weights do not establish calories or nutrient quantities.",
-    "BioSync does not estimate calories or complete nutrition; iAUC alone does not determine meal health or quality or predict weight loss.",
-    "BioSync v1 uses project-specific analysis rules, not universal clinical thresholds; no CGM lag correction is applied.",
+    "This assessment focuses on the post-meal glucose response rather than every aspect of nutrition.",
 ]
 
 
@@ -51,13 +47,14 @@ def _mock_feedback(food_info: FoodInfo, iauc_mmol_l_min: float):
     names = ", ".join(item.name for item in food_info.items)
     return {
         "summary": (
-            f"Development mock: recorded foods: {names}. "
-            f"Calculated iAUC: {iauc_mmol_l_min:.2f} (mmol/L)·min."
+            f"Development mock: {names} had a postprandial glucose iAUC of "
+            f"{iauc_mmol_l_min:.2f} (mmol/L)·min, a reference for the next meal comparison."
         ),
-        "suggestions": [],
+        "suggestions": [
+            f"For the {PROTOTYPE_GOAL} goal, try a smaller starchy component where present, retaining vegetables and protein-rich foods.",
+            "Compare the same meal under similar conditions after changing one component.",
+        ],
         "limitations": [
             "Deterministic development mock; no external LLM was called.",
-            "This feedback is non-diagnostic and does not establish food causation.",
-            f"Prototype interpretation goal: {PROTOTYPE_GOAL}; iAUC alone does not determine meal quality.",
         ],
     }

@@ -3,6 +3,10 @@
 
 Status: BioSync v1 implementation policy.
 
+Implementation notes synchronized on 2026-10-11; scientific constants and
+calculation rules are unchanged. Both policy and numerical integration execute
+in the Python backend, whether hosted locally or on Lambda.
+
 This document defines how BioSync selects and prepares meal-associated CGM data before calling the standalone numerical iAUC calculation module.
 
 The underlying numerical integration remains implemented separately in `iauc_service.py`.
@@ -26,7 +30,7 @@ Select pre-meal glucose readings
     ↓
 Calculate baseline
     ↓
-Wait for postprandial glucose window
+Check available postprandial glucose coverage (otherwise return a policy error)
     ↓
 Validate glucose coverage
     ↓
@@ -49,11 +53,13 @@ This document defines the meal-specific policy that determines which glucose rea
 
 `meal_at` represents the user's recorded start time of a meal.
 
-By default, BioSync uses the meal image capture time as the initial value of `meal_at`.
+The current manual form initializes a JavaScript Date to the phone's current
+instant and lets the user select the local calendar date and clock time, or
+reset it with Use current time. Native/JavaScript date handling resolves the
+selected date's timezone/DST; submission uses `toISOString()`.
 
-The user may adjust this time during meal confirmation if the image was taken before or after eating began.
-
-The Computer Vision response time must not be used as the meal start time.
+The backend receives `meal_at` explicitly. It never derives it from image,
+Computer Vision, request or current time. No camera/CV flow is implemented.
 
 At API boundaries, `meal_at` is represented as a UTC ISO 8601 timestamp.
 
@@ -134,9 +140,9 @@ The monitoring window is based on `meal_at`, not on:
 - backend request time;
 - application restart time.
 
-The application may be closed or placed in the background during this period.
-
-The locally persisted meal record remains the source of the original `meal_at`.
+The backend does not run a monitoring timer. The current app keeps only an
+in-memory draft, so closing/terminating it does not guarantee meal recovery.
+After restarting, the user can select the original historical meal time again.
 
 ---
 
@@ -249,7 +255,9 @@ meal_at
       ● first post-meal CGM reading
 ```
 
-The synthetic baseline point is used only for iAUC calculation.
+The synthetic baseline point is used only for iAUC calculation. A real reading
+exactly at `meal_at` is excluded from the numerical sequence, avoiding a duplicate
+timestamp and preserving the synthetic start required by this policy.
 
 It does not represent an additional CGM measurement and must not be stored as if it were a real Health Connect record.
 
@@ -302,7 +310,9 @@ If the application has not yet received sufficient data to establish the 120-min
 waiting_glucose
 ```
 
-The application may attempt to retrieve the glucose data again later.
+`waiting_glucose` names the reserved persistent workflow stage. The implemented
+backend returns `WAITING_FOR_GLUCOSE_DATA`; the mobile ViewModel displays its
+transient `waiting` state. The user can retry retrieval manually later.
 
 ---
 
@@ -318,7 +328,11 @@ However, BioSync v1 defines a maximum acceptable interval of:
 15 minutes
 ```
 
-between adjacent calculation points.
+between adjacent real glucose records needed to cover the interval. Validate
+the original source gap across an interpolated endpoint too; a synthetic or
+interpolated point must not hide a larger source-data gap. Exactly 15 minutes
+is accepted. Baseline readings have the separate two-reading requirement;
+unneeded earlier/later source gaps do not invalidate postprandial coverage.
 
 If any adjacent interval required for the 0–120 minute calculation exceeds 15 minutes, the glucose data are considered insufficient for reliable BioSync meal analysis.
 
@@ -383,7 +397,11 @@ same timestamp
 same glucose value
 ```
 
-the duplicate may be removed during normalization.
+the duplicate is removed during normalization. The implementation validates all
+supplied readings, then sorts copies and normalizes before selecting the baseline.
+For identical timestamp/value measurements it keeps the lexicographically first
+supplied source ID, with missing IDs ordered last. Matching IDs alone do not
+discard measurements with differing timestamps or values.
 
 ---
 
@@ -589,7 +607,9 @@ Do not extrapolate beyond available data.
 
 ### Step 8 — Validate gaps
 
-For the complete prepared calculation sequence, verify that no adjacent timestamps differ by more than:
+For the required real source sequence through the exact endpoint or its first
+later support reading, and from meal_at to the first strictly post-meal reading,
+verify that no adjacent timestamps differ by more than:
 
 ```text
 15 minutes
@@ -637,6 +657,12 @@ iauc_mmol_l_min
 policy_version
 ```
 
+The implemented `MealAnalysisResult` dataclass contains all these fields.
+`reading_count` counts final numerical points, including the synthetic start
+and exact/interpolated endpoint. It excludes baseline records, any real t=0
+record and the after-end support record. This metadata is internal; the public
+AnalysisResult response shape is unchanged.
+
 For this policy:
 
 ```text
@@ -675,8 +701,11 @@ Responsible for:
 - reading glucose records;
 - converting units;
 - preserving source identifiers;
-- removing exact duplicate source records;
-- storing normalized readings locally.
+- provider-specific normalization (Samsung also removes exact source repeats
+  and surfaces conflicting samples; Health Connect does not deduplicate);
+- holding normalized readings in memory for display/submission. SQLite is deferred.
+
+The backend policy always normalizes duplicates independently of provider behaviour.
 
 It does not calculate iAUC.
 
@@ -736,7 +765,7 @@ backend/
 
 `iauc_service.py` is the already-tested pure numerical calculation module.
 
-`meal_analysis.py` should implement the BioSync v1 policy defined in this document.
+`meal_analysis.py` implements the BioSync v1 policy defined in this document.
 
 The policy layer should call the numerical service rather than duplicate its trapezoidal calculation.
 
@@ -744,7 +773,7 @@ The policy layer should call the numerical service rather than duplicate its tra
 
 ## 19. Required Policy Tests
 
-The policy implementation should later include deterministic tests for at least the following cases:
+The implemented `backend/tests/test_meal_analysis.py` covers these cases:
 
 1. baseline calculated from two or more pre-meal readings;
 2. fewer than two baseline readings rejected;
@@ -837,7 +866,7 @@ The final BioSync v1 iAUC policy is:
 
 | Decision | BioSync v1 |
 |---|---|
-| Meal time | User-confirmed meal start time; image capture time used as default |
+| Meal time | Explicit user-confirmed start; mobile defaults to current local date/time and submits UTC |
 | Baseline window | 15 minutes immediately before the meal |
 | Minimum baseline readings | 2 |
 | Baseline value | Arithmetic mean |
@@ -871,5 +900,3 @@ The final report should distinguish between:
 
 1. externally supported principles such as postprandial iAUC and trapezoidal integration; and
 2. BioSync-specific operational rules selected to make the implementation deterministic and testable.
-```
-

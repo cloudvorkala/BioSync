@@ -2,12 +2,16 @@ import React from 'react';
 import { act, create, type ReactTestRenderer } from 'react-test-renderer';
 import { Button, TextInput, NativeModules, Platform } from 'react-native';
 import * as native from 'react-native-health-connect';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { HealthMealPanel } from '../src/views/HealthMealPanel';
 import fixture from '../src/dev/analysisFixture.json';
 import type { AnalysisRequest } from '../src/models/api';
 import { response } from './testData';
 
 // Real View, ViewModel, mapping and backendClient; mock only native and HTTP I/O.
+jest.mock('@react-native-community/datetimepicker', () => ({
+  DateTimePickerAndroid: { open: jest.fn() },
+}));
 jest.mock('react-native-health-connect', () => ({
   getSdkStatus: jest.fn(),
   initialize: jest.fn(),
@@ -21,10 +25,14 @@ jest.mock('react-native-health-connect', () => ({
   },
 }));
 const bridge = jest.mocked(native);
+const picker = jest.mocked(DateTimePickerAndroid);
 const samsungNative = { getAccess: jest.fn(), readBloodGlucose: jest.fn() };
 const originalFetch = globalThis.fetch;
 const fetchMock = jest.fn<ReturnType<typeof fetch>, Parameters<typeof fetch>>();
 let renderer: ReactTestRenderer;
+let initializationStart: number;
+let initializationEnd: number;
+let initialMealTime: Date;
 const nativeRecords = fixture.readings.map(r => ({
   time: r.measured_at,
   metadata: { id: r.source_record_id },
@@ -54,6 +62,26 @@ async function press(title = 'Analyse Health Connect Meal') {
       .findAllByType(Button)
       .find(button => button.props.title === title)!
       .props.onPress();
+  });
+}
+async function openMealPicker(mode: 'date' | 'time') {
+  await act(async () => {
+    renderer.root
+      .findAllByType(Button)
+      .find(
+        button => button.props.accessibilityLabel === `Choose meal ${mode}`,
+      )!
+      .props.onPress();
+  });
+  return picker.open.mock.calls[picker.open.mock.calls.length - 1][0];
+}
+async function selectMealTime(mode: 'date' | 'time', date: Date) {
+  const options = await openMealPicker(mode);
+  await act(async () => {
+    options.onValueChange!(
+      { nativeEvent: { timestamp: date.getTime(), utcOffset: 0 } },
+      date,
+    );
   });
 }
 function fail(code: string, retryable = false, status = 422) {
@@ -104,11 +132,14 @@ beforeEach(async () => {
         }),
       } as Response),
   );
+  initializationStart = Date.now();
   await act(async () => {
     renderer = create(<HealthMealPanel />);
   });
+  initializationEnd = Date.now();
+  initialMealTime = (await openMealPicker('date')).value;
   await enter('Meal description', '  Chicken rice with broccoli  ');
-  await enter('Meal time UTC', fixture.meal_at);
+  await selectMealTime('date', new Date(fixture.meal_at));
 });
 
 test('selected Samsung provider uses the same request path with no metadata or mobile iAUC', async () => {
@@ -192,6 +223,55 @@ afterEach(async () => {
     renderer.unmount();
   });
   globalThis.fetch = originalFetch;
+  jest.useRealTimers();
+});
+
+test('meal time initializes as the current Date and the normal UTC text input is removed', () => {
+  expect(initialMealTime).toBeInstanceOf(Date);
+  expect(initialMealTime.getTime()).toBeGreaterThanOrEqual(initializationStart);
+  expect(initialMealTime.getTime()).toBeLessThanOrEqual(initializationEnd);
+  expect(
+    renderer.root
+      .findAllByType(TextInput)
+      .map(input => input.props.accessibilityLabel),
+  ).not.toContain('Meal time UTC');
+});
+
+test('local calendar and clock selections update the same Date without timezone overrides', async () => {
+  const localDate = new Date(2026, 8, 20, 12, 0);
+  await selectMealTime('date', localDate);
+  const timeOptions = await openMealPicker('time');
+  expect(timeOptions.value.getTime()).toBe(localDate.getTime());
+  expect(timeOptions).not.toHaveProperty('timeZoneName');
+  expect(timeOptions).not.toHaveProperty('timeZoneOffsetInMinutes');
+  const localDateTime = new Date(2026, 8, 20, 17, 13);
+  await selectMealTime('time', localDateTime);
+  expect((await openMealPicker('date')).value.getTime()).toBe(
+    localDateTime.getTime(),
+  );
+  await press();
+  expect(body().meal_at).toBe(localDateTime.toISOString());
+});
+
+test('Use current time resets the Date and clears an old analysis result', async () => {
+  await press();
+  expect(screen()).toContain(response.feedback.summary);
+  const now = new Date('2026-10-04T02:34:56.789Z');
+  jest.useFakeTimers({ now });
+  await press('Use current time');
+  const options = await openMealPicker('time');
+  expect(options.value.getTime()).toBe(now.getTime());
+  expect(screen()).not.toContain(response.feedback.summary);
+});
+
+test('dismissing a picker leaves the meal time unchanged', async () => {
+  const options = await openMealPicker('date');
+  await act(async () => {
+    options.onDismiss?.();
+  });
+  expect((await openMealPicker('time')).value.toISOString()).toBe(
+    new Date(fixture.meal_at).toISOString(),
+  );
 });
 
 test('real flow builds the complete request and renders only backend-calculated values', async () => {

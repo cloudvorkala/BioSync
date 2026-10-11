@@ -93,14 +93,15 @@ def test_valid_request_returns_complete_contract_and_deterministic_mock(client, 
     assert datetime.fromisoformat(body["computed_at"]).utcoffset() == timedelta(0)
     assert body["feedback"] == {
         "summary": (
-            "Development mock: recorded foods: Rice, Broccoli. "
-            "Calculated iAUC: 225.00 (mmol/L)·min."
+            "Development mock: Rice, Broccoli had a postprandial glucose iAUC of "
+            "225.00 (mmol/L)·min, a reference for the next meal comparison."
         ),
-        "suggestions": [],
+        "suggestions": [
+            "For the weight loss goal, try a smaller starchy component where present, retaining vegetables and protein-rich foods.",
+            "Compare the same meal under similar conditions after changing one component.",
+        ],
         "limitations": [
             "Deterministic development mock; no external LLM was called.",
-            "This feedback is non-diagnostic and does not establish food causation.",
-            "Prototype interpretation goal: weight loss; iAUC alone does not determine meal quality.",
         ],
     }
     assert client.post(ENDPOINT, json=payload).get_json() == body

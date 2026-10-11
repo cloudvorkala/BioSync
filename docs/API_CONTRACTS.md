@@ -1,14 +1,16 @@
 # BioSync API Contracts
 
-Status: BioSync v1 transport contract.
+Status: BioSync v1 transport contract; implementation notes synchronized on 2026-10-11.
 
 The scientific iAUC calculation policy is defined separately in
 [IAUC_POLICY.md](IAUC_POLICY.md).
 
 Source: [PROJECT_SPEC.md](PROJECT_SPEC.md).
 
-This document defines the four data models and two vertical-slice endpoints,
-plus a minimal deployment liveness endpoint.
+Implemented endpoints: `POST /v1/analyses` and `GET /health`. The original
+`MealRecord` persistence design and `POST /v1/food-recognition` contract below
+are reserved, unimplemented designs, not prerequisites of the current manual
+meal workflow. No API fields or schemas were changed by this documentation sync.
 
 ## Common conventions
 
@@ -25,11 +27,19 @@ plus a minimal deployment liveness endpoint.
 
 ### Local ownership and stateless processing
 
-The mobile app persists meal state, food information, glucose readings, and completed analysis locally using SQLite. Image files remain in the app's persistent local file storage.
+The current mobile app owns its draft, food information, selected readings and
+result in memory. SQLite, image storage and restart recovery are not implemented.
+The original local-persistence design is retained in the reserved MealRecord
+section; it is not a current durability guarantee.
 
 The backend does not retain meal state between requests. A `meal_id` correlates a response with a local meal; it does not identify a stored backend resource.
 
-The analysis request must contain the stored food information and all glucose readings required for that calculation. It must not depend on the backend remembering the food-recognition request.
+The analysis request contains the manually entered food information and all
+glucose readings required for that calculation. It does not depend on a previous
+request. Diagnostic-only loads stay on the device; submitting a meal sends the
+normalized records, including source IDs, to the configured backend. The LLM
+receives only the whitelisted food and derived analysis context, not those IDs
+or raw glucose records.
 
 ### Error response
 
@@ -73,16 +83,18 @@ for backend-only configuration and the provider data boundary.
 
 Scientific data eligibility and calculation-specific rejection rules are defined in [IAUC_POLICY.md](IAUC_POLICY.md).
 
-## 1. MealRecord
+## 1. MealRecord (reserved persistence/recognition design; not implemented)
 
-A local mobile model. Neither endpoint accepts or returns the entire `MealRecord`.
+A proposed local mobile model. Neither endpoint accepts or returns the entire
+`MealRecord`. The current app instead uses transient ViewModel state; the enum,
+image field and persistence/restart guarantees below describe the deferred design.
 
 All fields below are present; nullable fields begin as `null`.
 
 | Field | Type | Meaning |
 |---|---|---|
 | `id` | UUID string | Locally generated meal identifier, sent as `meal_id` in API requests. |
-| `meal_at` | UTC ISO 8601 string | Recorded meal timestamp. Its relationship to capture time and the calculation interval is deferred below. |
+| `meal_at` | UTC ISO 8601 string | User-confirmed meal start; calculation interval is defined in IAUC_POLICY.md. |
 | `image_uri` | string | Local URI of the image in persistent app storage. Never sent as an API image reference. |
 | `status` | string enum | Current local workflow stage. |
 | `food_info` | `FoodInfo` or null | Stored normalized food-recognition result. |
@@ -112,20 +124,22 @@ This document does not prescribe a SQLite table layout. Nested objects may be pe
 
 ## 2. GlucoseReading
 
-A normalized glucose measurement, stored locally and included in an analysis request.
+A normalized glucose measurement held in memory and included in an analysis request.
 
 | Field | Type | Meaning |
 |---|---|---|
-| `source` | string | Source identifier, initially `health_connect`. |
+| `source` | string | Source identifier; current providers use `health_connect` and `samsung_health`. This is a string, not a closed enum. |
 | `source_record_id` | string | Required stable record identifier for local association and traceability; see the identifier rules below. |
 | `measured_at` | UTC ISO 8601 string | Measurement timestamp. |
 | `value_mmol_l` | number | Glucose concentration in mmol/L. |
 
 When the source provides a stable record identifier, use that identifier as `source_record_id`. For imported or test data without a source-provided identifier, the mobile application may generate a stable identifier during import. `source_record_id` remains a required string.
 
-The mobile app normalizes source units before storage and upload. Values in another unit must not be placed in `value_mmol_l`.
+The mobile app normalizes source units before use and upload. Values in another unit must not be placed in `value_mmol_l`.
 
-The mobile app associates cached readings with the relevant meal locally. The analysis request supplies the meal association once through its top-level `meal_id`.
+The analysis request supplies the meal association once through its top-level
+`meal_id`. Samsung series samples use stable parent-UID/timestamp-derived IDs;
+source package metadata remains diagnostic-only and is not an API field.
 
 Source identifiers do not introduce backend device or user resources.
 
@@ -133,12 +147,12 @@ Required temporal coverage, duplicate-measurement handling, and scientific valid
 
 ## 3. FoodInfo
 
-A provider-neutral food-recognition result.
+Provider-neutral food information, currently populated by manual input.
 
 | Field | Type | Meaning |
 |---|---|---|
-| `recognized_at` | UTC ISO 8601 string | Time the backend produced the normalized recognition result. |
-| `items` | array of objects | One or more recognized food items. |
+| `recognized_at` | UTC ISO 8601 string | Manual draft confirmation time in the current app; recognition-result time in the reserved CV flow. |
+| `items` | array of objects | One or more food items; the current manual form creates one. |
 
 Each item contains:
 
@@ -164,7 +178,7 @@ Provider label IDs, raw responses, bounding boxes, estimated nutrients, and prov
 
 ## 4. AnalysisResult
 
-A completed backend result, returned to the mobile app and persisted locally.
+A completed backend result, returned to the mobile app and held in session memory.
 
 | Field | Type | Meaning |
 |---|---|---|
@@ -192,9 +206,10 @@ BioSync v1 uses positive-only incremental area as defined in [IAUC_POLICY.md](IA
 
 Window, baseline, interpolation, data-quality, and other calculation-policy rules are defined in `IAUC_POLICY.md`.
 
-## 5. POST /v1/food-recognition
+## 5. POST /v1/food-recognition (reserved; not implemented)
 
-Recognize food from a meal image.
+Original optional recognition design. No current Flask route implements it;
+the following upload/response definitions are not available runtime behaviour.
 
 ### Request
 
@@ -242,13 +257,16 @@ Content type: `application/json`.
 
 | Field | Type | Required | Meaning |
 |---|---|---|---|
-| `meal_id` | UUID string | Yes | Identifier of the locally saved meal. |
-| `meal_at` | UTC ISO 8601 string | Yes | Recorded meal timestamp. |
-| `food_info` | `FoodInfo` | Yes | The normalized food information previously stored by the mobile app. |
+| `meal_id` | UUID string | Yes | Identifier of the current mobile draft, stable across unchanged retries. |
+| `meal_at` | UTC ISO 8601 string | Yes | User-selected meal timestamp, serialized from the local Date. |
+| `food_info` | `FoodInfo` | Yes | The normalized food information prepared by the mobile app. |
 | `readings` | array of `GlucoseReading` | Yes | All readings required for this request under the confirmed calculation policy. |
 | `other_meal_times` | array of UTC ISO 8601 strings | No | Timestamps of other logged meals, used only for policy-layer overlap detection. Defaults to an empty array. No backend meal storage is implied. |
 
-The mobile app persists retrieved readings before submission.
+The mobile app passes the selected provider's normalized readings from memory.
+`readings` includes pre-meal baseline data and post-meal coverage. Current retrieval
+is **[meal_at − 15 min, meal_at + 135 min)**; the analysis remains exactly 120 minutes.
+The app sends `other_meal_times: []` because it has no reliable meal history.
 
 A prior food-recognition call is not a backend prerequisite: this request is self-contained.
 
@@ -260,7 +278,9 @@ HTTP `200 OK`.
 
 The response body is an `AnalysisResult`.
 
-The mobile app associates the response through `meal_id`, persists it, advances the local stage to `completed`, and displays the stored meal, readings, iAUC, and feedback.
+The mobile app validates the matching `meal_id`, sets the transient ViewModel
+state to `success`, and displays iAUC and feedback. No persisted `completed`
+MealRecord is created.
 
 ### Errors
 
@@ -270,7 +290,14 @@ The supplied readings must satisfy the scientific and data-quality requirements 
 
 Missing or unusable data must not be represented as a successful result with an invented zero iAUC.
 
-A failed request must not cause the mobile app to remove cached meal data, food information, glucose readings, or previously stored results.
+The current form retains its input for retry but resets request results/status
+when a new attempt or input change starts. There is no persistent result cache.
+
+All six policy codes listed in IAUC_POLICY.md map to HTTP 422. Only
+`WAITING_FOR_GLUCOSE_DATA` has `retryable: true`; the other policy errors require
+input/data correction. Unexpected backend failures use HTTP 500 `INTERNAL_ERROR`
+with a sanitized message and `retryable: false`. Strict schemas reject extra
+request fields; client-supplied iAUC, image URIs and raw provider output are invalid.
 
 ### Backend responsibility
 

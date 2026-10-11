@@ -3,6 +3,13 @@
 This directory builds a ZIP and documents operator-run AWS commands. The build
 scripts **do not run AWS commands or create cloud resources**.
 
+Code/documentation review: **2026-10-11**. Mobile configuration now selects the
+AWS HTTPS demo URL; local Flask remains an alternative. The user has reported a
+working deployed analysis path. This review did not query AWS, verify the live
+alias/model, rebuild a ZIP or deploy. The validation record at the end is a
+historical package-build record, not evidence that its ZIP contains the latest
+LLM prompt. Rebuild/release after backend code changes using Updates below.
+
 ```text
 Local: React Native → local Flask → existing policy/iAUC → LLM service
 Demo:  React Native → API Gateway HTTPS → Lambda → same Flask app
@@ -288,9 +295,10 @@ text between calls. A provider failure must return the documented error envelope
 never invented mock advice. These real-mode smoke tests incur an OpenAI call.
 
 React Native's backend base URL for the demo is `$ApiBase` (include the stage,
-omit `/v1/analyses`). The client appends the existing path itself. No mobile code
-or local URL was changed by this task. Run Test Analysis must still show 225;
-the manual food + Health Connect path uses the same deployed endpoint.
+omit `/v1/analyses`). The client appends the existing path itself. The checked-in
+mobile configuration currently uses an AWS demo URL; see
+[mobile/README.md](../../mobile/README.md). Run Test Analysis must still show 225;
+manual meals using either Health Connect or Samsung Health use the same endpoint.
 
 ## Updates, logs and rollback
 
@@ -348,12 +356,12 @@ secret-bearing configuration. Rolling back an alias does not overwrite `$LATEST`
 check its code/configuration before publishing the next release. No automated
 deployment, cloud smoke test or rollback is performed by this repository build.
 
-## References
+## Historical local validation record: initial packaging
 
-## Local validation record
-
-Prepared and validated on 2026-10-04; **no AWS resources deployed** and no real
-OpenAI request made during tests/build validation.
+Prepared and validated on 2026-10-04; no AWS resources were deployed and no real
+OpenAI request was made **during that initial packaging task**. These statements
+do not describe later operator deployments. Current local test evidence is in
+[IMPLEMENTATION_STATUS.md](../../docs/IMPLEMENTATION_STATUS.md).
 
 - Full backend suite: **318 passed, 0 failed**, including the previous 294 tests.
 - Docker artifact validation: passed in Lambda Linux x86_64 **Python 3.12.15**.
@@ -362,8 +370,8 @@ OpenAI request made during tests/build validation.
 - ZIP runtime smoke: health OK; mock iAUC **225**; missing key retains
   `LLM_CONFIGURATION_ERROR`; network disabled during these checks.
 - PowerShell documentation snippets parse; `pip check` and `git diff --check` pass.
-- Cloud deployment, IAM permissions, public HTTPS and real-model access remain
-  manual verification steps after you explicitly choose to deploy.
+- Cloud deployment, IAM permissions, public HTTPS and real-model access were
+  outside that build validation; check them separately for each deployed release.
 
 New source/support files:
 

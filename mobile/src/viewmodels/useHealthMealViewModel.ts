@@ -5,7 +5,6 @@ import {
   manualAnalysisRequest,
   manualFoodInfo,
   mealGlucoseQuery,
-  normalizeMealTime,
 } from '../models/manualMeal';
 import { analyzeMeal, BackendClientError } from '../services/backendClient';
 import { HealthConnectServiceError } from '../services/healthConnectService';
@@ -111,7 +110,7 @@ export function useHealthMealViewModel() {
   const provider = glucoseProviders[source];
   const [description, setDescription] = useState('');
   const [weight, setWeight] = useState('');
-  const [mealTime, setMealTime] = useState(() => new Date().toISOString());
+  const [selectedMealTime, setSelectedMealTime] = useState(() => new Date());
   const [state, setState] = useState<State>(initialState);
   const inFlight = useRef(false);
   const mounted = useRef(true);
@@ -140,12 +139,20 @@ export function useHealthMealViewModel() {
     setSource(value);
     setState(initialState);
   }
-  function updateMealTime(value: string) {
-    if (inFlight.current) {
+  function updateMealTime(value: Date) {
+    if (
+      inFlight.current ||
+      !mounted.current ||
+      !Number.isFinite(value.getTime())
+    ) {
       return;
     }
-    setMealTime(value);
+    setSelectedMealTime(new Date(value.getTime()));
     setState(s => ({ ...initialState, access: s.access }));
+  }
+
+  function useCurrentTime() {
+    updateMealTime(new Date());
   }
 
   function updateWeight(value: string) {
@@ -188,7 +195,7 @@ export function useHealthMealViewModel() {
     let query: ReturnType<typeof mealGlucoseQuery>;
     let food: FoodInfo;
     try {
-      mealAt = normalizeMealTime(mealTime);
+      mealAt = selectedMealTime.toISOString();
       query = mealGlucoseQuery(mealAt);
       food = manualFoodInfo(description, new Date(), weight);
     } catch (error) {
@@ -268,7 +275,7 @@ export function useHealthMealViewModel() {
     updateSource,
     description,
     weight,
-    mealTime,
+    selectedMealTime,
     state,
     busy: ['requesting_permission', 'reading', 'submitting'].includes(
       state.phase,
@@ -276,6 +283,7 @@ export function useHealthMealViewModel() {
     updateDescription,
     updateWeight,
     updateMealTime,
+    useCurrentTime,
     requestHealthPermission,
     analyseMeal,
   };

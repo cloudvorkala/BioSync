@@ -1,10 +1,20 @@
 import React from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import { useHealthMealViewModel } from '../viewmodels/useHealthMealViewModel';
 
 export function HealthMealPanel() {
   const vm = useHealthMealViewModel();
   const { state, busy } = vm;
+  function chooseMealTime(mode: 'date' | 'time') {
+    DateTimePickerAndroid.open({
+      value: vm.selectedMealTime,
+      mode,
+      // Native picker uses the phone's timezone, including the selected date's DST.
+      // It preserves the other component (clock time or calendar date).
+      onValueChange: (_event, date) => vm.updateMealTime(date),
+    });
+  }
   return (
     <View style={styles.panel}>
       <Text style={styles.text}>Manual meal + {vm.sourceLabel} analysis</Text>
@@ -47,15 +57,32 @@ export function HealthMealPanel() {
         editable={!busy}
         onChangeText={vm.updateWeight}
       />
-      <Text style={styles.text}>Meal time (UTC ISO 8601, ending in Z)</Text>
-      <TextInput
-        accessibilityLabel="Meal time UTC"
-        style={styles.input}
-        autoCapitalize="none"
-        autoCorrect={false}
-        value={vm.mealTime}
-        editable={!busy}
-        onChangeText={vm.updateMealTime}
+      <Text style={styles.text}>Meal time (local)</Text>
+      <View style={styles.timeInputs}>
+        <Button
+          accessibilityLabel="Choose meal date"
+          title={vm.selectedMealTime.toLocaleDateString(undefined, {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          })}
+          disabled={busy}
+          onPress={() => chooseMealTime('date')}
+        />
+        <Button
+          accessibilityLabel="Choose meal time"
+          title={vm.selectedMealTime.toLocaleTimeString(undefined, {
+            hour: 'numeric',
+            minute: '2-digit',
+          })}
+          disabled={busy}
+          onPress={() => chooseMealTime('time')}
+        />
+      </View>
+      <Button
+        title="Use current time"
+        disabled={busy}
+        onPress={vm.useCurrentTime}
       />
       <Text style={styles.text}>
         For completed data, enter a past meal time. This form does not record
@@ -127,6 +154,7 @@ export function HealthMealPanel() {
 }
 const styles = StyleSheet.create({
   panel: { gap: 8 },
+  timeInputs: { flexDirection: 'row', gap: 8 },
   text: { color: '#172b3a', fontSize: 16 },
   input: {
     borderWidth: 1,

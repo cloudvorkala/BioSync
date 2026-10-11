@@ -1,112 +1,117 @@
-# BioSync Project Specification
+﻿# BioSync Project Specification
+
+Status: lecturer/user-clarified scope, synchronized with repository code on
+**2026-10-11**. This replaces the original mandatory image/CV/SQLite workflow;
+it does not add implementation requirements.
 
 ## Project Goal
 
-BioSync is a mobile-based dietary assistant that combines:
+The required university-project vertical slice is:
 
-1. CGM glucose data
-2. Meal image recognition
-3. Postprandial iAUC calculation
-4. LLM-generated personalised, non-diagnostic dietary feedback
+```text
+Manual food description + optional approximate weight
+  + Health Connect or Samsung Health blood glucose
+  → Flask POST /v1/analyses
+  → deterministic meal policy / iAUC
+  → OpenAI dietary feedback (or deterministic development mock)
+  → simple React Native Android UI
+```
 
-The core pipeline is:
+AI food recognition is optional and unimplemented. Polished UI and SQLite are
+not required for the current slice. The fixed prototype goal is `weight loss`,
+supplied internally to the LLM rather than through a user profile.
 
-Meal capture
-→ Food recognition
-→ Postprandial glucose retrieval
-→ iAUC calculation
-→ LLM interpretation
-→ Mobile display
+## Functional Requirements and Current Status
 
-## Functional Requirements
+| Area | Current implementation |
+|---|---|
+| Health data | Read-only BloodGlucose via Health Connect; selectable Samsung Health Data SDK provider, including CGM series flattening. Both yield normalized GlucoseReading records. |
+| Meal input | One manual description, optional positive finite `weight_g`, local date/time picker and Use current time action. |
+| Meal time | Canonical JavaScript Date, serialized with `toISOString()`; native/JavaScript date handling respects the phone timezone and historical DST. |
+| Calculation | Backend-only positive incremental AUC using actual timestamps and trapezoidal integration. See IAUC_POLICY.md. |
+| Feedback | OpenAI Responses API with structured validation; deterministic mock available. Direct postprandial interpretation and practical meal changes for weight loss. |
+| Display | Data/request states, iAUC, summary, suggestions, limitations and readable errors; separate diagnostic panels. |
+| Regression | Run Test Analysis sends a fixed synthetic request; expected iAUC is 225 (mmol/L)·min. |
+| Persistence | No SQLite or persistent meal history. Drafts, readings and results are in memory; no restart recovery/offline cache. |
+| Deployment | Same Flask factory runs locally or through a WSGI adapter on Lambda/API Gateway. Mobile currently selects the AWS HTTPS demo endpoint. |
 
-FR1 Health Data
-Retrieve timestamped glucose readings from a supported source,
-primarily Android Health Connect for the implementation.
+Samsung SDK code/build support does not prove access to imported records.
+Physical Samsung/爱看健康 acceptance remains unconfirmed in the repository;
+see [SAMSUNG_HEALTH.md](../mobile/SAMSUNG_HEALTH.md). The user has reported successful
+Health Connect reads and the Samsung-to-Health Connect forwarding limitation.
 
-FR2 Meal Logging
-Allow the user to capture a meal image and store a meal record.
+## Architecture and Technology
 
-FR3 Food Recognition
-Send the meal image to a Computer Vision service and obtain
-structured food information.
+Mobile: React Native CLI, TypeScript, simplified MVVM using hooks; no Expo or
+Redux. Health access uses provider services; Samsung uses a thin Kotlin bridge.
+Minimum Android API is 29. See [mobile/README.md](../mobile/README.md) for versions.
 
-FR4 Metabolic Calculation
-Calculate postprandial incremental Area Under the Curve (iAUC)
-using the trapezoidal rule.
+Backend: Python 3.12, Flask, Pydantic, OpenAI SDK and serverless-wsgi.
 
-FR5 Dietary Feedback
-Combine food information and iAUC and submit them to an LLM
-to generate personalised, non-diagnostic dietary feedback.
+```text
+View → ViewModel → selected glucose provider → GlucoseReading[]
+                → backendClient → Flask route → analysis_service
+                                               → meal_analysis → iauc_service
+                                               → llm_service → mock / OpenAI
+```
 
-FR6 Visualisation
-Display glucose readings, meal information, iAUC and dietary feedback.
-
-FR7 Offline Cache
-Store meal, glucose and analysis data locally using SQLite.
-
-## Non-functional Requirements
-
-- Main meal logging flow: <= 4 primary user actions
-- iAUC calculation for <= 500 readings: <= 500 ms
-  excluding network/API latency
-- Temporary network loss must not remove cached data
-- HTTPS for client/backend communication
-- API credentials must remain on backend
-- iAUC, CV and LLM integrations must remain separate modules
-
-## Selected Technology Stack
-
-Mobile:
-- React Native
-- TypeScript
-- MVVM
-- SQLite
-- Android Health Connect
-
-Backend:
-- Python
-- Flask
-- AWS Lambda
-- API Gateway
-
-External:
-- Computer Vision API
-- LLM API
+Neither mobile nor the LLM calculates iAUC. Food weight and the interpretation
+goal never change the baseline, coverage rules or numerical result.
 
 ## Runtime Workflow
 
-1. User captures a meal image.
-2. Mobile app creates a meal record containing timestamp and image URI.
-3. Meal record is persisted locally.
-4. Image is submitted to backend/CV.
-5. Food information is returned and stored locally.
-6. System waits for the postprandial monitoring period.
-7. Mobile app retrieves relevant glucose readings.
-8. Mobile app sends glucose readings and stored food information to backend.
-9. Backend calculates iAUC.
-10. Backend sends food information + iAUC to LLM.
-11. Backend returns completed analysis.
-12. Mobile app updates local meal record and displays result.
+1. Select Health Connect (default) or Samsung Health and grant blood-glucose READ access.
+2. Enter description, optional approximate weight and local meal time.
+3. On Analyse, serialize the time to UTC and read **[meal_at − 15 min, meal_at + 135 min)**.
+4. Send food information, normalized readings and `other_meal_times: []` in a
+   self-contained analysis request. There is no meal-history source.
+5. Backend validates input and prepares the exact 0–120 minute interval under
+   [IAUC_POLICY.md](IAUC_POLICY.md). Missing data produces a policy error.
+6. Backend calculates iAUC, then sends food/optional weight and derived context
+   to the LLM provider. It does not wait through the monitoring period in a request.
+7. Mobile displays the actual response. Retry is manual after data sync; there
+   is no background polling, notification or automatic resubmission.
 
-## Out of Scope
+## Data Location and Privacy
 
-Do NOT implement:
+Diagnostic panels load/display locally. Their “data stays on this device”
+wording applies only to those operations. Meal analysis uploads selected glucose
+records (including source record IDs), food and meal time to the BioSync backend.
+With the current URL, iAUC runs in AWS Lambda; with local Flask, it runs on the
+development host. It never runs on the phone.
 
-- Direct BLE communication with CGM hardware
-- Reverse engineering Sinocare/iCan protocols
-- Custom CV model training
-- Custom LLM training
-- Medical diagnosis
-- Medication recommendations
-- Insulin dosing
-- Production clinical infrastructure
+OpenAI receives food names, optional weight, iAUC, durations, policy version,
+interpretation context and fixed goal. It receives no raw glucose sequence,
+meal UUID, source IDs or Samsung package/device metadata. The backend has no
+meal database or cross-request meal state; this is not a claim about external
+provider retention. See [LLM_INTEGRATION.md](LLM_INTEGRATION.md).
 
-## Development Scope
+## Non-functional Requirements
 
-This is a 15-point university mobile systems project.
+- Numerical iAUC for <= 500 readings: target <= 500 ms, excluding network/API latency.
+- HTTPS for deployed traffic; local HTTP is restricted to Android debug builds.
+- API credentials stay on the backend.
+- Keep source access, scientific policy, numerical integration and LLM interpretation separate.
+- Keep scope small. The original <= 4-action meal-logging target has not been
+  evaluated for this development form and its permission flow.
+- The original offline-cache/data-survival requirement is deferred with SQLite;
+  current session data is not guaranteed to survive app termination.
 
-Prioritise a small working end-to-end vertical slice rather than
-implementing a production-grade commercial application.
+## Deferred / Out of Scope
 
-Do not add features not justified by this specification.
+Not implemented or required for this slice: camera, CV recognition, automatic
+weight estimation, nutrition database/calorie calculation, SQLite, meal history,
+notifications, profiles, authentication, cloud database or polished UI.
+
+Do not implement direct CGM BLE access, reverse-engineer Sinocare/iCan protocols,
+train custom CV/LLM models, diagnose disease, recommend medication/insulin dosing
+or claim production clinical readiness.
+
+## Supporting Documents
+
+- [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md): code snapshot and verification evidence.
+- [API_CONTRACTS.md](API_CONTRACTS.md): implemented API and reserved recognition/storage design.
+- [IAUC_POLICY.md](IAUC_POLICY.md): scientific rules and implementation details.
+- [LLM_INTEGRATION.md](LLM_INTEGRATION.md): exact prompt, provider input and configuration.
+- [mobile/MEAL_ANALYSIS.md](../mobile/MEAL_ANALYSIS.md): input/query flow and device checks.
+- [backend/deploy/README.md](../backend/deploy/README.md): packaging and manual deployment.
