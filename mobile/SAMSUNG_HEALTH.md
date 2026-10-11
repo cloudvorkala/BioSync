@@ -1,6 +1,7 @@
 # Samsung Health blood glucose provider
 
 Status: implemented and locally built against **Samsung Health Data SDK 1.1.0**.
+Code/documentation review: **2026-10-11**; no new device test in this review.
 **Device verification pending.** Neither SDK reads nor access to records imported
 from **爱看健康** have been verified on a physical phone in this implementation task.
 Passing Jest/build checks does not establish that Samsung exposes those records.
@@ -225,7 +226,9 @@ still go to the backend, which applies its existing sufficiency policy.
    compare with Samsung's official DataViewer and record the limitation. This is
    not a successful import acceptance test until timestamps/values actually match.
 7. In the manual meal form choose **Samsung Health**, enter food/optional weight
-   and a historical UTC meal time with pre-meal and complete post-meal coverage.
+   and select a historical **local** meal date/time with pre-meal and complete
+   post-meal coverage. The Date is serialized to UTC automatically; only the
+   diagnostic start/end fields still require manual UTC strings.
    Press **Analyse Samsung Health Meal**. The existing request builder sends only
    normalized readings to AWS. Confirm an iAUC result and OpenAI advice return.
    Real data need not yield 225; that value belongs to the deterministic fixture.
@@ -242,7 +245,7 @@ Do not instruct production users to enable developer mode to bypass registration
 
 ## Automated validation and remaining acceptance
 
-Local verification for this change: **155 Jest tests passed** (42 added; all
+Historical verification for the Samsung integration: **155 Jest tests passed** (42 added; all
 113 existing tests retained), TypeScript and ESLint passed, Android debug APK
 and Metro Android bundle built successfully. Backend regression: **318 passed**;
 backend files were not changed. Build output retains existing React Native/AGP
@@ -268,4 +271,6 @@ npm.cmd exec -- react-native bundle --platform android --dev true --entry-file i
 Device acceptance remains **pending**, especially third-party imported CGM
 visibility and session-boundary selection. No backend contracts or scientific
 rules were changed. This second supported source is an explicit scope extension
-requested after the original project specification selected Health Connect.
+now reflected in the current project specification. See
+[IMPLEMENTATION_STATUS.md](../docs/IMPLEMENTATION_STATUS.md) for the latest suite
+results; successful unit tests do not establish native import visibility.

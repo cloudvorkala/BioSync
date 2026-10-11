@@ -1,5 +1,13 @@
 # Health Connect blood glucose diagnostic
 
+Code/status review: **2026-10-11**. The user has reported successful physical-device
+reads of manually entered Health Connect glucose. They also reported that 爱看健康
+records visible in Samsung Health were not forwarded into Health Connect. Visibility
+in Samsung Health alone is therefore not evidence of Health Connect availability.
+The separate [Samsung provider](SAMSUNG_HEALTH.md) addresses that integration path;
+its imported-record acceptance remains pending. This documentation update did
+not repeat a physical-device test.
+
 The diagnostic panel described here reads blood glucose locally and does not
 submit it. The separate [manual meal form](MEAL_ANALYSIS.md) now reads the meal's
 glucose range and sends it to `/v1/analyses` on explicit user action. Run Test
@@ -27,7 +35,8 @@ unlabelled number or divides an already converted result by 18.
 
 ## Android setup
 
-- Minimum SDK raised from 24 to **26**, as required by the library. Compile SDK
+- The current combined app requires minimum SDK **29** because of Samsung Health
+  Data SDK. The earlier Health Connect-only integration used 26. Compile SDK
   37, target SDK 36, JDK 17 and the existing new architecture remain unchanged.
 - Only added health permission: `android.permission.health.READ_BLOOD_GLUCOSE`.
 - Package visibility query for `com.google.android.apps.healthdata`.
@@ -113,8 +122,9 @@ an ID for every stored record. No provider identifiers become backend resources.
     previously displayed records are cleared. On an unavailable provider/device,
     expect `unavailable` or `update_required`, not a crash. Unexpected native
     errors must show a readable error, not partially loaded data.
-11. Regression-check **Run Test Analysis** with Flask running. It must still
-    use its original fixture and display iAUC 225 and mock feedback independently
+11. Regression-check **Run Test Analysis** against the configured backend (AWS
+    HTTPS by default, or explicitly selected local Flask). It must still use its
+    original fixture and display iAUC 225 and feedback in the configured mode independently
     of whether Health Connect is granted or contains records.
 
 ## Limits and automated checks
@@ -130,7 +140,7 @@ Jest exercises the real mapping, service and ViewModel with only native-facing
 calls mocked; it cannot prove Android's permission UI or native datastore behavior.
 Physical-device permission/data testing must therefore be recorded separately.
 
-Verification for this change:
+Historical verification for the initial Health Connect change (not current totals):
 
 - Jest: **57 passed, 0 failed**, including all original mobile tests.
 - TypeScript and ESLint: passed.
@@ -151,6 +161,8 @@ From `mobile/`: `npm.cmd test -- --runInBand`, `npm.cmd run typecheck`,
 `npm.cmd run lint`. From `backend/`:
 `.\.venv\Scripts\python.exe -B -m pytest -p no:cacheprovider -q`.
 
-The lecturer's clarified scope takes precedence over the older specification's
-mandatory-CV/persistence workflow. This task changes no API contract or backend
-calculation policy and adds neither CV nor persistence.
+The current [project specification](../docs/PROJECT_SPEC.md) reflects the lecturer's
+clarified manual-input scope. Current test totals are in
+[IMPLEMENTATION_STATUS.md](../docs/IMPLEMENTATION_STATUS.md). No CV or persistence
+has been added. The diagnostic's local-only wording does not apply to the manual
+meal Analyse action, which uploads selected normalized records for backend iAUC.

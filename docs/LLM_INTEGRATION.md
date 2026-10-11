@@ -1,5 +1,10 @@
 # BioSync dietary feedback integration
 
+Code/documentation review: **2026-10-11**. The exact prompt and provider input
+below match the current backend source, verified by tests. This does not confirm
+which code version or model is currently deployed on Lambda; the mobile app's
+checked-in URL points to AWS HTTPS. See [IMPLEMENTATION_STATUS.md](IMPLEMENTATION_STATUS.md).
+
 ## Modes and architecture
 
 Python 3.12; OpenAI Python SDK **3.24.0**, pinned in `backend/requirements.txt`.
@@ -197,7 +202,8 @@ short, non-diagnostic and consistent with the prompt. Do not expect identical
 advice between live calls. Confirm the request in the provider account's usage
 view if needed; the public response intentionally has no provider-specific fields.
 
-On a physical Android device:
+On a physical Android device testing this local Flask instance (the checked-in
+AWS URL must be changed explicitly for this procedure):
 
 1. Put the phone and development host on a reachable LAN. Set the existing
    `mobile/src/config/development.ts` backend URL to the host LAN IP and port 5000;
@@ -206,8 +212,8 @@ On a physical Android device:
 2. Use the existing development build: from `mobile/`, `npm.cmd start`; in
    another window `npm.cmd run android`. Keep existing debug-only HTTP settings.
 3. Press **Run Test Analysis**. Confirm iAUC **225** and real-provider feedback.
-4. Request Health Connect BloodGlucose read permission. Select an existing meal
-   time with adequate baseline and postprandial records, enter a food description,
+4. Select Health Connect and request BloodGlucose read permission. Select a local
+   meal date/time with adequate baseline and postprandial records, enter a food description,
    and press **Analyse Health Connect Meal**. Confirm the returned iAUC and
    feedback. Missing data should still produce the existing policy messages,
    before any provider call. No need to wait two hours if historical data exists.
@@ -218,7 +224,7 @@ Repeat the following after stopping Flask and restarting it with each environmen
 |---|---|---|
 | Invalid key | `BIOSYNC_LLM_MODE=openai`; set `OPENAI_API_KEY` to `invalid-development-key` | Fixture returns HTTP 502 `LLM_AUTHENTICATION_ERROR` when the provider is reachable; no mock advice. |
 | Missing key | `BIOSYNC_LLM_MODE=openai`; `Remove-Item Env:OPENAI_API_KEY -ErrorAction SilentlyContinue` | Fixture returns HTTP 500 `LLM_CONFIGURATION_ERROR`; no provider request. |
-| Offline mock | `BIOSYNC_LLM_MODE=mock`; remove the key | Fixture returns HTTP 200, iAUC 225 and the original `Development mock:` text. |
+| Offline mock | `BIOSYNC_LLM_MODE=mock`; remove the key | Fixture returns HTTP 200, iAUC 225 and deterministic `Development mock:` feedback, two suggestions and one mock limitation. |
 
 To inspect error envelopes directly, from the repository root run:
 
@@ -249,11 +255,12 @@ npm.cmd run lint
 .\gradlew.bat :app:assembleDebug
 ```
 
-No scientific-policy or success-contract deviation. The API documentation adds
-only provider-neutral error codes. Lecturer-confirmed manual food input and
-deferred CV/persistence/deployment remain the scope; older specification text
-about camera/CV/SQLite/AWS is not implemented in this task. The only mobile
-changes are accurate feedback/privacy wording, not networking or UI redesign.
+No scientific-policy or success-contract change is needed for LLM interpretation.
+The current slice includes manual food/optional weight, both glucose providers,
+local time input and Lambda deployment support. CV and persistence remain
+deferred. Provider/package metadata and raw glucose data never enter this LLM
+context. This documentation review reran **340 backend tests**, **159 Jest tests**,
+TypeScript and ESLint successfully; no live provider/cloud request was made.
 
 ## Direct glycaemic-feedback refinement
 
