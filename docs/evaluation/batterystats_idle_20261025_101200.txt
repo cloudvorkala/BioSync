@@ -1,0 +1,1670 @@
+Feature status:
+  Can read 'charging remaining time': true
+  Can trust power_profile: true
+
+Statistics since last charge:
+  System starts: 0, currently on battery: true
+  Estimated battery capacity: 3700 mAh
+  Last learned battery capacity: 3700 mAh
+  Min learned battery capacity: 3700 mAh
+  Max learned battery capacity: 3700 mAh
+  Time on battery: 5m 0s 653ms (100.0%) realtime, 5m 0s 653ms (100.0%) uptime
+  Time on battery screen off: 0ms (0.0%) realtime, 0ms (0.0%) uptime
+  Time on battery screen doze: 0ms (0.0%)
+  Total run time: 5m 0s 653ms realtime, 5m 0s 653ms uptime
+  Discharge: 16.8 mAh
+  Screen off discharge: 0 mAh
+  Screen doze discharge: 0 mAh
+  Screen on discharge: 16.8 mAh
+  Device light doze discharge: 0 mAh
+  Device deep doze discharge: 0 mAh
+  Start clock time: 2026-10-25-10-12-06
+  Screen on: 5m 0s 653ms (100.0%) 0x, Interactive: 5m 0s 653ms (100.0%)
+  Screen brightnesses:
+    dim 5m 0s 653ms (100.0%) -- auto 5m 0s 653ms 
+  Screen refresh rate:
+    high 5m 0s 653ms 
+  Total WiFi Multicast wakelock Count: 0
+  Total WiFi Multicast wakelock time: 5m 0s 653ms
+
+  MULTI-DISPLAY POWER SUMMARY START
+  Display 0 Statistics:
+    Screen on: 5m 0s 653ms (100.0%) 
+    Screen brightness levels:
+      dim 5m 0s 653ms (100.0%)
+    Screen Doze: 0ms (0.0%) 
+  Display 1 Statistics:
+    Screen on: 0ms (0.0%) 
+    Screen brightness levels: (no activity)
+    Screen Doze: 0ms (0.0%) 
+  MULTI-DISPLAY POWER SUMMARY END
+
+  Mobile info
+     Mobile active time: 0ms 
+     Mobile active 5G time: 0ms 
+     Silent log on screen on time: 0ms 
+     Silent log on screen off time: 0ms 
+
+  CONNECTIVITY POWER SUMMARY START
+  Logging duration for connectivity statistics: 5m 0s 653ms 
+  Cellular Statistics:
+     Cellular kernel active time: 0ms (0.0%)
+     Cellular Sleep time:  4m 54s 844ms (98.1%)
+     Cellular Idle time:   2s 564ms (0.9%)
+     Cellular Rx time:     3s 93ms (1.0%)
+     Cellular Tx time:     
+       less than 0dBm:  0ms (0.0%)
+       0dBm to 8dBm:  0ms (0.0%)
+       8dBm to 15dBm:  0ms (0.0%)
+       15dBm to 20dBm:  0ms (0.0%)
+       above 20dBm:  0ms (0.0%)
+     Active Cellular Radio Access Technology Breakdown:
+       (no activity)
+     Cellular data received: 0B
+     Cellular data sent: 0B
+     Cellular packets received: 0
+     Cellular packets sent: 0
+     Cellular Radio Access Technology:
+       oos 5m 0s 653ms (100.0%) 
+     Cellular Rx signal strength (RSRP):
+       good (-108dBm to -98dBm):  3m 29s 904ms (69.8%) 
+       great (greater than -98dBm):  1m 30s 749ms (30.2%) 
+  Wifi Statistics:
+     Wifi kernel active time: 5m 0s 653ms (100.0%)
+     WiFi Scan time:  560ms (0.2%)
+     WiFi Sleep time:  3m 46s 902ms (75.5%)
+     WiFi Idle time:   1m 10s 828ms (23.6%)
+     WiFi Rx time:     2s 462ms (0.8%)
+     WiFi Tx time:     468ms (0.2%)
+     WiFi Battery drain: 0.141mAh
+     Wifi data received: 1.08MB
+     Wifi data sent: 923.69KB
+     Wifi packets received: 5416
+     Wifi packets sent: 3009
+     Wifi states:
+       sta 5m 0s 653ms (100.0%) 
+     Wifi supplicant states:
+       completed 5m 0s 653ms (100.0%) 
+     Wifi Rx signal strength (RSSI):
+         great (greater than -55dBm): 5m 0s 653ms (100.0%) 
+  GPS Statistics:
+     GPS signal quality (Top 4 Average CN0):
+      poor (less than 20 dBHz): 0ms (0.0%) 
+      good (greater than 20 dBHz): 0ms (0.0%) 
+  CONNECTIVITY POWER SUMMARY END
+
+  Bluetooth total received: 0B, sent: 0B
+  Bluetooth scan time: 5m 0s 653ms 
+     Bluetooth Idle time:   26s 571ms (8.8%)
+     Bluetooth Rx time:     6s 966ms (2.3%)
+     Bluetooth Tx time:     23s 948ms (8.0%)
+     Bluetooth Battery drain: 0.192mAh
+
+  Speaker Statistics: (no activity)
+
+  Device battery use since last full charge
+    Amount discharged (lower bound): 0
+    Amount discharged (upper bound): 0
+    Amount discharged while screen on: 0
+    Amount discharged while screen off: 0
+    Amount discharged while screen doze: 0
+    Amount discharged permil while screen on: 4
+    Amount discharged permil while screen off: 0
+    Amount discharged permil while screen doze: 0
+
+  Estimated power use (mAh):
+    Capacity: 3700, Rated: 4174, Typical: 4300, Computed drain: 0, actual drain: 0
+    Global
+    screen: 7.23 apps: 7.23
+    cpu: 2.91 apps: 2.90 duration: 5m 0s 564ms 
+    bluetooth: 0.272 apps: 0.255
+    mobile_radio: 0.0998 apps: 0
+    wifi: 0.0704 apps: 0.0606
+      (on battery, screen on)
+      screen: 7.23 apps: 7.23
+      cpu: 2.91 apps: 2.90 duration: 5m 0s 564ms 
+      bluetooth: 0.272 apps: 0.255
+      mobile_radio: 0.0998 apps: 0
+      wifi: 0.0704 apps: 0.0606
+  UID u0a291: 7.54 bg: 0.307
+      screen=7.23 cpu=0.307 cpu:bg=0.307
+      (on battery, screen on) screen=7.23 cpu=0.307 cpu:bg=0.307
+  UID 1000: 1.05 bg: 1.05
+      cpu=1.01 cpu:bg=1.01 bluetooth=0.0255 bluetooth:bg=0.0255 wifi=0.00980 wifi:bg=0.00980
+      (on battery, screen on) cpu=1.01 cpu:bg=1.01 bluetooth=0.0255 bluetooth:bg=0.0255 wifi=0.00980 wifi:bg=0.00980
+  UID u0a48: 0.401 bg: 0.401
+      cpu=0.401 cpu:bg=0.401
+      (on battery, screen on) cpu=0.401 cpu:bg=0.401
+  UID 0: 0.359 bg: 0.359
+      cpu=0.359 cpu:bg=0.359 wifi=0.0000640 wifi:bg=0.0000640
+      (on battery, screen on) cpu=0.359 cpu:bg=0.359 wifi=0.0000640 wifi:bg=0.0000640
+  UID 1002: 0.249 bg: 0.249
+      cpu=0.224 cpu:bg=0.224 bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) cpu=0.224 cpu:bg=0.224 bluetooth=0.0255 bluetooth:bg=0.0255
+  UID u0a281: 0.130 bg: 0.0197 (336ms) cached: 0.111 (4m 14s 608ms)
+      cpu=0.121 cpu:bg=0.0184 cpu:cached=0.103 wifi=0.00884 wifi:bg=0.00132 wifi:cached=0.00752
+      (on battery, screen on) cpu=0.121 cpu:bg=0.0184 cpu:cached=0.103 wifi=0.00884 wifi:bg=0.00132 wifi:cached=0.00752
+  UID u0a276: 0.106 bg: 0.106
+      cpu=0.0759 cpu:bg=0.0759 bluetooth=0.0255 bluetooth:bg=0.0255 wifi=0.00472 wifi:bg=0.00472
+      (on battery, screen on) cpu=0.0759 cpu:bg=0.0759 bluetooth=0.0255 bluetooth:bg=0.0255 wifi=0.00472 wifi:bg=0.00472
+  UID 1066: 0.103 bg: 0.103
+      cpu=0.103 cpu:bg=0.103
+      (on battery, screen on) cpu=0.103 cpu:bg=0.103
+  UID u0a364: 0.0788 bg: 0.0788
+      cpu=0.0788 cpu:bg=0.0788
+      (on battery, screen on) cpu=0.0788 cpu:bg=0.0788
+  UID 1010: 0.0607 bg: 0.0607
+      cpu=0.0607 cpu:bg=0.0607
+      (on battery, screen on) cpu=0.0607 cpu:bg=0.0607
+  UID u0a376: 0.0345 bg: 0.0345
+      cpu=0.0299 cpu:bg=0.0299 wifi=0.00461 wifi:bg=0.00461
+      (on battery, screen on) cpu=0.0299 cpu:bg=0.0299 wifi=0.00461 wifi:bg=0.00461
+  UID u0a99: 0.0294 fg: 0.0120 (2m 3s 17ms) bg: 0.0164 fgs: 0.000955 (9s 957ms)
+      cpu=0.00390 cpu:fg=0.00159 cpu:bg=0.00220 cpu:fgs=0.000111 bluetooth=0.0255 bluetooth:fg=0.0104 bluetooth:bg=0.0142 bluetooth:fgs=0.000844
+      (on battery, screen on) cpu=0.00390 cpu:fg=0.00159 cpu:bg=0.00220 cpu:fgs=0.000111 bluetooth=0.0255 bluetooth:fg=0.0104 bluetooth:bg=0.0142 bluetooth:fgs=0.000844
+  UID 5006: 0.0276 bg: 0.0276
+      cpu=0.00214 cpu:bg=0.00214 bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) cpu=0.00214 cpu:bg=0.00214 bluetooth=0.0255 bluetooth:bg=0.0255
+  UID u0a129: 0.0256 bg: 0.0256
+      cpu=0.0000990 cpu:bg=0.0000990 bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) cpu=0.0000990 cpu:bg=0.0000990 bluetooth=0.0255 bluetooth:bg=0.0255
+  UID 5025: 0.0255 bg: 0.0255
+      cpu=0.0000740 cpu:bg=0.0000740 bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) cpu=0.0000740 cpu:bg=0.0000740 bluetooth=0.0255 bluetooth:bg=0.0255
+  UID u0a76: 0.0255 bg: 0.0255
+      cpu=0.0000700 cpu:bg=0.0000700 bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) cpu=0.0000700 cpu:bg=0.0000700 bluetooth=0.0255 bluetooth:bg=0.0255
+  UID u0a365: 0.0255 bg: 0.0255
+      bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) bluetooth=0.0255 bluetooth:bg=0.0255
+  UID u0a406: 0.0255 bg: 0.0255
+      bluetooth=0.0255 bluetooth:bg=0.0255
+      (on battery, screen on) bluetooth=0.0255 bluetooth:bg=0.0255
+  UID u0a294: 0.0215 bg: 0.00670 (1s 415ms) cached: 0.0148 (3m 25s 837ms)
+      cpu=0.0187 cpu:bg=0.00584 cpu:cached=0.0128 wifi=0.00278 wifi:bg=0.000856 wifi:cached=0.00192
+      (on battery, screen on) cpu=0.0187 cpu:bg=0.00584 cpu:cached=0.0128 wifi=0.00278 wifi:bg=0.000856 wifi:cached=0.00192
+  UID u0a542: 0.0202 bg: 0.0202
+      cpu=0.0198 cpu:bg=0.0198 wifi=0.000426 wifi:bg=0.000426
+      (on battery, screen on) cpu=0.0198 cpu:bg=0.0198 wifi=0.000426 wifi:bg=0.000426
+  UID 1036: 0.0179 bg: 0.0179
+      cpu=0.0179 cpu:bg=0.0179
+      (on battery, screen on) cpu=0.0179 cpu:bg=0.0179
+  UID 2000: 0.0172 bg: 0.0172
+      cpu=0.00183 cpu:bg=0.00183 wifi=0.0154 wifi:bg=0.0154
+      (on battery, screen on) cpu=0.00183 cpu:bg=0.00183 wifi=0.0154 wifi:bg=0.0154
+  UID 1020: 0.0117 bg: 0.0117
+      cpu=0.00201 cpu:bg=0.00201 wifi=0.00971 wifi:bg=0.00971
+      (on battery, screen on) cpu=0.00201 cpu:bg=0.00201 wifi=0.00971 wifi:bg=0.00971
+  UID u0a136: 0.0109 bg: 0.0109
+      cpu=0.0109 cpu:bg=0.0109
+      (on battery, screen on) cpu=0.0109 cpu:bg=0.0109
+  UID 1069: 0.00592 bg: 0.00592
+      cpu=0.00592 cpu:bg=0.00592
+      (on battery, screen on) cpu=0.00592 cpu:bg=0.00592
+  UID 1001: 0.00421 bg: 0.00421
+      cpu=0.00421 cpu:bg=0.00421
+      (on battery, screen on) cpu=0.00421 cpu:bg=0.00421
+  UID 1073: 0.00397 bg: 0.00397
+      cpu=0.00397 cpu:bg=0.00397
+      (on battery, screen on) cpu=0.00397 cpu:bg=0.00397
+  UID u0a102: 0.00396 bg: 0.00396
+      cpu=0.00396 cpu:bg=0.00396
+      (on battery, screen on) cpu=0.00396 cpu:bg=0.00396
+  UID u0a278: 0.00378 bg: 0.00378
+      cpu=0.00210 cpu:bg=0.00210 wifi=0.00168 wifi:bg=0.00168
+      (on battery, screen on) cpu=0.00210 cpu:bg=0.00210 wifi=0.00168 wifi:bg=0.00168
+  UID u0a355: 0.00339 bg: 0.00339
+      cpu=0.00339 cpu:bg=0.00339
+      (on battery, screen on) cpu=0.00339 cpu:bg=0.00339
+  UID u0a342: 0.00331 bg: 0.00331
+      cpu=0.00331 cpu:bg=0.00331
+      (on battery, screen on) cpu=0.00331 cpu:bg=0.00331
+  UID u0a58: 0.00325 bg: 0.00325
+      cpu=0.00325 cpu:bg=0.00325
+      (on battery, screen on) cpu=0.00325 cpu:bg=0.00325
+  UID u0a127: 0.00166 bg: 0.00166
+      cpu=0.00166 cpu:bg=0.00166
+      (on battery, screen on) cpu=0.00166 cpu:bg=0.00166
+  UID u0a125: 0.00165 bg: 0.00165
+      cpu=0.00165 cpu:bg=0.00165
+      (on battery, screen on) cpu=0.00165 cpu:bg=0.00165
+  UID 5279: 0.00154 bg: 0.00154
+      cpu=0.00154 cpu:bg=0.00154
+      (on battery, screen on) cpu=0.00154 cpu:bg=0.00154
+  UID u0a68: 0.00139 bg: 0.00139
+      cpu=0.00139 cpu:bg=0.00139
+      (on battery, screen on) cpu=0.00139 cpu:bg=0.00139
+  UID u0a275: 0.00136 bg: 0.00136
+      cpu=0.0000990 cpu:bg=0.0000990 wifi=0.00126 wifi:bg=0.00126
+      (on battery, screen on) cpu=0.0000990 cpu:bg=0.0000990 wifi=0.00126 wifi:bg=0.00126
+  UID u0a126: 0.00135 bg: 0.00135
+      cpu=0.00135 cpu:bg=0.00135
+      (on battery, screen on) cpu=0.00135 cpu:bg=0.00135
+  UID u0a131: 0.00135 bg: 0.00135
+      cpu=0.00135 cpu:bg=0.00135
+      (on battery, screen on) cpu=0.00135 cpu:bg=0.00135
+  UID u0a122: 0.00135 bg: 0.000757 fgs: 0.0000240 (6s 51ms) cached: 0.000571 (2m 6s 772ms)
+      cpu=0.00135 cpu:bg=0.000757 cpu:fgs=0.0000240 cpu:cached=0.000571
+      (on battery, screen on) cpu=0.00135 cpu:bg=0.000757 cpu:fgs=0.0000240 cpu:cached=0.000571
+  UID u0a285: 0.00127 bg: 0.00127
+      wifi=0.00127 wifi:bg=0.00127
+      (on battery, screen on) wifi=0.00127 wifi:bg=0.00127
+  UID 1041: 0.00124 bg: 0.00124
+      cpu=0.00124 cpu:bg=0.00124
+      (on battery, screen on) cpu=0.00124 cpu:bg=0.00124
+  UID u0a163: 0.000769 bg: 0.000769
+      cpu=0.000769 cpu:bg=0.000769
+      (on battery, screen on) cpu=0.000769 cpu:bg=0.000769
+  UID u0a156: 0.000707 bg: 0.000707
+      cpu=0.000707 cpu:bg=0.000707
+      (on battery, screen on) cpu=0.000707 cpu:bg=0.000707
+  UID u0a112: 0.000496 bg: 0.000496
+      cpu=0.000496 cpu:bg=0.000496
+      (on battery, screen on) cpu=0.000496 cpu:bg=0.000496
+  UID 1047: 0.000427 bg: 0.000427
+      cpu=0.000427 cpu:bg=0.000427
+      (on battery, screen on) cpu=0.000427 cpu:bg=0.000427
+  UID u0a120: 0.000372 bg: 0.000211 fgs: 0 (6s 560ms) cached: 0.000161 (2m 6s 230ms)
+      cpu=0.000372 cpu:bg=0.000211 cpu:cached=0.000161
+      (on battery, screen on) cpu=0.000372 cpu:bg=0.000211 cpu:cached=0.000161
+  UID u0a327: 0.000322 bg: 0.000322
+      cpu=0.000322 cpu:bg=0.000322
+      (on battery, screen on) cpu=0.000322 cpu:bg=0.000322
+  UID 5013: 0.000315 bg: 0.000315
+      cpu=0.000315 cpu:bg=0.000315
+      (on battery, screen on) cpu=0.000315 cpu:bg=0.000315
+  UID u0a238: 0.000285 bg: 0.000285
+      cpu=0.000285 cpu:bg=0.000285
+      (on battery, screen on) cpu=0.000285 cpu:bg=0.000285
+  UID u0a70: 0.000210 bg: 0.000124 fgs: 0 (6s 22ms) cached: 0.0000860 (2m 6s 479ms)
+      cpu=0.000210 cpu:bg=0.000124 cpu:cached=0.0000860
+      (on battery, screen on) cpu=0.000210 cpu:bg=0.000124 cpu:cached=0.0000860
+  UID 9999: 0.000161 bg: 0.000161
+      cpu=0.000161 cpu:bg=0.000161
+      (on battery, screen on) cpu=0.000161 cpu:bg=0.000161
+  UID u0a349: 0.000148 bg: 0.0000860 fgs: 0 (6s 516ms) cached: 0.0000620 (2m 6s 250ms)
+      cpu=0.000148 cpu:bg=0.0000860 cpu:cached=0.0000620
+      (on battery, screen on) cpu=0.000148 cpu:bg=0.0000860 cpu:cached=0.0000620
+  UID 1021: 0.0000990 bg: 0.0000990
+      cpu=0.0000990 cpu:bg=0.0000990
+      (on battery, screen on) cpu=0.0000990 cpu:bg=0.0000990
+  UID u0a268: 0.0000860 bg: 0.0000860
+      cpu=0.0000860 cpu:bg=0.0000860
+      (on battery, screen on) cpu=0.0000860 cpu:bg=0.0000860
+  UID u0a426: 0.0000860 bg: 0.0000860
+      cpu=0.0000860 cpu:bg=0.0000860
+      (on battery, screen on) cpu=0.0000860 cpu:bg=0.0000860
+  UID u0a323: 0.0000740 bg: 0.0000740
+      cpu=0.0000740 cpu:bg=0.0000740
+      (on battery, screen on) cpu=0.0000740 cpu:bg=0.0000740
+  UID 1027: 0.0000700 bg: 0.0000700
+      cpu=0.0000700 cpu:bg=0.0000700
+      (on battery, screen on) cpu=0.0000700 cpu:bg=0.0000700
+  UID 1092: 0.0000490 bg: 0.0000490
+      cpu=0.0000490 cpu:bg=0.0000490
+      (on battery, screen on) cpu=0.0000490 cpu:bg=0.0000490
+  UID u0a96: 0.0000490 bg: 0.0000490
+      cpu=0.0000490 cpu:bg=0.0000490
+      (on battery, screen on) cpu=0.0000490 cpu:bg=0.0000490
+  UID u0a148: 0.0000490 bg: 0.0000490
+      cpu=0.0000490 cpu:bg=0.0000490
+      (on battery, screen on) cpu=0.0000490 cpu:bg=0.0000490
+  UID u0a121: 0.0000240 bg: 0.0000240
+      cpu=0.0000240 cpu:bg=0.0000240
+      (on battery, screen on) cpu=0.0000240 cpu:bg=0.0000240
+  UID u0a356: 0.0000240 bg: 0.0000240
+      cpu=0.0000240 cpu:bg=0.0000240
+      (on battery, screen on) cpu=0.0000240 cpu:bg=0.0000240
+  UID 1017: 0.0000120 bg: 0.0000120
+      cpu=0.0000120 cpu:bg=0.0000120
+      (on battery, screen on) cpu=0.0000120 cpu:bg=0.0000120
+  UID u0a565: 0.0000120 bg: 0.0000120
+      cpu=0.0000120 cpu:bg=0.0000120
+      (on battery, screen on) cpu=0.0000120 cpu:bg=0.0000120
+
+  CPU scaling: 
+    policy0: 400000 576000 672000 768000 864000 960000 1056000 1152000 1248000 1344000 1440000 1536000 1632000 1728000 1805000
+    policy2: 576000 672000 768000 864000 960000 1056000 1152000 1248000 1344000 1440000 1536000 1632000 1728000 1824000 1920000 2016000 2112000 2208000 2304000 2362000
+    policy7: 768000 864000 960000 1056000 1152000 1248000 1344000 1440000 1536000 1632000 1728000 1824000 1920000 2016000 2112000 2208000 2304000 2400000 2496000 2592000 2688000 2746000
+    policy9: 768000 864000 960000 1056000 1152000 1248000 1344000 1440000 1536000 1632000 1728000 1824000 1920000 2016000 2112000 2208000 2304000 2400000 2496000 2592000 2688000 2784000 2880000 2976000 3072000 3168000 3303000
+
+  CPU times (time_in_state): 
+    policy0: 318540 29310 9670 6220 3080 2600 1090 5960 1000 2540 390 260 1490 310 4280
+    policy2: 371170 850 690 580 630 850 2760 270 340 590 790 780 420 3560 70 50 380 150 90 1740
+    policy7: 379910 0 50 170 2160 50 30 130 120 30 130 3170 30 0 30 220 30 20 150 350 0 0
+    policy9: 376960 0 0 10 9590 0 0 0 0 0 0 0 0 0 10 40 20 0 0 20 0 90 0 0 0 0 0
+
+  Screen off CPU times (time_in_state): 
+    policy0: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    policy2: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    policy7: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    policy9: 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+  1000:
+    Wi-Fi network: 178.45KB received, 1.91KB sent (packets 1270 received, 26 sent)
+       WiFi Scan time:  0ms (0.0%)
+       WiFi Sleep time:  5m 0s 346ms (99.9%)
+       WiFi Idle time:   0ms (0.0%)
+       WiFi Rx time:     429ms (0.1%)
+       WiFi Tx time:     4ms (0.0%)
+    Bluetooth Duty Scan (total actual realtime with duty): 15s 33ms  (currently running)
+    Bluetooth Scan (total blamed realtime): 37s 582ms  (0 times) (currently running)
+    Bluetooth Scan (total actual realtime): 5m 0s 653ms  (0 times) (currently running)
+    Bluetooth Scan (background realtime): 5m 0s 653ms  (0 times) (currently running in background)
+    Bluetooth Scan Results: 0 (0 in background)
+    Wake lock *alarm* realtime
+    Wake lock Prevent Sleep by AssistantDelay realtime
+    Wake lock NetworkStats realtime
+    Wake lock *telephony-radio* realtime
+    Wake lock com.android.server.stats.StatsCompanionService$PullingAlarmListener realtime
+    Wake lock SyncLoopWakeLock realtime
+    WiFi Multicast Wakelock count = 0 time = 2m 30s 327ms
+    Sensor 17: 2m 30s 327ms blamed realtime, 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 19: 2m 30s 327ms blamed realtime, 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 27: 2m 30s 327ms blamed realtime, 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 32: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 34: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 37: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 45: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 55: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 57: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 62: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 63: 2m 30s 327ms blamed realtime, 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Sensor 69: 5m 0s 653ms realtime (0 times), 5m 0s 653ms background (0 times)
+    Total cpu time: u=34s 481ms s=50s 64ms 
+    Total cpu time per freq:
+       57611 5304 1469 727 650 358 122 564 300 476 29 22 268 108 1269
+       2817 45 27 18 39 40 55 40 83 152 196 186 34 312 7 1 111 59 49 788
+       6 0 0 0 3 2 2 3 2 0 0 4 1 0 0 9 0 0 1 70 0 0
+       2 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+    Proc vendor.samsung.hardware.thermal-service:
+      CPU: 130ms usr + 540ms krn ; 0ms fg
+    Proc com.sec.epdg:
+      CPU: 140ms usr + 110ms krn ; 0ms fg
+    Proc android.hardware.sensors-service.multihal:
+      CPU: 630ms usr + 1s 970ms krn ; 0ms fg
+    Proc servicemanager:
+      CPU: 30ms usr + 50ms krn ; 0ms fg
+    Proc com.sec.android.sdhms:
+      CPU: 550ms usr + 460ms krn ; 0ms fg
+    Proc com.samsung.android.sead:
+      CPU: 1s 10ms usr + 570ms krn ; 0ms fg
+    Proc com.android.settings:
+      CPU: 30ms usr + 20ms krn ; 0ms fg
+    Proc vendor.samsung.hardware.health-service:
+      CPU: 60ms usr + 380ms krn ; 0ms fg
+    Proc heatmap:
+      CPU: 0ms usr + 10ms krn ; 0ms fg
+    Proc vendor.samsung.hardware.gnss-service:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc com.samsung.sec.android.teegris.tui_service:
+      CPU: 10ms usr + 20ms krn ; 0ms fg
+    Proc vendor.samsung.hardware.security.proca@2.0-service:
+      CPU: 10ms usr + 20ms krn ; 0ms fg
+    Proc perfsdkserver:
+      CPU: 20ms usr + 10ms krn ; 0ms fg
+    Proc perfmond:
+      CPU: 50ms usr + 0ms krn ; 0ms fg
+    Proc com.sec.android.diagmonagent:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+    Proc android.hardware.usb-service.exynos:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+    Proc com.samsung.android.wifi.ai:
+      CPU: 410ms usr + 190ms krn ; 0ms fg
+    Proc eris:
+      CPU: 30ms usr + 60ms krn ; 0ms fg
+    Proc epic:
+      CPU: 10ms usr + 70ms krn ; 0ms fg
+    Proc com.sec.imsservice:
+      CPU: 150ms usr + 150ms krn ; 0ms fg
+    Proc surfaceflinger:
+      CPU: 19s 430ms usr + 30s 570ms krn ; 0ms fg
+    Proc android.system.suspend-service:
+      CPU: 20ms usr + 50ms krn ; 0ms fg
+    Proc system:
+      CPU: 12s 590ms usr + 10s 640ms krn ; 0ms fg
+    Proc smdexe:
+      CPU: 0ms usr + 20ms krn ; 0ms fg
+    Proc android.hardware.graphics.allocator-aidl-service-sgr:
+      CPU: 10ms usr + 20ms krn ; 0ms fg
+    Proc vendor.samsung.hardware.hyper-service:
+      CPU: 20ms usr + 80ms krn ; 0ms fg
+    Proc ewlogd:
+      CPU: 10ms usr + 0ms krn ; 0ms fg
+    Proc android.hardware.power.samsung-service:
+      CPU: 10ms usr + 10ms krn ; 0ms fg
+    Proc android.hardware.graphics.composer3-service.exynos:
+      CPU: 120ms usr + 350ms krn ; 0ms fg
+    Apk android:
+      Service com.android.server.content.SyncJobService:
+        Created for: 0ms uptime
+        Starts: 0, launches: 1
+  u0a291:
+    Foreground activities: 5m 0s 653ms realtime (0 times) (running)
+    Top for: 5m 0s 653ms 
+      Display #0: 5m 0s 653ms 
+    Total running: 5m 0s 653ms 
+    Total cpu time: u=22s 759ms s=27s 343ms 
+    Total cpu time per freq:
+       0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+       23584 39 33 22 28 35 30 10 9 19 31 25 5 94 1 3 5 4 3 39
+       1 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0
+       0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+Per process state tracking available: true
+Total cpu time reads: 0
+Batching Duration (min): 22181
+All UID cpu time reads since the later of device start or stats reset: 24
+UIDs removed since the later of device start or stats reset: 0
+Currently mapped isolated uids:
+  1037->1000 (ref count = 1)
+  90000->10281 (ref count = 1)
+  90001->10281 (ref count = 1)
+  90002->10281 (ref count = 1)
+  90003->10281 (ref count = 1)
+  90004->10281 (ref count = 1)
+  90005->10281 (ref count = 1)
+  90006->10281 (ref count = 1)
+  90007->10281 (ref count = 1)
+  90008->10281 (ref count = 1)
+  90009->10281 (ref count = 1)
+  90010->10281 (ref count = 1)
+  90011->10281 (ref count = 1)
+  90012->10281 (ref count = 1)
+  90013->10281 (ref count = 1)
+  90014->10281 (ref count = 1)
+  90015->10281 (ref count = 1)
+  90016->10281 (ref count = 1)
+  90017->10281 (ref count = 1)
+  90018->10281 (ref count = 1)
+  90019->10281 (ref count = 1)
+  90020->10281 (ref count = 1)
+  90021->10281 (ref count = 1)
+  90022->10281 (ref count = 1)
+  90023->10281 (ref count = 1)
+  90024->10281 (ref count = 1)
+  90025->10281 (ref count = 1)
+  90026->10281 (ref count = 1)
+  90027->10281 (ref count = 1)
+  90028->10281 (ref count = 1)
+  90029->10281 (ref count = 1)
+  90030->10281 (ref count = 1)
+  90031->10281 (ref count = 1)
+  90032->10281 (ref count = 1)
+  90033->10281 (ref count = 1)
+  90034->10281 (ref count = 1)
+  90035->10281 (ref count = 1)
+  90036->10281 (ref count = 1)
+  90037->10281 (ref count = 1)
+  90038->10281 (ref count = 1)
+  90039->10281 (ref count = 1)
+  90040->10281 (ref count = 1)
+  90041->10281 (ref count = 1)
+  90042->10281 (ref count = 1)
+  90043->10281 (ref count = 1)
+  90044->10281 (ref count = 1)
+  90045->10281 (ref count = 1)
+  90046->10281 (ref count = 1)
+  90047->10281 (ref count = 1)
+  90048->10281 (ref count = 1)
+  90049->10281 (ref count = 1)
+  90050->10281 (ref count = 1)
+  90051->10281 (ref count = 1)
+  90052->10281 (ref count = 1)
+  90053->10281 (ref count = 1)
+  90054->10281 (ref count = 1)
+  90055->10281 (ref count = 1)
+  90056->10281 (ref count = 1)
+  90057->10281 (ref count = 1)
+  90058->10281 (ref count = 1)
+  90059->10281 (ref count = 1)
+  90060->10281 (ref count = 1)
+  90061->10281 (ref count = 1)
+  90062->10281 (ref count = 1)
+  90063->10281 (ref count = 1)
+  90064->10281 (ref count = 1)
+  90065->10281 (ref count = 1)
+  90066->10281 (ref count = 1)
+  90067->10281 (ref count = 1)
+  90068->10281 (ref count = 1)
+  90069->10281 (ref count = 1)
+  90070->10281 (ref count = 1)
+  90071->10281 (ref count = 1)
+  90072->10281 (ref count = 1)
+  90073->10281 (ref count = 1)
+  90074->10281 (ref count = 1)
+  90075->10281 (ref count = 1)
+  90076->10281 (ref count = 1)
+  90077->10281 (ref count = 1)
+  90078->10281 (ref count = 1)
+  90079->10281 (ref count = 1)
+  90080->10281 (ref count = 1)
+  90081->10281 (ref count = 1)
+  90082->10281 (ref count = 1)
+  90083->10281 (ref count = 1)
+  90084->10281 (ref count = 1)
+  90085->10281 (ref count = 1)
+  90086->10281 (ref count = 1)
+  90087->10281 (ref count = 1)
+  90088->10281 (ref count = 1)
+  90089->10281 (ref count = 1)
+  90090->10281 (ref count = 1)
+  90091->10281 (ref count = 1)
+  90092->10281 (ref count = 1)
+  90093->10281 (ref count = 1)
+  90094->10281 (ref count = 1)
+  90095->10281 (ref count = 1)
+  90096->10281 (ref count = 1)
+  90097->10281 (ref count = 1)
+  90098->10281 (ref count = 1)
+  90099->10281 (ref count = 1)
+  90100->10396 (ref count = 1)
+  90101->10396 (ref count = 1)
+  99000->10576 (ref count = 1)
+  99001->10412 (ref count = 1)
+  99002->10370 (ref count = 1)
+  99003->10412 (ref count = 1)
+  99004->10370 (ref count = 1)
+  99005->10576 (ref count = 1)
+  99006->10413 (ref count = 1)
+  99007->10412 (ref count = 1)
+  99008->10157 (ref count = 1)
+  99009->10157 (ref count = 1)
+  99010->10576 (ref count = 1)
+  99011->10413 (ref count = 1)
+  99012->10278 (ref count = 1)
+  99013->10412 (ref count = 1)
+  99014->10370 (ref count = 1)
+  99015->10278 (ref count = 1)
+  99016->10412 (ref count = 1)
+  99017->10278 (ref count = 1)
+  99018->10278 (ref count = 1)
+  99019->10412 (ref count = 1)
+  99020->10276 (ref count = 1)
+  99021->10290 (ref count = 1)
+  99022->10338 (ref count = 1)
+  99023->10338 (ref count = 1)
+  99024->10412 (ref count = 1)
+  99025->10341 (ref count = 1)
+  99026->10290 (ref count = 1)
+  99027->10412 (ref count = 1)
+  99028->10427 (ref count = 1)
+  99029->10412 (ref count = 1)
+  99030->10412 (ref count = 1)
+  99031->10294 (ref count = 1)
+  99032->10412 (ref count = 1)
+  99033->10382 (ref count = 1)
+  99034->10338 (ref count = 1)
+  99035->10338 (ref count = 1)
+  99036->10338 (ref count = 1)
+  99037->10412 (ref count = 1)
+  99038->10290 (ref count = 1)
+  99039->10278 (ref count = 1)
+  99040->10412 (ref count = 1)
+  99041->10157 (ref count = 1)
+  99042->10278 (ref count = 1)
+  99043->10341 (ref count = 1)
+  99044->10412 (ref count = 1)
+  99045->10278 (ref count = 1)
+  99046->10412 (ref count = 1)
+  99047->10278 (ref count = 1)
+  99048->10412 (ref count = 1)
+  99049->10278 (ref count = 1)
+  99050->10412 (ref count = 1)
+  99051->10412 (ref count = 1)
+  99052->10278 (ref count = 1)
+  99053->10278 (ref count = 1)
+  99054->10412 (ref count = 1)
+  99055->10294 (ref count = 1)
+  99056->10278 (ref count = 1)
+  99057->10412 (ref count = 1)
+  99058->10278 (ref count = 1)
+  99059->10365 (ref count = 1)
+  99060->10412 (ref count = 1)
+  99061->10338 (ref count = 1)
+  99062->10338 (ref count = 1)
+  99063->10338 (ref count = 1)
+  99064->10341 (ref count = 1)
+  99065->10278 (ref count = 1)
+  99066->10294 (ref count = 1)
+  99067->10370 (ref count = 1)
+  99068->10412 (ref count = 1)
+  99069->10576 (ref count = 1)
+  99070->10370 (ref count = 1)
+  99071->10412 (ref count = 1)
+  99072->10290 (ref count = 1)
+  99073->10157 (ref count = 1)
+  99074->10290 (ref count = 1)
+  99075->10294 (ref count = 1)
+  99076->10294 (ref count = 1)
+  99077->10412 (ref count = 1)
+  99078->10278 (ref count = 1)
+  99079->10157 (ref count = 1)
+  99080->10290 (ref count = 1)
+  99081->10290 (ref count = 1)
+  99082->10157 (ref count = 1)
+  99083->10278 (ref count = 1)
+  99084->10290 (ref count = 1)
+  99085->10157 (ref count = 1)
+  99086->10316 (ref count = 1)
+  99087->10276 (ref count = 1)
+  99088->10157 (ref count = 1)
+  99089->10576 (ref count = 1)
+  99090->10412 (ref count = 1)
+  99091->10412 (ref count = 1)
+  99092->10370 (ref count = 1)
+  99093->10375 (ref count = 1)
+  99094->10575 (ref count = 1)
+  99095->10412 (ref count = 1)
+  99096->10290 (ref count = 1)
+  99097->10157 (ref count = 1)
+  99098->10412 (ref count = 1)
+  99099->10290 (ref count = 1)
+  99100->10412 (ref count = 1)
+  99101->10290 (ref count = 1)
+  99102->10412 (ref count = 1)
+  99103->10294 (ref count = 1)
+  99104->10576 (ref count = 1)
+  99105->10412 (ref count = 1)
+  99106->10576 (ref count = 1)
+  99107->10412 (ref count = 1)
+  99108->10276 (ref count = 1)
+  99109->10412 (ref count = 1)
+  99110->10412 (ref count = 1)
+  99111->10157 (ref count = 1)
+  99112->10412 (ref count = 1)
+  99113->10576 (ref count = 1)
+  99114->10350 (ref count = 1)
+  99115->10278 (ref count = 1)
+  99116->10412 (ref count = 1)
+  99117->10370 (ref count = 1)
+  99118->10412 (ref count = 1)
+  99119->10412 (ref count = 1)
+  99120->10412 (ref count = 1)
+  99121->10576 (ref count = 1)
+  99122->10375 (ref count = 1)
+  99123->10375 (ref count = 1)
+  99124->10375 (ref count = 1)
+  99125->10412 (ref count = 1)
+  99126->10412 (ref count = 1)
+  99127->10290 (ref count = 1)
+  99128->10412 (ref count = 1)
+  99129->10157 (ref count = 1)
+  99130->10412 (ref count = 1)
+  99131->10278 (ref count = 1)
+  99132->10334 (ref count = 1)
+  99133->10341 (ref count = 1)
+  99134->10576 (ref count = 1)
+  99135->10412 (ref count = 1)
+  99136->10412 (ref count = 1)
+  99137->10290 (ref count = 1)
+  99138->10412 (ref count = 1)
+  99139->10290 (ref count = 1)
+  99140->10412 (ref count = 1)
+  99141->10278 (ref count = 1)
+  99142->10278 (ref count = 1)
+  99143->10278 (ref count = 1)
+  99144->10412 (ref count = 1)
+  99145->10427 (ref count = 1)
+  99146->10278 (ref count = 1)
+  99147->10412 (ref count = 1)
+  99148->10278 (ref count = 1)
+  99149->10338 (ref count = 1)
+  99150->10338 (ref count = 1)
+  99151->10412 (ref count = 1)
+  99152->10278 (ref count = 1)
+  99153->10278 (ref count = 1)
+  99154->10412 (ref count = 1)
+  99155->10278 (ref count = 1)
+  99156->10157 (ref count = 1)
+  99157->10338 (ref count = 1)
+  99158->10338 (ref count = 1)
+  99159->10382 (ref count = 1)
+  99160->10412 (ref count = 1)
+  99161->10278 (ref count = 1)
+  99162->10412 (ref count = 1)
+  99163->10278 (ref count = 1)
+  99164->10338 (ref count = 1)
+  99165->10338 (ref count = 1)
+  99166->10338 (ref count = 1)
+  99167->10278 (ref count = 1)
+  99168->10412 (ref count = 1)
+  99169->10278 (ref count = 1)
+  99170->10412 (ref count = 1)
+  99171->10278 (ref count = 1)
+  99172->10341 (ref count = 1)
+  99173->10412 (ref count = 1)
+  99174->10278 (ref count = 1)
+  99175->10338 (ref count = 1)
+  99176->10338 (ref count = 1)
+  99177->10338 (ref count = 1)
+  99178->10341 (ref count = 1)
+  99179->10412 (ref count = 1)
+  99180->10278 (ref count = 1)
+  99181->10412 (ref count = 1)
+  99182->10278 (ref count = 1)
+  99183->10412 (ref count = 1)
+  99184->10278 (ref count = 1)
+  99185->10412 (ref count = 1)
+  99186->10278 (ref count = 1)
+  99187->10157 (ref count = 1)
+  99188->10412 (ref count = 1)
+  99189->10365 (ref count = 1)
+  99190->10576 (ref count = 1)
+  99191->10412 (ref count = 1)
+  99192->10338 (ref count = 1)
+  99193->10412 (ref count = 1)
+  99194->10412 (ref count = 1)
+  99195->10294 (ref count = 1)
+  99196->10576 (ref count = 1)
+  99197->10412 (ref count = 1)
+  99198->10157 (ref count = 1)
+  99199->10278 (ref count = 1)
+  99200->10157 (ref count = 1)
+  99201->10278 (ref count = 1)
+  99202->10412 (ref count = 1)
+  99203->10413 (ref count = 1)
+  99204->10412 (ref count = 1)
+  99205->10576 (ref count = 1)
+  99206->10157 (ref count = 1)
+  99207->10412 (ref count = 1)
+  99208->10365 (ref count = 1)
+  99209->10412 (ref count = 1)
+  99210->10290 (ref count = 1)
+  99211->10412 (ref count = 1)
+  99212->10576 (ref count = 1)
+  99213->10412 (ref count = 1)
+  99214->10412 (ref count = 1)
+  99215->10490 (ref count = 1)
+  99216->10412 (ref count = 1)
+  99217->10294 (ref count = 1)
+  99218->10412 (ref count = 1)
+  99219->10576 (ref count = 1)
+  99220->10412 (ref count = 1)
+  99221->10373 (ref count = 1)
+  99222->10157 (ref count = 1)
+  99223->10290 (ref count = 1)
+  99224->10412 (ref count = 1)
+  99225->10350 (ref count = 1)
+  99226->10576 (ref count = 1)
+  99227->10388 (ref count = 1)
+  99228->10370 (ref count = 1)
+  99229->10408 (ref count = 1)
+  99230->10370 (ref count = 1)
+  99231->10576 (ref count = 1)
+  99232->10157 (ref count = 1)
+  99233->10412 (ref count = 1)
+  99234->10412 (ref count = 1)
+  99235->10294 (ref count = 1)
+  99236->10316 (ref count = 1)
+  99237->10352 (ref count = 1)
+  99238->10413 (ref count = 1)
+  99239->10412 (ref count = 1)
+  99240->10338 (ref count = 1)
+  99241->10338 (ref count = 1)
+  99242->10412 (ref count = 1)
+  99243->10412 (ref count = 1)
+  99244->10147 (ref count = 1)
+  99245->10365 (ref count = 1)
+  99246->10412 (ref count = 1)
+  99247->10276 (ref count = 1)
+  99248->10412 (ref count = 1)
+  99249->10350 (ref count = 1)
+  99250->10576 (ref count = 1)
+  99251->10412 (ref count = 1)
+  99252->10412 (ref count = 1)
+  99253->10412 (ref count = 1)
+  99254->10294 (ref count = 1)
+  99255->10370 (ref count = 1)
+  99256->10412 (ref count = 1)
+  99257->10412 (ref count = 1)
+  99258->10278 (ref count = 1)
+  99259->10412 (ref count = 1)
+  99260->10412 (ref count = 1)
+  99261->10157 (ref count = 1)
+  99262->10278 (ref count = 1)
+  99263->10413 (ref count = 1)
+  99264->10157 (ref count = 1)
+  99265->10412 (ref count = 1)
+  99266->10412 (ref count = 1)
+  99267->10474 (ref count = 1)
+  99268->10427 (ref count = 1)
+  99269->10412 (ref count = 1)
+  99270->10278 (ref count = 1)
+  99271->10290 (ref count = 1)
+  99272->10412 (ref count = 1)
+  99273->10278 (ref count = 1)
+  99274->10412 (ref count = 1)
+  99275->10278 (ref count = 1)
+  99276->10412 (ref count = 1)
+  99277->10278 (ref count = 1)
+  99278->10412 (ref count = 1)
+  99279->10382 (ref count = 1)
+  99280->10365 (ref count = 1)
+  99281->10412 (ref count = 1)
+  99282->10278 (ref count = 1)
+  99283->10412 (ref count = 1)
+  99284->10338 (ref count = 1)
+  99285->10338 (ref count = 1)
+  99286->10278 (ref count = 1)
+  99287->10412 (ref count = 1)
+  99288->10294 (ref count = 1)
+  99289->10338 (ref count = 1)
+  99290->10338 (ref count = 1)
+  99291->10278 (ref count = 1)
+  99292->10412 (ref count = 1)
+  99293->10412 (ref count = 1)
+  99294->10278 (ref count = 1)
+  99295->10338 (ref count = 1)
+  99296->10338 (ref count = 1)
+  99297->10338 (ref count = 1)
+  99298->10412 (ref count = 1)
+  99299->10278 (ref count = 1)
+  99300->10290 (ref count = 1)
+  99301->10294 (ref count = 1)
+  99302->10412 (ref count = 1)
+  99303->10373 (ref count = 1)
+  99304->10412 (ref count = 1)
+  99305->10576 (ref count = 1)
+  99306->10576 (ref count = 1)
+  99307->10157 (ref count = 1)
+  99308->10412 (ref count = 1)
+  99309->10278 (ref count = 1)
+  99310->10412 (ref count = 1)
+  99311->10413 (ref count = 1)
+  99312->10290 (ref count = 1)
+  99313->10412 (ref count = 1)
+  99314->10316 (ref count = 1)
+  99315->10412 (ref count = 1)
+  99316->10290 (ref count = 1)
+  99317->10412 (ref count = 1)
+  99318->10290 (ref count = 1)
+  99319->10412 (ref count = 1)
+  99320->10294 (ref count = 1)
+  99321->10290 (ref count = 1)
+  99322->10157 (ref count = 1)
+  99323->10316 (ref count = 1)
+  99324->10412 (ref count = 1)
+  99325->10412 (ref count = 1)
+  99326->10290 (ref count = 1)
+  99327->10316 (ref count = 1)
+  99328->10370 (ref count = 1)
+  99329->10412 (ref count = 1)
+  99330->10370 (ref count = 1)
+  99331->10412 (ref count = 1)
+  99332->10576 (ref count = 1)
+  99333->10316 (ref count = 1)
+  99334->10412 (ref count = 1)
+  99335->10316 (ref count = 1)
+  99336->10412 (ref count = 1)
+  99337->10412 (ref count = 1)
+  99338->10412 (ref count = 1)
+  99339->10412 (ref count = 1)
+  99340->10412 (ref count = 1)
+  99341->10412 (ref count = 1)
+  99342->10413 (ref count = 1)
+  99343->10157 (ref count = 1)
+  99344->10412 (ref count = 1)
+  99345->10276 (ref count = 1)
+  99346->10276 (ref count = 1)
+  99347->10412 (ref count = 1)
+  99348->10278 (ref count = 1)
+  99349->10412 (ref count = 1)
+  99350->10576 (ref count = 1)
+  99351->10294 (ref count = 1)
+  99352->10412 (ref count = 1)
+  99353->10373 (ref count = 1)
+  99354->10412 (ref count = 1)
+  99355->10365 (ref count = 1)
+  99356->10157 (ref count = 1)
+  99357->10412 (ref count = 1)
+  99358->10413 (ref count = 1)
+  99359->10412 (ref count = 1)
+  99360->10290 (ref count = 1)
+  99361->10316 (ref count = 1)
+  99362->10412 (ref count = 1)
+  99363->10576 (ref count = 1)
+  99364->10412 (ref count = 1)
+  99365->10427 (ref count = 1)
+  99366->10338 (ref count = 1)
+  99367->10338 (ref count = 1)
+  99368->10412 (ref count = 1)
+  99369->10278 (ref count = 1)
+  99370->10278 (ref count = 1)
+  99371->10278 (ref count = 1)
+  99372->10412 (ref count = 1)
+  99373->10412 (ref count = 1)
+  99374->10278 (ref count = 1)
+  99375->10412 (ref count = 1)
+  99376->10338 (ref count = 1)
+  99377->10382 (ref count = 1)
+  99378->10338 (ref count = 1)
+  99379->10338 (ref count = 1)
+  99380->10278 (ref count = 1)
+  99381->10290 (ref count = 1)
+  99382->10365 (ref count = 1)
+  99383->10412 (ref count = 1)
+  99384->10338 (ref count = 1)
+  99385->10338 (ref count = 1)
+  99386->10338 (ref count = 1)
+  99387->10278 (ref count = 1)
+  99388->10412 (ref count = 1)
+  99389->10278 (ref count = 1)
+  99390->10412 (ref count = 1)
+  99391->10278 (ref count = 1)
+  99392->10576 (ref count = 1)
+  99393->10412 (ref count = 1)
+  99394->10157 (ref count = 1)
+  99395->10412 (ref count = 1)
+  99396->10350 (ref count = 1)
+  99397->10316 (ref count = 1)
+  99398->10412 (ref count = 1)
+  99399->10412 (ref count = 1)
+  99400->10372 (ref count = 1)
+  99401->10412 (ref count = 1)
+  99402->10294 (ref count = 1)
+  99403->10294 (ref count = 1)
+  99404->10412 (ref count = 1)
+  99405->10412 (ref count = 1)
+  99406->10157 (ref count = 1)
+  99407->10412 (ref count = 1)
+  99408->10278 (ref count = 1)
+  99409->10412 (ref count = 1)
+  99410->10412 (ref count = 1)
+  99411->10157 (ref count = 1)
+  99412->10290 (ref count = 1)
+  99413->10576 (ref count = 1)
+  99414->10375 (ref count = 1)
+  99415->10375 (ref count = 1)
+  99416->10370 (ref count = 1)
+  99417->10412 (ref count = 1)
+  99418->10294 (ref count = 1)
+  99419->10412 (ref count = 1)
+  99420->10576 (ref count = 1)
+  99421->10294 (ref count = 1)
+  99422->10413 (ref count = 1)
+  99423->10350 (ref count = 1)
+  99424->10278 (ref count = 1)
+  99425->10373 (ref count = 1)
+  99426->10412 (ref count = 1)
+  99427->10412 (ref count = 1)
+  99428->10157 (ref count = 1)
+  99429->10157 (ref count = 1)
+  99430->10412 (ref count = 1)
+  99431->10157 (ref count = 1)
+  99432->10412 (ref count = 1)
+  99433->10576 (ref count = 1)
+  99434->10290 (ref count = 1)
+  99435->10276 (ref count = 1)
+  99436->10412 (ref count = 1)
+  99437->10412 (ref count = 1)
+  99438->10294 (ref count = 1)
+  99439->10412 (ref count = 1)
+  99440->10157 (ref count = 1)
+  99441->10278 (ref count = 1)
+  99442->10278 (ref count = 1)
+  99443->10412 (ref count = 1)
+  99444->10412 (ref count = 1)
+  99445->10278 (ref count = 1)
+  99446->10412 (ref count = 1)
+  99447->10338 (ref count = 1)
+  99448->10338 (ref count = 1)
+  99449->10278 (ref count = 1)
+  99450->10427 (ref count = 1)
+  99451->10412 (ref count = 1)
+  99452->10278 (ref count = 1)
+  99453->10412 (ref count = 1)
+  99454->10278 (ref count = 1)
+  99455->10278 (ref count = 1)
+  99456->10338 (ref count = 1)
+  99457->10338 (ref count = 1)
+  99458->10338 (ref count = 1)
+  99459->10278 (ref count = 1)
+  99460->10412 (ref count = 1)
+  99461->10278 (ref count = 1)
+  99462->10412 (ref count = 1)
+  99463->10278 (ref count = 1)
+  99464->10412 (ref count = 1)
+  99465->10382 (ref count = 1)
+  99466->10278 (ref count = 1)
+  99467->10290 (ref count = 1)
+  99468->10365 (ref count = 1)
+  99469->10412 (ref count = 1)
+  99470->10278 (ref count = 1)
+  99471->10412 (ref count = 1)
+  99472->10278 (ref count = 1)
+  99473->10412 (ref count = 1)
+  99474->10412 (ref count = 1)
+  99475->10278 (ref count = 1)
+  99476->10412 (ref count = 1)
+  99477->10412 (ref count = 1)
+  99478->10278 (ref count = 1)
+  99479->10412 (ref count = 1)
+  99480->10278 (ref count = 1)
+  99481->10412 (ref count = 1)
+  99482->10278 (ref count = 1)
+  99483->10338 (ref count = 1)
+  99484->10338 (ref count = 1)
+  99485->10412 (ref count = 1)
+  99486->10350 (ref count = 1)
+  99487->10412 (ref count = 1)
+  99488->10157 (ref count = 1)
+  99489->10412 (ref count = 1)
+  99490->10412 (ref count = 1)
+  99491->10412 (ref count = 1)
+  99492->10290 (ref count = 1)
+  99493->10290 (ref count = 1)
+  99494->10350 (ref count = 1)
+  99495->10412 (ref count = 1)
+  99496->10375 (ref count = 1)
+  99497->10375 (ref count = 1)
+  99498->10576 (ref count = 1)
+  99499->10278 (ref count = 1)
+  99500->10412 (ref count = 1)
+  99501->10294 (ref count = 1)
+  99502->10412 (ref count = 1)
+  99503->10350 (ref count = 1)
+  99504->10412 (ref count = 1)
+  99505->10412 (ref count = 1)
+  99506->10413 (ref count = 1)
+  99507->10294 (ref count = 1)
+  99508->10375 (ref count = 1)
+  99509->10375 (ref count = 1)
+  99510->10412 (ref count = 1)
+  99511->10412 (ref count = 1)
+  99512->10157 (ref count = 1)
+  99513->10375 (ref count = 1)
+  99514->10350 (ref count = 1)
+  99515->10412 (ref count = 1)
+  99516->10278 (ref count = 1)
+  99517->10157 (ref count = 1)
+  99518->10375 (ref count = 1)
+  99519->10413 (ref count = 1)
+  99520->10350 (ref count = 1)
+  99521->10412 (ref count = 1)
+  99522->10290 (ref count = 1)
+  99523->10412 (ref count = 1)
+  99524->10294 (ref count = 1)
+  99525->10412 (ref count = 1)
+  99526->10290 (ref count = 1)
+  99527->10412 (ref count = 1)
+  99528->10576 (ref count = 1)
+  99529->10412 (ref count = 1)
+  99530->10350 (ref count = 1)
+  99531->10375 (ref count = 1)
+  99532->10375 (ref count = 1)
+  99533->10412 (ref count = 1)
+  99534->10412 (ref count = 1)
+  99535->10350 (ref count = 1)
+  99536->10157 (ref count = 1)
+  99537->10412 (ref count = 1)
+  99538->10575 (ref count = 1)
+  99539->10576 (ref count = 1)
+  99540->10412 (ref count = 1)
+  99541->10375 (ref count = 1)
+  99542->10412 (ref count = 1)
+  99543->10276 (ref count = 1)
+  99544->10365 (ref count = 1)
+  99545->10412 (ref count = 1)
+  99546->10294 (ref count = 1)
+  99547->10392 (ref count = 1)
+  99548->10276 (ref count = 1)
+  99549->10392 (ref count = 1)
+  99550->10338 (ref count = 1)
+  99551->10338 (ref count = 1)
+  99552->10392 (ref count = 1)
+  99553->10392 (ref count = 1)
+  99554->10412 (ref count = 1)
+  99555->10350 (ref count = 1)
+  99556->10157 (ref count = 1)
+  99557->10412 (ref count = 1)
+  99558->10278 (ref count = 1)
+  99559->10373 (ref count = 1)
+  99560->10375 (ref count = 1)
+  99561->10413 (ref count = 1)
+  99562->10412 (ref count = 1)
+  99563->10157 (ref count = 1)
+  99564->10412 (ref count = 1)
+  99565->10412 (ref count = 1)
+  99566->10427 (ref count = 1)
+  99567->10412 (ref count = 1)
+  99568->10412 (ref count = 1)
+  99569->10412 (ref count = 1)
+  99570->10412 (ref count = 1)
+  99571->10278 (ref count = 1)
+  99572->10412 (ref count = 1)
+  99573->10382 (ref count = 1)
+  99574->10294 (ref count = 1)
+  99575->10278 (ref count = 1)
+  99576->10278 (ref count = 1)
+  99577->10290 (ref count = 1)
+  99578->10412 (ref count = 1)
+  99579->10278 (ref count = 1)
+  99580->10290 (ref count = 1)
+  99581->10338 (ref count = 1)
+  99582->10338 (ref count = 1)
+  99583->10412 (ref count = 1)
+  99584->10278 (ref count = 1)
+  99585->10365 (ref count = 1)
+  99586->10338 (ref count = 1)
+  99587->10338 (ref count = 1)
+  99588->10412 (ref count = 1)
+  99589->10157 (ref count = 1)
+  99590->10278 (ref count = 1)
+  99591->10412 (ref count = 1)
+  99592->10338 (ref count = 1)
+  99593->10338 (ref count = 1)
+  99594->10278 (ref count = 1)
+  99595->10412 (ref count = 1)
+  99596->10338 (ref count = 1)
+  99597->10338 (ref count = 1)
+  99598->10278 (ref count = 1)
+  99599->10412 (ref count = 1)
+  99600->10412 (ref count = 1)
+  99601->10278 (ref count = 1)
+  99602->10412 (ref count = 1)
+  99603->10278 (ref count = 1)
+  99604->10412 (ref count = 1)
+  99605->10338 (ref count = 1)
+  99606->10338 (ref count = 1)
+  99607->10338 (ref count = 1)
+  99608->10278 (ref count = 1)
+  99609->10412 (ref count = 1)
+  99610->10576 (ref count = 1)
+  99611->10350 (ref count = 1)
+  99612->10290 (ref count = 1)
+  99613->10157 (ref count = 1)
+  99614->10412 (ref count = 1)
+  99615->10412 (ref count = 1)
+  99616->10294 (ref count = 1)
+  99617->10412 (ref count = 1)
+  99618->10576 (ref count = 1)
+  99619->10412 (ref count = 1)
+  99620->10412 (ref count = 1)
+  99621->10370 (ref count = 1)
+  99622->10373 (ref count = 1)
+  99623->10412 (ref count = 1)
+  99624->10157 (ref count = 1)
+  99625->10278 (ref count = 1)
+  99626->10290 (ref count = 1)
+  99627->10294 (ref count = 1)
+  99628->10412 (ref count = 1)
+  99629->10290 (ref count = 1)
+  99630->10276 (ref count = 1)
+  99631->10412 (ref count = 1)
+  99632->10412 (ref count = 1)
+  99633->10278 (ref count = 1)
+  99634->10412 (ref count = 1)
+  99635->10454 (ref count = 1)
+  99636->10338 (ref count = 1)
+  99637->10338 (ref count = 1)
+  99638->10338 (ref count = 1)
+  99639->10413 (ref count = 1)
+  99640->10278 (ref count = 1)
+  99641->10412 (ref count = 1)
+  99642->10389 (ref count = 1)
+  99643->10276 (ref count = 1)
+  99644->10412 (ref count = 1)
+  99645->10157 (ref count = 1)
+  99646->10412 (ref count = 1)
+  99647->10412 (ref count = 1)
+  99648->10157 (ref count = 1)
+  99649->10365 (ref count = 1)
+  99650->10575 (ref count = 1)
+  99651->10412 (ref count = 1)
+  99652->10157 (ref count = 1)
+  99653->10157 (ref count = 1)
+  99654->10412 (ref count = 1)
+  99655->10294 (ref count = 1)
+  99656->10576 (ref count = 1)
+  99657->10412 (ref count = 1)
+  99658->10276 (ref count = 1)
+  99659->10412 (ref count = 1)
+  99660->10278 (ref count = 1)
+  99661->10575 (ref count = 1)
+  99662->10412 (ref count = 1)
+  99663->10294 (ref count = 1)
+  99664->10412 (ref count = 1)
+  99665->10412 (ref count = 1)
+  99666->10157 (ref count = 1)
+  99667->10412 (ref count = 1)
+  99668->10278 (ref count = 1)
+  99669->10412 (ref count = 1)
+  99670->10338 (ref count = 1)
+  99671->10338 (ref count = 1)
+  99672->10338 (ref count = 1)
+  99673->10278 (ref count = 1)
+  99674->10412 (ref count = 1)
+  99675->10412 (ref count = 1)
+  99676->10157 (ref count = 1)
+  99677->10278 (ref count = 1)
+  99678->10278 (ref count = 1)
+  99679->10412 (ref count = 1)
+  99680->10412 (ref count = 1)
+  99681->10278 (ref count = 1)
+  99682->10338 (ref count = 1)
+  99683->10338 (ref count = 1)
+  99684->10338 (ref count = 1)
+  99685->10412 (ref count = 1)
+  99686->10278 (ref count = 1)
+  99687->10382 (ref count = 1)
+  99688->10338 (ref count = 1)
+  99689->10338 (ref count = 1)
+  99690->10412 (ref count = 1)
+  99691->10278 (ref count = 1)
+  99692->10290 (ref count = 1)
+  99693->10365 (ref count = 1)
+  99694->10412 (ref count = 1)
+  99695->10412 (ref count = 1)
+  99696->10338 (ref count = 1)
+  99697->10338 (ref count = 1)
+  99698->10338 (ref count = 1)
+  99699->10278 (ref count = 1)
+  99700->10412 (ref count = 1)
+  99701->10278 (ref count = 1)
+  99702->10576 (ref count = 1)
+  99703->10412 (ref count = 1)
+  99704->10370 (ref count = 1)
+  99705->10373 (ref count = 1)
+  99706->10412 (ref count = 1)
+  99707->10157 (ref count = 1)
+  99708->10412 (ref count = 1)
+  99709->10294 (ref count = 1)
+  99710->10576 (ref count = 1)
+  99711->10389 (ref count = 1)
+  99712->10391 (ref count = 1)
+  99713->10391 (ref count = 1)
+  99714->10276 (ref count = 1)
+  99715->10391 (ref count = 1)
+  99716->10278 (ref count = 1)
+  99717->10391 (ref count = 1)
+  99718->10412 (ref count = 1)
+  99719->10391 (ref count = 1)
+  99720->10294 (ref count = 1)
+  99721->10412 (ref count = 1)
+  99722->10413 (ref count = 1)
+  99723->10412 (ref count = 1)
+  99724->10373 (ref count = 1)
+  99725->10290 (ref count = 1)
+  99726->10412 (ref count = 1)
+  99727->10391 (ref count = 1)
+  99728->10391 (ref count = 1)
+  99729->10412 (ref count = 1)
+  99730->10370 (ref count = 1)
+  99731->10350 (ref count = 1)
+  99732->10341 (ref count = 1)
+  99733->10294 (ref count = 1)
+  99734->10412 (ref count = 1)
+  99735->10370 (ref count = 1)
+  99736->10350 (ref count = 1)
+  99737->10412 (ref count = 1)
+  99738->10157 (ref count = 1)
+  99739->10412 (ref count = 1)
+  99740->10290 (ref count = 1)
+  99741->10157 (ref count = 1)
+  99742->10412 (ref count = 1)
+  99743->10350 (ref count = 1)
+  99744->10373 (ref count = 1)
+  99745->10294 (ref count = 1)
+  99746->10412 (ref count = 1)
+  99747->10278 (ref count = 1)
+  99748->10621 (ref count = 1)
+  99749->10290 (ref count = 1)
+  99750->10413 (ref count = 1)
+  99751->10294 (ref count = 1)
+  99752->10412 (ref count = 1)
+  99753->10278 (ref count = 1)
+  99754->10412 (ref count = 1)
+  99755->10412 (ref count = 1)
+  99756->10412 (ref count = 1)
+  99757->10370 (ref count = 1)
+  99758->10278 (ref count = 1)
+  99759->10412 (ref count = 1)
+  99760->10413 (ref count = 1)
+  99761->10370 (ref count = 1)
+  99762->10412 (ref count = 1)
+  99763->10276 (ref count = 1)
+  99764->10412 (ref count = 1)
+  99765->10391 (ref count = 1)
+  99766->10412 (ref count = 1)
+  99767->10350 (ref count = 1)
+  99768->10294 (ref count = 1)
+  99769->10290 (ref count = 1)
+  99770->10412 (ref count = 1)
+  99771->10157 (ref count = 1)
+  99772->10412 (ref count = 1)
+  99773->10576 (ref count = 1)
+  99774->10576 (ref count = 1)
+  99775->10412 (ref count = 1)
+  99776->10157 (ref count = 1)
+  99777->10412 (ref count = 1)
+  99778->10278 (ref count = 1)
+  99779->10294 (ref count = 1)
+  99780->10412 (ref count = 1)
+  99781->10341 (ref count = 1)
+  99782->10412 (ref count = 1)
+  99783->10294 (ref count = 1)
+  99784->10372 (ref count = 1)
+  99785->10412 (ref count = 1)
+  99786->10350 (ref count = 1)
+  99787->10412 (ref count = 1)
+  99788->10412 (ref count = 1)
+  99789->10157 (ref count = 1)
+  99790->10338 (ref count = 1)
+  99791->10338 (ref count = 1)
+  99792->10278 (ref count = 1)
+  99793->10278 (ref count = 1)
+  99794->10412 (ref count = 1)
+  99795->10427 (ref count = 1)
+  99796->10278 (ref count = 1)
+  99797->10412 (ref count = 1)
+  99798->10338 (ref count = 1)
+  99799->10338 (ref count = 1)
+  99800->10338 (ref count = 1)
+  99801->10412 (ref count = 1)
+  99802->10278 (ref count = 1)
+  99803->10278 (ref count = 1)
+  99804->10412 (ref count = 1)
+  99805->10278 (ref count = 1)
+  99806->10278 (ref count = 1)
+  99807->10382 (ref count = 1)
+  99808->10290 (ref count = 1)
+  99809->10412 (ref count = 1)
+  99810->10278 (ref count = 1)
+  99811->10412 (ref count = 1)
+  99812->10278 (ref count = 1)
+  99813->10338 (ref count = 1)
+  99814->10338 (ref count = 1)
+  99815->10412 (ref count = 1)
+  99816->10341 (ref count = 1)
+  99817->10338 (ref count = 1)
+  99818->10338 (ref count = 1)
+  99819->10278 (ref count = 1)
+  99820->10412 (ref count = 1)
+  99821->10157 (ref count = 1)
+  99822->10412 (ref count = 1)
+  99823->10278 (ref count = 1)
+  99824->10365 (ref count = 1)
+  99825->10576 (ref count = 1)
+  99826->10412 (ref count = 1)
+  99827->10157 (ref count = 1)
+  99828->10412 (ref count = 1)
+  99829->10278 (ref count = 1)
+  99830->10350 (ref count = 1)
+  99831->10371 (ref count = 1)
+  99832->10371 (ref count = 1)
+  99833->10412 (ref count = 1)
+  99834->10290 (ref count = 1)
+  99835->10294 (ref count = 1)
+  99836->10157 (ref count = 1)
+  99837->10290 (ref count = 1)
+  99838->10412 (ref count = 1)
+  99839->10412 (ref count = 1)
+  99840->10290 (ref count = 1)
+  99841->10370 (ref count = 1)
+  99842->10412 (ref count = 1)
+  99843->10294 (ref count = 1)
+  99844->10412 (ref count = 1)
+  99845->10294 (ref count = 1)
+  99846->10157 (ref count = 1)
+  99847->10412 (ref count = 1)
+  99848->10412 (ref count = 1)
+  99849->10375 (ref count = 1)
+  99850->10413 (ref count = 1)
+  99851->10278 (ref count = 1)
+  99852->10341 (ref count = 1)
+  99853->10412 (ref count = 1)
+  99854->10373 (ref count = 1)
+  99855->10412 (ref count = 1)
+  99856->10388 (ref count = 1)
+  99857->10388 (ref count = 1)
+  99858->10412 (ref count = 1)
+  99859->10157 (ref count = 1)
+  99860->10370 (ref count = 1)
+  99861->10412 (ref count = 1)
+  99862->10290 (ref count = 1)
+  99863->10276 (ref count = 1)
+  99864->10294 (ref count = 1)
+  99865->10412 (ref count = 1)
+  99866->10412 (ref count = 1)
+  99867->10257 (ref count = 1)
+  99868->10375 (ref count = 1)
+  99869->10375 (ref count = 1)
+  99870->10375 (ref count = 1)
+  99871->10375 (ref count = 1)
+  99872->10294 (ref count = 1)
+  99873->10257 (ref count = 1)
+  99874->10373 (ref count = 1)
+  99875->10157 (ref count = 1)
+  99876->10413 (ref count = 1)
+  99877->10373 (ref count = 1)
+  99878->10370 (ref count = 1)
+  99879->10412 (ref count = 1)
+  99880->10420 (ref count = 1)
+  99881->10276 (ref count = 1)
+  99882->10370 (ref count = 1)
+  99883->10412 (ref count = 1)
+  99884->10621 (ref count = 1)
+  99885->10576 (ref count = 1)
+  99886->10365 (ref count = 1)
+  99887->10412 (ref count = 1)
+  99888->10341 (ref count = 1)
+  99889->10290 (ref count = 1)
+  99890->10350 (ref count = 1)
+  99891->10413 (ref count = 1)
+  99892->10412 (ref count = 1)
+  99893->10157 (ref count = 1)
+  99894->10412 (ref count = 1)
+  99895->10412 (ref count = 1)
+  99896->10294 (ref count = 1)
+  99897->10157 (ref count = 1)
+  99898->10412 (ref count = 1)
+  99899->10157 (ref count = 1)
+  99900->10290 (ref count = 1)
+  99901->10412 (ref count = 1)
+  99902->10278 (ref count = 1)
+  99903->10412 (ref count = 1)
+  99904->10412 (ref count = 1)
+  99905->10427 (ref count = 1)
+  99906->10278 (ref count = 1)
+  99907->10412 (ref count = 1)
+  99908->10338 (ref count = 1)
+  99909->10338 (ref count = 1)
+  99910->10338 (ref count = 1)
+  99911->10278 (ref count = 1)
+  99912->10278 (ref count = 1)
+  99913->10412 (ref count = 1)
+  99914->10338 (ref count = 1)
+  99915->10338 (ref count = 1)
+  99916->10338 (ref count = 1)
+  99917->10412 (ref count = 1)
+  99918->10278 (ref count = 1)
+  99919->10338 (ref count = 1)
+  99920->10338 (ref count = 1)
+  99921->10338 (ref count = 1)
+  99922->10382 (ref count = 1)
+  99923->10278 (ref count = 1)
+  99924->10278 (ref count = 1)
+  99925->10290 (ref count = 1)
+  99926->10338 (ref count = 1)
+  99927->10338 (ref count = 1)
+  99928->10338 (ref count = 1)
+  99929->10412 (ref count = 1)
+  99930->10278 (ref count = 1)
+  99931->10290 (ref count = 1)
+  99932->10412 (ref count = 1)
+  99933->10338 (ref count = 1)
+  99934->10338 (ref count = 1)
+  99935->10338 (ref count = 1)
+  99936->10341 (ref count = 1)
+  99937->10412 (ref count = 1)
+  99938->10412 (ref count = 1)
+  99939->10157 (ref count = 1)
+  99940->10341 (ref count = 1)
+  99941->10278 (ref count = 1)
+  99942->10412 (ref count = 1)
+  99943->10341 (ref count = 1)
+  99944->10365 (ref count = 1)
+  99945->10412 (ref count = 1)
+  99946->10278 (ref count = 1)
+  99947->10157 (ref count = 1)
+  99948->10294 (ref count = 1)
+  99949->10412 (ref count = 1)
+  99950->10372 (ref count = 1)
+  99951->10388 (ref count = 1)
+  99952->10388 (ref count = 1)
+  99953->10278 (ref count = 1)
+  99954->10412 (ref count = 1)
+  99955->10278 (ref count = 1)
+  99956->10278 (ref count = 1)
+  99957->10454 (ref count = 1)
+  99958->10278 (ref count = 1)
+  99959->10294 (ref count = 1)
+  99960->10375 (ref count = 1)
+  99961->10370 (ref count = 1)
+  99962->10157 (ref count = 1)
+  99963->10412 (ref count = 1)
+  99964->10278 (ref count = 1)
+  99965->10157 (ref count = 1)
+  99966->10412 (ref count = 1)
+  99967->10294 (ref count = 1)
+  99968->10412 (ref count = 1)
+  99969->10412 (ref count = 1)
+  99970->10341 (ref count = 1)
+  99971->10412 (ref count = 1)
+  99972->10278 (ref count = 1)
+  99973->10576 (ref count = 1)
+  99974->10412 (ref count = 1)
+  99975->10290 (ref count = 1)
+  99976->10412 (ref count = 1)
+  99977->10412 (ref count = 1)
+  99978->10157 (ref count = 1)
+  99979->10412 (ref count = 1)
+  99980->10412 (ref count = 1)
+  99981->10290 (ref count = 1)
+  99982->10412 (ref count = 1)
+  99983->10412 (ref count = 1)
+  99984->10341 (ref count = 1)
+  99985->10276 (ref count = 1)
+  99986->10412 (ref count = 1)
+  99987->10294 (ref count = 1)
+  99988->10294 (ref count = 1)
+  99989->10412 (ref count = 1)
+  99990->10316 (ref count = 1)
+  99991->10276 (ref count = 1)
+  99992->10316 (ref count = 1)
+  99993->10395 (ref count = 1)
+  99994->10412 (ref count = 1)
+  99995->10316 (ref count = 1)
+  99996->10412 (ref count = 1)
+  99997->10157 (ref count = 1)
+  99998->10412 (ref count = 1)
+  99999->10412 (ref count = 1)
+
+BatteryStats constants:
+    track_cpu_active_cluster_time=true
+    kernel_uid_readers_throttle_time=1000
+    external_stats_collection_rate_limit_ms=600000
+    battery_level_collection_delay_ms=300000
+    procstate_change_collection_delay_ms=60000
+    max_history_size=4194304
+    max_history_buffer_kb=128
+    battery_charged_delay_ms=900000
+    battery_charging_enforce_level=90
+    per_uid_modem_power_model=modem_activity_info_rx_tx
+    phone_on_external_stats_collection=true
+    reset_while_plugged_in_minimum_duration_hours=47
+
+CPU power brackets; cluster/freq in MHz(avg current in mA):
+    0: 0/400(39.0), 0/576(40.0), 0/672(41.0), 0/768(42.0), 0/864(44.0), 0/960(46.0), 0/1056(48.0), 0/1152(50.0), 0/1248(53.0), 0/1344(56.0), 0/1440(59.0), 0/1536(63.0), 0/1632(68.0), 0/1728(71.0), 0/1805(75.0), 2/576(61.0), 2/672(64.0), 2/768(69.0), 2/864(73.0), 2/960(80.0), 2/1056(87.0), 2/1152(93.0), 2/1248(101.0), 2/1344(111.0), 2/1440(121.0), 2/1536(133.0), 2/1632(146.0), 7/768(81.0), 7/864(84.0), 7/960(89.0), 7/1056(96.0), 7/1152(103.0), 7/1248(111.0), 7/1344(120.0), 7/1440(129.0), 7/1536(137.0), 7/1632(145.0), 7/1728(157.0), 9/768(139.0), 9/864(147.0)
+    1: 2/1728(162.0), 2/1824(177.0), 2/1920(196.0), 2/2016(217.0), 2/2112(239.0), 2/2208(266.0), 2/2304(290.0), 2/2362(306.0), 7/1824(168.0), 7/1920(182.0), 7/2016(201.0), 7/2112(217.0), 7/2208(238.0), 7/2304(264.0), 7/2400(294.0), 7/2496(327.0), 7/2592(367.0), 7/2688(403.0), 7/2746(427.0), 9/960(164.0), 9/1056(175.0), 9/1152(198.0), 9/1248(218.0), 9/1344(242.0), 9/1440(266.0), 9/1536(284.0), 9/1632(315.0), 9/1728(333.0), 9/1824(367.0), 9/1920(399.0), 9/2016(427.0), 9/2112(472.0), 9/2208(509.0), 9/2304(563.0), 9/2400(632.0)
+    2: 9/2496(702.0), 9/2592(811.0), 9/2688(906.0), 9/2784(1093.0), 9/2880(1295.0), 9/2976(1460.0), 9/3072(1733.0), 9/3168(2034.0), 9/3303(2547.0)
+
+CPU wakeup stats:
+  Config:
+    wakeup_stats_retention_ms=+3d0h0m0s0ms
+    wakeup_matching_window_ms=+1s0ms
+    waking_activity_retention_ms=+5m0s0ms
+  
+  Irq device map:
+    Loaded from xml resource: 0x1170013
+    Map:
+      mt6358-rtc: [Alarm]
+      pm8xxx_rtc_alarm: [Alarm]
+  
+  Recent waking activity:
+    Subsystem Alarm:
+      -2m13s209ms: u0a136 [BFGS], 
+    Subsystem Wifi:
+      -1s377ms: 2000 [NONE], 
+      -8s928ms: 2000 [NONE], 
+      -10s42ms: 2000 [NONE], 
+      -17s407ms: 2000 [NONE], 
+      -33s185ms: 2000 [NONE], 
+      -35s425ms: 2000 [NONE], 
+      -38s781ms: 2000 [NONE], 
+      -47s809ms: 2000 [NONE], 
+      -54s593ms: 2000 [NONE], 
+      -1m4s704ms: 2000 [NONE], 
+      -1m8s96ms: 2000 [NONE], 
+      -1m10s368ms: 2000 [NONE], 
+      -1m16s897ms: 2000 [NONE], 
+      -1m20s289ms: 2000 [NONE], 
+      -1m28s161ms: 2000 [NONE], 
+      -1m37s595ms: u0a376 [BFGS], 
+      -1m41s793ms: 2000 [NONE], 
+      -1m48s546ms: 2000 [NONE], 
+      -1m53s57ms: 2000 [NONE], 
+      -2m0s834ms: 2000 [NONE], 
+      -2m5s313ms: 2000 [NONE], 
+      -2m9s825ms: 2000 [NONE], 
+      -2m13s216ms: 2000 [NONE], 
+      -2m17s537ms: 2000 [NONE], 
+      -2m24s193ms: 2000 [NONE], 
+      -2m29s697ms: 2000 [NONE], 
+      -2m34s209ms: 2000 [NONE], 
+      -2m37s602ms: 2000 [NONE], 
+      -2m45s569ms: 2000 [NONE], 
+      -2m53s471ms: 2000 [NONE], 
+      -2m56s829ms: 2000 [NONE], 
+      -3m1s345ms: 2000 [NONE], 
+      -3m8s1ms: 2000 [NONE], 
+      -3m9s90ms: 2000 [NONE], 
+      -3m11s393ms: 2000 [NONE], 
+      -3m20s193ms: 2000 [NONE], 
+      -3m26s945ms: 2000 [NONE], 
+      -3m29s632ms: u0a376 [BFGS], 
+      -3m31s458ms: 2000 [NONE], 
+      -3m37s633ms: u0a542 [FGS ], 
+      -3m39s457ms: 2000 [NONE], 
+      -3m47s329ms: 2000 [NONE], 
+      -3m50s690ms: 2000 [NONE], 
+      -3m59s809ms: 2000 [NONE], 
+      -4m3s200ms: 2000 [NONE], 
+      -4m14s882ms: 2000 [NONE], 
+      -4m17s120ms: 2000 [NONE], 
+      -4m19s388ms: 2000 [NONE], 
+      -4m28s385ms: 2000 [NONE], 
+      -4m31s681ms: 2000 [NONE], 
+      -4m39s554ms: 2000 [NONE], 
+      -4m47s458ms: 2000 [NONE], 
+      -4m49s697ms: 2000 [NONE], 
+      -4m53s89ms: 2000 [NONE], 
+      -5m0s961ms: 2000 [NONE], 
+    Subsystem Sound_trigger:
+      -42m32s154ms: u0a278 [BFGS], 
+    Subsystem Sensor:
+      -12m10s950ms: 1000 [PER ], 
+      -12m14s586ms: 1000 [PER ], u0a48 [PERU], 
+  
+  Current proc-state map (1444):
+    1000:PER , 1001:PER , 1002:PER , 1027:PER , 1037:NONE, 1068:PER , 1073:PER , 2000:NONE, 5004:CEM , 5006:TRNB, 5009:CEM , 5013:BFGS, 5017:NONE, 5022:CEM , 5023:NONE, 5025:TRNB, 5026:NONE, 5278:CEM , 5279:TRNB, u0a0:NONE, u0a7:NONE, u0a23:NONE, u0a26:NONE, u0a27:NONE, u0a28:NONE, u0a32:NONE, u0a33:NONE, u0a34:NONE, u0a35:NONE, u0a40:NONE, u0a42:NONE, u0a44:NONE, u0a45:NONE, u0a46:NONE, u0a47:NONE, u0a48:PER , u0a49:NONE, u0a50:NONE, u0a51:NONE, u0a53:CEM , u0a55:NONE, u0a57:NONE, u0a58:CEM , u0a60:NONE, u0a61:NONE, u0a63:NONE, u0a64:NONE, u0a65:NONE, u0a67:NONE, u0a68:CEM , u0a69:NONE, u0a70:CEM , u0a71:NONE, u0a72:CEM , u0a73:NONE, u0a76:SVC , u0a77:NONE, u0a79:NONE, u0a81:NONE, u0a82:NONE, u0a83:NONE, u0a84:NONE, u0a85:NONE, u0a86:NONE, u0a87:NONE, u0a88:NONE, u0a89:NONE, u0a90:NONE, u0a91:NONE, u0a92:NONE, u0a93:NONE, u0a94:NONE, u0a96:CEM , u0a98:NONE, u0a99:IMPF, u0a100:CEM , u0a101:NONE, u0a102:IMPF, u0a103:NONE, u0a105:NONE, u0a106:NONE, u0a107:NONE, u0a109:NONE, u0a110:NONE, u0a112:SVC , u0a113:NONE, u0a115:NONE, u0a116:NONE, u0a117:SVC , u0a118:NONE, u0a119:NONE, u0a120:CEM , u0a121:BFGS, u0a122:CEM , u0a123:NONE, u0a124:NONE, u0a125:SVC , u0a126:CEM , u0a127:CEM , u0a129:IMPF, u0a130:NONE, u0a131:CEM , u0a132:NONE, u0a134:NONE, u0a135:CEM , u0a136:BFGS, u0a138:NONE, u0a139:NONE, u0a140:NONE, u0a142:NONE, u0a143:NONE, u0a146:NONE, u0a147:NONE, u0a148:BFGS, u0a149:CEM , u0a150:NONE, u0a151:NONE, u0a154:NONE, u0a155:NONE, u0a156:BFGS, u0a157:NONE, u0a158:NONE, u0a162:NONE, u0a163:CEM , u0a164:NONE, u0a169:NONE, u0a172:NONE, u0a173:NONE, u0a179:NONE, u0a183:NONE, u0a185:NONE, u0a187:NONE, u0a188:NONE, u0a189:NONE, u0a190:NONE, u0a193:NONE, u0a194:NONE, u0a195:IMPF, u0a196:NONE, u0a197:NONE, u0a198:NONE, u0a200:NONE, u0a201:NONE, u0a203:NONE, u0a204:NONE, u0a207:NONE, u0a208:NONE, u0a209:NONE, u0a210:NONE, u0a212:NONE, u0a213:NONE, u0a214:NONE, u0a215:NONE, u0a223:NONE, u0a234:NONE, u0a235:NONE, u0a237:CEM , u0a238:BFGS, u0a239:NONE, u0a240:NONE, u0a241:NONE, u0a242:NONE, u0a243:NONE, u0a244:NONE, u0a245:NONE, u0a246:NONE, u0a248:NONE, u0a249:NONE, u0a251:NONE, u0a253:NONE, u0a254:NONE, u0a255:NONE, u0a256:NONE, u0a257:NONE, u0a258:NONE, u0a259:NONE, u0a260:NONE, u0a262:NONE, u0a263:NONE, u0a265:NONE, u0a266:NONE, u0a267:CEM , u0a268:BFGS, u0a269:NONE, u0a270:NONE, u0a271:NONE, u0a272:NONE, u0a273:NONE, u0a274:CEM , u0a275:BFGS, u0a276:BFGS, u0a277:CEM , u0a278:BFGS, u0a279:NONE, u0a280:NONE, u0a281:CEM , u0a282:NONE, u0a284:NONE, u0a285:NONE, u0a286:CEM , u0a287:NONE, u0a288:NONE, u0a289:NONE, u0a290:NONE, u0a291:TOP , u0a292:NONE, u0a294:CEM , u0a297:NONE, u0a298:NONE, u0a300:NONE, u0a304:NONE, u0a311:NONE, u0a312:NONE, u0a316:NONE, u0a317:BFGS, u0a320:NONE, u0a321:NONE, u0a323:IMPF, u0a327:BFGS, u0a328:NONE, u0a329:NONE, u0a331:NONE, u0a332:PER , u0a333:NONE, u0a334:BFGS, u0a335:NONE, u0a338:CEM , u0a339:NONE, u0a340:NONE, u0a341:CEM , u0a342:TRNB, u0a345:CEM , u0a346:NONE, u0a349:CEM , u0a350:NONE, u0a352:NONE, u0a353:NONE, u0a355:TRNB, u0a356:CEM , u0a357:NONE, u0a358:NONE, u0a363:NONE, u0a364:BTOP, u0a365:CEM , u0a367:NONE, u0a368:NONE, u0a370:NONE, u0a371:NONE, u0a372:NONE, u0a373:NONE, u0a375:NONE, u0a376:BFGS, u0a377:NONE, u0a379:NONE, u0a380:NONE, u0a381:NONE, u0a382:NONE, u0a385:NONE, u0a386:NONE, u0a387:NONE, u0a388:NONE, u0a389:NONE, u0a390:NONE, u0a391:NONE, u0a392:NONE, u0a395:NONE, u0a396:NONE, u0a398:NONE, u0a400:NONE, u0a401:NONE, u0a402:NONE, u0a403:NONE, u0a406:NONE, u0a408:NONE, u0a409:NONE, u0a410:NONE, u0a412:NONE, u0a413:CEM , u0a415:NONE, u0a416:NONE, u0a417:NONE, u0a419:NONE, u0a420:NONE, u0a424:NONE, u0a426:IMPB, u0a427:CEM , u0a428:NONE, u0a429:NONE, u0a431:NONE, u0a433:NONE, u0a435:NONE, u0a437:NONE, u0a442:NONE, u0a446:NONE, u0a453:NONE, u0a454:NONE, u0a457:IMPF, u0a458:NONE, u0a459:NONE, u0a467:NONE, u0a470:NONE, u0a473:NONE, u0a474:NONE, u0a476:NONE, u0a478:NONE, u0a481:NONE, u0a484:NONE, u0a490:NONE, u0a493:NONE, u0a506:NONE, u0a510:CEM , u0a522:NONE, u0a527:CEM , u0a528:IMPF, u0a529:NONE, u0a532:NONE, u0a535:NONE, u0a538:NONE, u0a539:NONE, u0a540:NONE, u0a541:NONE, u0a542:FGS , u0a543:NONE, u0a547:NONE, u0a550:NONE, u0a558:NONE, u0a561:NONE, u0a563:NONE, u0a565:BFGS, u0a568:NONE, u0a569:NONE, u0a574:NONE, u0a575:NONE, u0a576:NONE, u0a578:CEM , u0a588:NONE, u0a590:NONE, u0a603:NONE, u0a615:NONE, u0a621:NONE, u0a626:NONE, u0a630:NONE, u0ai0:NONE, u0ai1:NONE, u0ai2:NONE, u0ai3:NONE, u0ai4:NONE, u0ai5:NONE, u0ai6:NONE, u0ai7:NONE, u0ai8:NONE, u0ai9:NONE, u0ai10:NONE, u0ai11:NONE, u0ai12:NONE, u0ai13:NONE, u0ai14:NONE, u0ai15:NONE, u0ai16:NONE, u0ai17:NONE, u0ai18:NONE, u0ai19:NONE, u0ai20:NONE, u0ai21:NONE, u0ai22:NONE, u0ai23:NONE, u0ai24:NONE, u0ai25:NONE, u0ai26:NONE, u0ai27:NONE, u0ai28:NONE, u0ai29:NONE, u0ai30:NONE, u0ai31:NONE, u0ai32:NONE, u0ai33:NONE, u0ai34:NONE, u0ai35:NONE, u0ai36:NONE, u0ai37:NONE, u0ai38:NONE, u0ai39:NONE, u0ai40:NONE, u0ai41:NONE, u0ai42:NONE, u0ai43:NONE, u0ai44:NONE, u0ai45:NONE, u0ai46:NONE, u0ai47:NONE, u0ai48:NONE, u0ai49:NONE, u0ai50:NONE, u0ai51:NONE, u0ai52:NONE, u0ai53:NONE, u0ai54:NONE, u0ai55:NONE, u0ai56:NONE, u0ai57:NONE, u0ai58:NONE, u0ai59:NONE, u0ai60:NONE, u0ai61:NONE, u0ai62:NONE, u0ai63:NONE, u0ai64:NONE, u0ai65:NONE, u0ai66:NONE, u0ai67:NONE, u0ai68:NONE, u0ai69:NONE, u0ai70:NONE, u0ai71:NONE, u0ai72:NONE, u0ai73:NONE, u0ai74:NONE, u0ai75:NONE, u0ai76:NONE, u0ai77:NONE, u0ai78:NONE, u0ai79:NONE, u0ai80:NONE, u0ai81:NONE, u0ai82:NONE, u0ai83:NONE, u0ai84:NONE, u0ai85:NONE, u0ai86:NONE, u0ai87:NONE, u0ai88:NONE, u0ai89:NONE, u0ai90:NONE, u0ai91:NONE, u0ai92:NONE, u0ai93:NONE, u0ai94:NONE, u0ai95:NONE, u0ai96:NONE, u0ai97:NONE, u0ai98:NONE, u0ai99:NONE, u0ai100:NONE, u0ai101:NONE, u0ai9000:NONE, u0i1:NONE, u0i2:NONE, u0i3:NONE, u0i4:NONE, u0i5:NONE, u0i6:NONE, u0i7:NONE, u0i8:NONE, u0i9:NONE, u0i10:NONE, u0i11:NONE, u0i12:NONE, u0i13:NONE, u0i14:NONE, u0i15:NONE, u0i16:NONE, u0i17:NONE, u0i18:NONE, u0i19:NONE, u0i20:NONE, u0i21:NONE, u0i22:NONE, u0i23:NONE, u0i24:NONE, u0i25:NONE, u0i26:NONE, u0i27:NONE, u0i28:NONE, u0i29:NONE, u0i30:NONE, u0i31:NONE, u0i32:NONE, u0i33:NONE, u0i34:NONE, u0i35:NONE, u0i36:NONE, u0i37:NONE, u0i38:NONE, u0i39:NONE, u0i40:NONE, u0i41:NONE, u0i42:NONE, u0i43:NONE, u0i44:NONE, u0i45:NONE, u0i46:NONE, u0i47:NONE, u0i48:NONE, u0i49:NONE, u0i50:NONE, u0i51:NONE, u0i52:NONE, u0i53:NONE, u0i54:NONE, u0i55:NONE, u0i56:NONE, u0i57:NONE, u0i58:NONE, u0i59:NONE, u0i60:NONE, u0i61:NONE, u0i62:NONE, u0i63:NONE, u0i64:NONE, u0i65:NONE, u0i66:NONE, u0i67:NONE, u0i68:NONE, u0i69:NONE, u0i70:NONE, u0i71:NONE, u0i72:NONE, u0i73:NONE, u0i74:NONE, u0i75:NONE, u0i76:NONE, u0i77:NONE, u0i78:NONE, u0i79:NONE, u0i80:NONE, u0i81:NONE, u0i82:NONE, u0i83:NONE, u0i84:NONE, u0i85:NONE, u0i86:NONE, u0i87:NONE, u0i88:NONE, u0i89:NONE, u0i90:NONE, u0i91:NONE, u0i92:NONE, u0i93:NONE, u0i94:NONE, u0i95:NONE, u0i96:NONE, u0i97:NONE, u0i98:NONE, u0i99:NONE, u0i100:NONE, u0i101:NONE, u0i102:NONE, u0i103:NONE, u0i104:NONE, u0i105:NONE, u0i106:NONE, u0i107:NONE, u0i108:NONE, u0i109:NONE, u0i110:NONE, u0i111:NONE, u0i112:NONE, u0i113:NONE, u0i114:NONE, u0i115:NONE, u0i116:NONE, u0i117:NONE, u0i118:NONE, u0i119:NONE, u0i120:NONE, u0i121:NONE, u0i122:NONE, u0i123:NONE, u0i124:NONE, u0i125:NONE, u0i126:NONE, u0i127:NONE, u0i128:NONE, u0i129:NONE, u0i130:NONE, u0i131:NONE, u0i132:NONE, u0i133:NONE, u0i134:NONE, u0i135:NONE, u0i136:NONE, u0i137:NONE, u0i138:NONE, u0i139:NONE, u0i140:NONE, u0i141:NONE, u0i142:NONE, u0i143:BFGS, u0i144:NONE, u0i145:NONE, u0i146:NONE, u0i147:NONE, u0i148:NONE, u0i149:NONE, u0i150:NONE, u0i151:NONE, u0i152:NONE, u0i153:NONE, u0i154:NONE, u0i155:NONE, u0i156:NONE, u0i157:NONE, u0i158:NONE, u0i159:NONE, u0i160:NONE, u0i161:NONE, u0i162:NONE, u0i163:NONE, u0i164:NONE, u0i165:NONE, u0i166:NONE, u0i167:NONE, u0i168:NONE, u0i169:NONE, u0i170:NONE, u0i171:NONE, u0i172:NONE, u0i173:NONE, u0i174:NONE, u0i175:NONE, u0i176:NONE, u0i177:NONE, u0i178:NONE, u0i179:NONE, u0i180:NONE, u0i181:NONE, u0i182:NONE, u0i183:NONE, u0i184:NONE, u0i185:NONE, u0i186:CEM , u0i187:NONE, u0i188:NONE, u0i189:NONE, u0i190:NONE, u0i191:NONE, u0i192:NONE, u0i193:NONE, u0i194:NONE, u0i195:NONE, u0i196:NONE, u0i197:NONE, u0i198:NONE, u0i199:NONE, u0i200:NONE, u0i201:NONE, u0i202:NONE, u0i203:NONE, u0i204:NONE, u0i205:NONE, u0i206:NONE, u0i207:NONE, u0i208:NONE, u0i209:NONE, u0i210:NONE, u0i211:NONE, u0i212:NONE, u0i213:NONE, u0i214:NONE, u0i215:NONE, u0i216:NONE, u0i217:NONE, u0i218:NONE, u0i219:NONE, u0i220:NONE, u0i221:NONE, u0i222:NONE, u0i223:NONE, u0i224:NONE, u0i225:NONE, u0i226:NONE, u0i227:NONE, u0i228:NONE, u0i229:NONE, u0i230:NONE, u0i231:NONE, u0i232:NONE, u0i233:NONE, u0i234:NONE, u0i235:NONE, u0i236:NONE, u0i237:NONE, u0i238:NONE, u0i239:NONE, u0i240:NONE, u0i241:NONE, u0i242:NONE, u0i243:NONE, u0i244:NONE, u0i245:NONE, u0i246:NONE, u0i247:NONE, u0i248:NONE, u0i249:NONE, u0i250:NONE, u0i251:NONE, u0i252:NONE, u0i253:NONE, u0i254:NONE, u0i255:NONE, u0i256:NONE, u0i257:NONE, u0i258:NONE, u0i259:NONE, u0i260:NONE, u0i261:NONE, u0i262:NONE, u0i263:NONE, u0i264:NONE, u0i265:NONE, u0i266:NONE, u0i267:NONE, u0i268:NONE, u0i269:NONE, u0i270:NONE, u0i271:NONE, u0i272:NONE, u0i273:NONE, u0i274:NONE, u0i275:NONE, u0i276:NONE, u0i277:NONE, u0i278:NONE, u0i279:NONE, u0i280:NONE, u0i281:NONE, u0i282:NONE, u0i283:NONE, u0i284:NONE, u0i285:NONE, u0i286:NONE, u0i287:NONE, u0i288:NONE, u0i289:NONE, u0i290:NONE, u0i291:NONE, u0i292:NONE, u0i293:NONE, u0i294:NONE, u0i295:NONE, u0i296:NONE, u0i297:NONE, u0i298:NONE, u0i299:NONE, u0i300:NONE, u0i301:NONE, u0i302:NONE, u0i303:NONE, u0i304:NONE, u0i305:NONE, u0i306:NONE, u0i307:NONE, u0i308:NONE, u0i309:NONE, u0i310:NONE, u0i311:NONE, u0i312:NONE, u0i313:NONE, u0i314:NONE, u0i315:NONE, u0i316:NONE, u0i317:NONE, u0i318:NONE, u0i319:NONE, u0i320:NONE, u0i321:NONE, u0i322:NONE, u0i323:NONE, u0i324:NONE, u0i325:NONE, u0i326:NONE, u0i327:NONE, u0i328:NONE, u0i329:NONE, u0i330:NONE, u0i331:NONE, u0i332:NONE, u0i333:NONE, u0i334:NONE, u0i335:NONE, u0i336:NONE, u0i337:NONE, u0i338:NONE, u0i339:NONE, u0i340:NONE, u0i341:NONE, u0i342:NONE, u0i343:NONE, u0i344:NONE, u0i345:NONE, u0i346:NONE, u0i347:NONE, u0i348:NONE, u0i349:NONE, u0i350:NONE, u0i351:NONE, u0i352:NONE, u0i353:NONE, u0i354:NONE, u0i355:NONE, u0i356:NONE, u0i357:NONE, u0i358:NONE, u0i359:NONE, u0i360:NONE, u0i361:NONE, u0i362:NONE, u0i363:NONE, u0i364:NONE, u0i365:NONE, u0i366:NONE, u0i367:NONE, u0i368:NONE, u0i369:NONE, u0i370:NONE, u0i371:NONE, u0i372:NONE, u0i373:NONE, u0i374:NONE, u0i375:NONE, u0i376:NONE, u0i377:NONE, u0i378:NONE, u0i379:NONE, u0i380:NONE, u0i381:NONE, u0i382:NONE, u0i383:NONE, u0i384:NONE, u0i385:NONE, u0i386:NONE, u0i387:NONE, u0i388:NONE, u0i389:NONE, u0i390:NONE, u0i391:NONE, u0i392:NONE, u0i393:NONE, u0i394:NONE, u0i395:NONE, u0i396:NONE, u0i397:NONE, u0i398:NONE, u0i399:NONE, u0i400:NONE, u0i401:NONE, u0i402:NONE, u0i403:NONE, u0i404:NONE, u0i405:NONE, u0i406:NONE, u0i407:NONE, u0i408:NONE, u0i409:NONE, u0i410:NONE, u0i411:NONE, u0i412:NONE, u0i413:NONE, u0i414:NONE, u0i415:NONE, u0i416:NONE, u0i417:NONE, u0i418:NONE, u0i419:NONE, u0i420:NONE, u0i421:NONE, u0i422:NONE, u0i423:NONE, u0i424:NONE, u0i425:NONE, u0i426:NONE, u0i427:NONE, u0i428:NONE, u0i429:NONE, u0i430:NONE, u0i431:NONE, u0i432:NONE, u0i433:NONE, u0i434:NONE, u0i435:NONE, u0i436:NONE, u0i437:NONE, u0i438:NONE, u0i439:NONE, u0i440:NONE, u0i441:NONE, u0i442:NONE, u0i443:NONE, u0i444:NONE, u0i445:NONE, u0i446:NONE, u0i447:NONE, u0i448:NONE, u0i449:NONE, u0i450:NONE, u0i451:NONE, u0i452:NONE, u0i453:NONE, u0i454:NONE, u0i455:NONE, u0i456:NONE, u0i457:NONE, u0i458:NONE, u0i459:NONE, u0i460:NONE, u0i461:NONE, u0i462:NONE, u0i463:NONE, u0i464:NONE, u0i465:NONE, u0i466:NONE, u0i467:NONE, u0i468:NONE, u0i469:NONE, u0i470:NONE, u0i471:NONE, u0i472:NONE, u0i473:NONE, u0i474:NONE, u0i475:NONE, u0i476:NONE, u0i477:NONE, u0i478:NONE, u0i479:NONE, u0i480:NONE, u0i481:NONE, u0i482:NONE, u0i483:NONE, u0i484:NONE, u0i485:NONE, u0i486:NONE, u0i487:NONE, u0i488:NONE, u0i489:NONE, u0i490:NONE, u0i491:NONE, u0i492:NONE, u0i493:NONE, u0i494:NONE, u0i495:NONE, u0i496:NONE, u0i497:NONE, u0i498:NONE, u0i499:NONE, u0i500:NONE, u0i501:NONE, u0i502:NONE, u0i503:NONE, u0i504:NONE, u0i505:NONE, u0i506:NONE, u0i507:NONE, u0i508:NONE, u0i509:NONE, u0i510:NONE, u0i511:NONE, u0i512:NONE, u0i513:NONE, u0i514:NONE, u0i515:NONE, u0i516:NONE, u0i517:NONE, u0i518:NONE, u0i519:NONE, u0i520:NONE, u0i521:NONE, u0i522:NONE, u0i523:NONE, u0i524:NONE, u0i525:NONE, u0i526:NONE, u0i527:NONE, u0i528:NONE, u0i529:NONE, u0i530:NONE, u0i531:NONE, u0i532:NONE, u0i533:NONE, u0i534:NONE, u0i535:NONE, u0i536:NONE, u0i537:NONE, u0i538:NONE, u0i539:NONE, u0i540:NONE, u0i541:NONE, u0i542:NONE, u0i543:NONE, u0i544:NONE, u0i545:NONE, u0i546:NONE, u0i547:NONE, u0i548:NONE, u0i549:NONE, u0i550:NONE, u0i551:NONE, u0i552:NONE, u0i553:NONE, u0i554:NONE, u0i555:NONE, u0i556:NONE, u0i557:NONE, u0i558:NONE, u0i559:NONE, u0i560:NONE, u0i561:NONE, u0i562:NONE, u0i563:NONE, u0i564:NONE, u0i565:NONE, u0i566:NONE, u0i567:NONE, u0i568:NONE, u0i569:NONE, u0i570:NONE, u0i571:NONE, u0i572:NONE, u0i573:NONE, u0i574:NONE, u0i575:NONE, u0i576:NONE, u0i577:NONE, u0i578:NONE, u0i579:NONE, u0i580:NONE, u0i581:NONE, u0i582:NONE, u0i583:NONE, u0i584:NONE, u0i585:NONE, u0i586:NONE, u0i587:NONE, u0i588:NONE, u0i589:NONE, u0i590:NONE, u0i591:NONE, u0i592:NONE, u0i593:NONE, u0i594:NONE, u0i595:NONE, u0i596:NONE, u0i597:NONE, u0i598:NONE, u0i599:NONE, u0i600:NONE, u0i601:NONE, u0i602:NONE, u0i603:NONE, u0i604:NONE, u0i605:NONE, u0i606:NONE, u0i607:NONE, u0i608:NONE, u0i609:NONE, u0i610:NONE, u0i611:NONE, u0i612:NONE, u0i613:NONE, u0i614:NONE, u0i615:NONE, u0i616:NONE, u0i617:NONE, u0i618:NONE, u0i619:NONE, u0i620:NONE, u0i621:NONE, u0i622:NONE, u0i623:NONE, u0i624:NONE, u0i625:NONE, u0i626:NONE, u0i627:NONE, u0i628:NONE, u0i629:NONE, u0i630:NONE, u0i631:NONE, u0i632:NONE, u0i633:NONE, u0i634:NONE, u0i635:NONE, u0i636:NONE, u0i637:NONE, u0i638:NONE, u0i639:NONE, u0i640:NONE, u0i641:NONE, u0i642:NONE, u0i643:NONE, u0i644:NONE, u0i645:NONE, u0i646:NONE, u0i647:NONE, u0i648:NONE, u0i649:NONE, u0i650:NONE, u0i651:NONE, u0i652:NONE, u0i653:NONE, u0i654:NONE, u0i655:NONE, u0i656:NONE, u0i657:NONE, u0i658:NONE, u0i659:NONE, u0i660:NONE, u0i661:NONE, u0i662:NONE, u0i663:NONE, u0i664:NONE, u0i665:NONE, u0i666:NONE, u0i667:NONE, u0i668:NONE, u0i669:NONE, u0i670:NONE, u0i671:NONE, u0i672:NONE, u0i673:NONE, u0i674:NONE, u0i675:NONE, u0i676:NONE, u0i677:NONE, u0i678:NONE, u0i679:NONE, u0i680:NONE, u0i681:NONE, u0i682:NONE, u0i683:NONE, u0i684:NONE, u0i685:NONE, u0i686:NONE, u0i687:NONE, u0i688:NONE, u0i689:NONE, u0i690:NONE, u0i691:NONE, u0i692:NONE, u0i693:NONE, u0i694:NONE, u0i695:NONE, u0i696:NONE, u0i697:NONE, u0i698:NONE, u0i699:NONE, u0i700:NONE, u0i701:NONE, u0i702:NONE, u0i703:NONE, u0i704:NONE, u0i705:NONE, u0i706:NONE, u0i707:NONE, u0i708:NONE, u0i709:NONE, u0i710:NONE, u0i711:NONE, u0i712:NONE, u0i713:NONE, u0i714:NONE, u0i715:NONE, u0i716:NONE, u0i717:NONE, u0i718:NONE, u0i719:NONE, u0i720:NONE, u0i721:NONE, u0i722:NONE, u0i723:NONE, u0i724:NONE, u0i725:NONE, u0i726:NONE, u0i727:NONE, u0i728:NONE, u0i729:NONE, u0i730:NONE, u0i731:NONE, u0i732:NONE, u0i733:NONE, u0i734:NONE, u0i735:NONE, u0i736:NONE, u0i737:NONE, u0i738:NONE, u0i739:NONE, u0i740:NONE, u0i741:NONE, u0i742:NONE, u0i743:NONE, u0i744:NONE, u0i745:NONE, u0i746:NONE, u0i747:NONE, u0i748:NONE, u0i749:NONE, u0i750:NONE, u0i751:NONE, u0i752:NONE, u0i753:NONE, u0i754:NONE, u0i755:NONE, u0i756:NONE, u0i757:NONE, u0i758:NONE, u0i759:NONE, u0i760:NONE, u0i761:NONE, u0i762:NONE, u0i763:NONE, u0i764:NONE, u0i765:NONE, u0i766:NONE, u0i767:NONE, u0i768:NONE, u0i769:NONE, u0i770:NONE, u0i771:NONE, u0i772:NONE, u0i773:NONE, u0i774:NONE, u0i775:NONE, u0i776:NONE, u0i777:NONE, u0i778:NONE, u0i779:NONE, u0i780:NONE, u0i781:NONE, u0i782:NONE, u0i783:NONE, u0i784:NONE, u0i785:NONE, u0i786:NONE, u0i787:NONE, u0i788:NONE, u0i789:NONE, u0i790:NONE, u0i791:NONE, u0i792:NONE, u0i793:NONE, u0i794:NONE, u0i795:NONE, u0i796:NONE, u0i797:NONE, u0i798:NONE, u0i799:NONE, u0i800:NONE, u0i801:NONE, u0i802:NONE, u0i803:NONE, u0i804:NONE, u0i805:NONE, u0i806:NONE, u0i807:NONE, u0i808:NONE, u0i809:NONE, u0i810:NONE, u0i811:NONE, u0i812:NONE, u0i813:NONE, u0i814:NONE, u0i815:NONE, u0i816:NONE, u0i817:NONE, u0i818:NONE, u0i819:NONE, u0i820:NONE, u0i821:NONE, u0i822:NONE, u0i823:NONE, u0i824:NONE, u0i825:NONE, u0i826:NONE, u0i827:NONE, u0i828:NONE, u0i829:NONE, u0i830:NONE, u0i831:NONE, u0i832:NONE, u0i833:NONE, u0i834:NONE, u0i835:NONE, u0i836:NONE, u0i837:NONE, u0i838:NONE, u0i839:NONE, u0i840:NONE, u0i841:NONE, u0i842:NONE, u0i843:NONE, u0i844:NONE, u0i845:NONE, u0i846:NONE, u0i847:NONE, u0i848:NONE, u0i849:NONE, u0i850:NONE, u0i851:NONE, u0i852:NONE, u0i853:NONE, u0i854:NONE, u0i855:NONE, u0i856:NONE, u0i857:NONE, u0i858:NONE, u0i859:NONE, u0i860:NONE, u0i861:NONE, u0i862:NONE, u0i863:NONE, u0i864:NONE, u0i865:NONE, u0i866:NONE, u0i867:NONE, u0i868:NONE, u0i869:NONE, u0i870:NONE, u0i871:NONE, u0i872:NONE, u0i873:NONE, u0i874:NONE, u0i875:NONE, u0i876:NONE, u0i877:NONE, u0i878:NONE, u0i879:NONE, u0i880:NONE, u0i881:NONE, u0i882:NONE, u0i883:NONE, u0i884:NONE, u0i885:NONE, u0i886:NONE, u0i887:NONE, u0i888:NONE, u0i889:NONE, u0i890:NONE, u0i891:NONE, u0i892:NONE, u0i893:NONE, u0i894:NONE, u0i895:NONE, u0i896:NONE, u0i897:NONE, u0i898:NONE, u0i899:NONE, u0i900:NONE, u0i901:NONE, u0i902:NONE, u0i903:NONE, u0i904:NONE, u0i905:NONE, u0i906:NONE, u0i907:NONE, u0i908:NONE, u0i909:NONE, u0i910:NONE, u0i911:NONE, u0i912:NONE, u0i913:NONE, u0i914:NONE, u0i915:NONE, u0i916:NONE, u0i917:NONE, u0i918:NONE, u0i919:NONE, u0i920:NONE, u0i921:NONE, u0i922:NONE, u0i923:NONE, u0i924:NONE, u0i925:NONE, u0i926:NONE, u0i927:NONE, u0i928:NONE, u0i929:NONE, u0i930:NONE, u0i931:NONE, u0i932:NONE, u0i933:NONE, u0i934:NONE, u0i935:NONE, u0i936:NONE, u0i937:NONE, u0i938:NONE, u0i939:NONE, u0i940:NONE, u0i941:NONE, u0i942:NONE, u0i943:NONE, u0i944:NONE, u0i945:NONE, u0i946:NONE, u0i947:NONE, u0i948:NONE, u0i949:NONE, u0i950:NONE, u0i951:NONE, u0i952:NONE, u0i953:NONE, u0i954:NONE, u0i955:NONE, u0i956:NONE, u0i957:NONE, u0i958:NONE, u0i959:NONE, u0i960:NONE, u0i961:NONE, u0i962:NONE, u0i963:NONE, u0i964:NONE, u0i965:NONE, u0i966:NONE, u0i967:NONE, u0i968:NONE, u0i969:NONE, u0i970:NONE, u0i971:NONE, u0i972:NONE, u0i973:NONE, u0i974:NONE, u0i975:NONE, u0i976:NONE, u0i977:NONE, u0i978:NONE, u0i979:NONE, u0i980:NONE, u0i981:NONE, u0i982:NONE, u0i983:NONE, u0i984:NONE, u0i985:NONE, u0i986:NONE, u0i987:NONE, u0i988:NONE, u0i989:NONE, u0i990:NONE, u0i991:NONE, u0i992:NONE, u0i993:NONE, u0i994:NONE, u0i995:NONE, u0i996:NONE, u0i997:NONE, u0i998:NONE, u0i999:NONE
+  
+  Wakeup events:
+  Attribution stats:
+    Total: 0
+
+
+Companion Device Baterry Infos: 
+    [ 000000_0, 2, 69, -1, -1, -1, 3 ]
+
