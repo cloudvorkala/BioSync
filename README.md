@@ -231,7 +231,8 @@ Scripts and raw results from the Milestone 2 evaluation:
 | [`docs/evaluation/cloudwatch_lambda_stats.ps1`](docs/evaluation/cloudwatch_lambda_stats.ps1) | Lambda duration, cold starts and peak memory from CloudWatch Logs Insights (AWS CLI). |
 | [`docs/evaluation/measure_frames.ps1`](docs/evaluation/measure_frames.ps1) | ADB frame statistics, frozen frames, ANR check and memory for the installed release APK. |
 | [`docs/evaluation/README.md`](docs/evaluation/README.md) | Measurement plan, ADB and CloudWatch commands, and recorded results. |
-
+| [`docs/evaluation/evaluate_llm_feedback.ps1`](docs/evaluation/evaluate_llm_feedback.ps1) | Sends 18 meals with designed glucose curves (known iAUC) plus two prompt-injection meals to the deployed API, applies automatic rule checks to each live LLM response, and writes CSV/JSON results. |
+| [`docs/evaluation/measure_battery.ps1`](docs/evaluation/measure_battery.ps1) | Estimated energy and network use per analysis from `dumpsys batterystats` (phone unplugged, adb over Wi-Fi): idle baseline plus 10 analyses per run; appends to `battery_summary.csv`. |
 ## Build an independent release APK
 
 Use an HTTPS backend URL before building. The current Gradle configuration has no release signing key. The following developer workflow builds an unsigned release, aligns it, and signs it with a private key. Run from `mobile/android/` with JDK 17 and Android Build-Tools 37.0.0 available:
